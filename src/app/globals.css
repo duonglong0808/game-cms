@@ -30,6 +30,12 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.main-page {
+  padding:  30px;
+  background-color: #f2f4f6;
+  min-height: 100%;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

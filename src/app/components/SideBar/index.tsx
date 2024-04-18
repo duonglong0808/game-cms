@@ -21,21 +21,29 @@ export function SideBars(): JSX.Element {
     {
       title: 'Users',
       icon: faHouse,
-      link: '/users',
+      link: '/user',
       subMenu: [],
     },
     {
-      title: 'Games',
+      title: 'Chuyển, rút tiền',
       icon: faRocket,
       // link: '/games',
       subMenu: [
         {
-          title: 'List Games',
-          link: '/games',
+          title: 'Loại thanh toán',
+          link: '/payment-type',
         },
         {
-          title: 'Create Game',
-          link: '/games/create',
+          title: 'Phương thức thanh toán',
+          link: '/payment-method',
+        },
+        {
+          title: 'Nạp tiền',
+          link: '/deposit',
+        },
+        {
+          title: 'Rút tiền',
+          link: '/withdraw',
         },
       ],
     },
@@ -67,13 +75,20 @@ export function SideBars(): JSX.Element {
       <nav className={cx('nav__box', 'mt-10')}>
         {dataNav.map((item, index) =>
           item.subMenu.length > 0 ? (
-            <div className={cx('nav-multiLevel', { 'nav-border': navActive == index })} key={index}>
-              <div className={cx('nav-parent', { 'nav-active': navActive == index })} onClick={() => setNavActive(index)}>
+            <div
+              className={cx('nav-multiLevel', { 'nav-border': navActive == index })}
+              key={index}
+              onClick={(e) => {
+                setNavActive(index);
+                const elementChild = document.querySelector(`.nav-parent__sub--${index}`) as HTMLDivElement;
+                elementChild.style.display = elementChild.style.display === 'block' ? 'none' : 'block';
+              }}>
+              <div className={cx('nav-parent', { 'nav-active': navActive == index })}>
                 <FontAwesomeIcon icon={item.icon} className={cx('nav-parent__icon')} />
                 <span className={cx('nav-parent__title')}>{item.title}</span>
                 <FontAwesomeIcon icon={faChevronDown} className={cx('nav-parent__icon--more')} />
               </div>
-              <div className={cx('nav-parent__sub')}>
+              <div className={cx('nav-parent__sub', `nav-parent__sub--${index}`)}>
                 {item.subMenu.map((subItem, subIndex) => (
                   <Link href={subItem.link} key={subIndex} className={cx('nav-child')}>
                     {subItem.title}
