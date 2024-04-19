@@ -7,15 +7,23 @@ import Link from 'next/link';
 import { faChevronDown, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 
 const cx = classNames.bind(styles);
 
 export function SideBars(): JSX.Element {
+  const params = useParams<{ tag: string; item: string }>();
+
+  // Route -> /shop/[tag]/[item]
+  // URL -> /shop/shoes/nike-air-max-97
+  // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
+  console.log(params);
+
   const dataNav = [
     {
       title: 'Dashboard',
       icon: faHouse,
-      link: '/dashboard',
+      link: '/',
       subMenu: [],
     },
     {
@@ -62,7 +70,8 @@ export function SideBars(): JSX.Element {
       <div className={cx('sideBar__top')}>
         <Link href={'/'} className={cx('logos', 'flex')}>
           <Image alt="LOGO" src={'/KU_logo.svg'} height={22} width={100} className="hidden max-sm:block" />
-          <Image alt="LOGO" src={'/logo.png'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} />
+          <Image alt="LOGO" src={'/next.svg'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} />
+          {/* <Image alt="LOGO" src={'/logo.png'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} /> */}
         </Link>
         <div className={cx('w-full', 'sidebar-user')}>
           <div className={cx('sidebar-user__avt-box')}>

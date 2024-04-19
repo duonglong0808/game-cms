@@ -8,12 +8,24 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function Table(props: { data: any[]; columnEdit: boolean; columnDelete: boolean; columnAddLanguage: boolean; columnRestore: boolean; backgroundColor: string; backgroundColorHeader: string; textColorHeader: string; textColor: string; handleEdit: (id: number) => void; handleDelete: (id: number) => void; handleAddLanguage: () => void; handleRestore: () => void; pageSort: boolean; handleSort: () => void; handleDragAndDrop: () => void; columnNotShow: any[]; Loading: any }) {
-  const { Loading, data = [], columnEdit, columnAddLanguage, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#00c0f4', handleEdit, handleDelete, handleAddLanguage, handleRestore, pageSort, handleSort, textColorHeader = '#fff', handleDragAndDrop = () => {}, columnNotShow = [] } = props;
-
-  // const Trash = icons.trash;
-  // const Edit = icons.edit;
-  // const Plush = icons.plush;
+function Table(props: {
+  //
+  data: any[];
+  columnEdit: boolean;
+  columnDelete: boolean;
+  handleEdit: (id: number) => void;
+  handleDelete: (id: number) => void;
+  columnRestore?: boolean;
+  backgroundColor?: string;
+  backgroundColorHeader?: string;
+  textColorHeader?: string;
+  textColor?: string;
+  pageSort?: boolean;
+  columnNotShow?: any[];
+  handleSort?: () => void;
+  handleRestore?: () => void;
+}) {
+  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [] } = props;
 
   const allDataShow: any[] = JSON.parse(JSON.stringify(data));
   allDataShow.forEach((item) => {
@@ -37,7 +49,7 @@ function Table(props: { data: any[]; columnEdit: boolean; columnDelete: boolean;
   // });
 
   return (
-    <div className={cx('wrapper')}>
+    <div className={cx('wrapper', 'w-full')}>
       {/* {pageSort ? (
                 <div className={cx('save__sort')}>
                     <Button
@@ -51,13 +63,13 @@ function Table(props: { data: any[]; columnEdit: boolean; columnDelete: boolean;
             ) : (
                 <></>
             )} */}
-      <div className="table-responsive-xxl">
+      <div className="w-full">
         <table
           style={{
             backgroundColor: `${backgroundColor}`,
             color: `${textColor}`,
           }}
-          className={cx('table__custom', 'table', 'table-striped')}>
+          className={cx('table__custom', 'table', 'w-full')}>
           <thead className={cx('thead-light')} style={{ backgroundColor: `${backgroundColorHeader}`, color: `${textColorHeader}` }}>
             <tr className={cx('table__information')}>
               {columnNames?.map((columnName, index) => (
@@ -66,88 +78,75 @@ function Table(props: { data: any[]; columnEdit: boolean; columnDelete: boolean;
                 </th>
               ))}
               {columnEdit ? <th className={cx('thead__column')}>Sửa</th> : <></>}
-              {columnAddLanguage ? <th className={cx('thead__column')}>Ngôn ngữ</th> : <></>}
               {columnDelete ? <th className={cx('thead__column')}>Xóa</th> : <></>}
               {columnRestore ? <th className={cx('thead__column')}>Khôi phục</th> : <></>}
             </tr>
           </thead>
-          <tbody>
-            {allDataShow?.map((item, index) => (
-              <tr className={cx('table__row', 'table__drop')} data-sort={`${item.id}-${index + 1}`} key={index} draggable={pageSort ? true : false}>
-                {columnNames?.map((col, index2) =>
-                  index2 === 0 ? (
-                    <th key={index2} className={cx('table__value')}>
-                      {pageSort && <i className={cx('fa-solid fa-sort', 'table__icon--sort')}></i>}
-                      {/* {item[col]} */}
-                      {index + 1}
-                    </th>
-                  ) : col === 'status' ? (
-                    <td key={index2} className={cx('table__value', 'td__status')}>
-                      <span className={item[col] ? cx('active') : cx('not__active')}>{item[col] ? `Active` : `Not Active `}</span>
-                    </td>
-                  ) : col === 'image' ? (
-                    <td key={index2} className={cx('table__value', 'box__image')}>
-                      {item[col]?.split(',')?.map((image: any, index3: number) => (
-                        <img src={image} key={index3} alt="img show" className={cx('image')} />
-                      ))}
-                    </td>
-                  ) : (
-                    <td key={index2} className={col === 'deleted_at' ? cx('table__value', 'table__value--delete') : cx('table__value')}>
-                      {item[col] || 'Không có dữ liệu'}
-                    </td>
-                  ),
-                )}
-                {columnEdit ? (
-                  <td className={cx('table__value')} style={{ cursor: 'pointer', lineHeight: '100%' }} onClick={() => handleEdit(columnNames && item[columnNames[0]])}>
-                    <FontAwesomeIcon icon={faPenToSquare} className={cx('table_row--icon')} />
+          {/* <tbody> */}
+          {allDataShow?.map((item, index) => (
+            <tr className={cx('table__row', 'table__drop')} data-sort={`${item.id}-${index + 1}`} key={index} draggable={pageSort ? true : false}>
+              {columnNames?.map((col, index2) =>
+                index2 === 0 ? (
+                  <th key={index2} className={cx('table__value')}>
+                    {pageSort && <i className={cx('fa-solid fa-sort', 'table__icon--sort')}></i>}
+                    {/* {item[col]} */}
+                    {index + 1}
+                  </th>
+                ) : col === 'status' ? (
+                  <td key={index2} className={cx('table__value', 'td__status')}>
+                    <span className={item[col] ? cx('active') : cx('not__active')}>{item[col] ? `Active` : `Not Active `}</span>
+                  </td>
+                ) : col === 'image' ? (
+                  <td key={index2} className={cx('table__value', 'box__image')}>
+                    {item[col]?.split(',')?.map((image: any, index3: number) => (
+                      <img src={image} key={index3} alt="img show" className={cx('image')} />
+                    ))}
                   </td>
                 ) : (
-                  <></>
-                )}
-                {/* {columnAddLanguage ? (
-                                    <td
-                                        className={cx('table__value')}
-                                        style={{ cursor: 'pointer', lineHeight: '100%' }}
-                                        onClick={() => handleAddLanguage(item[columnNames[0]])}
-                                    >
-                                        <Plush className={cx('table_row--icon')} />
-                                    </td>
-                                ) : (
-                                    <></>
-                                )} */}
-                {columnDelete ? (
-                  <td
-                    className={cx('table__value')}
-                    style={{ cursor: 'pointer', lineHeight: '100%' }}
-                    onClick={() => {
-                      handleDelete(columnNames && item[columnNames[0]]);
-                    }}>
-                    <FontAwesomeIcon icon={faTrash} />
+                  <td key={index2} className={col === 'deleted_at' ? cx('table__value', 'table__value--delete') : cx('table__value')}>
+                    {item[col] || 'Không có dữ liệu'}
                   </td>
-                ) : (
-                  <></>
-                )}
-                {columnRestore ? (
-                  <td
-                    className={cx('table__value')}
-                    style={{
-                      cursor: 'pointer',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      lineHeight: '100%',
-                    }}
-                    onClick={handleRestore}>
-                    Khôi phục
-                  </td>
-                ) : (
-                  <></>
-                )}
-              </tr>
-            ))}
-          </tbody>
+                ),
+              )}
+              {columnEdit ? (
+                <td className={cx('table__value')} style={{ cursor: 'pointer', lineHeight: '100%' }} onClick={() => handleEdit(columnNames && item[columnNames[0]])}>
+                  <FontAwesomeIcon icon={faPenToSquare} className={cx('table_row--icon')} />
+                </td>
+              ) : (
+                <></>
+              )}
+              {columnDelete ? (
+                <td
+                  className={cx('table__value')}
+                  style={{ cursor: 'pointer', lineHeight: '100%' }}
+                  onClick={() => {
+                    handleDelete(columnNames && item[columnNames[0]]);
+                  }}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </td>
+              ) : (
+                <></>
+              )}
+              {columnRestore ? (
+                <td
+                  className={cx('table__value')}
+                  style={{
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    lineHeight: '100%',
+                  }}
+                  onClick={handleRestore}>
+                  Khôi phục
+                </td>
+              ) : (
+                <></>
+              )}
+            </tr>
+          ))}
+          {/* </tbody> */}
         </table>
       </div>
-      {Loading}
     </div>
   );
 }
