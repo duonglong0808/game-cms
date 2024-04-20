@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import settingAppReduce from './system/settingSys';
 import userCurrentReduce from './app/userCurrent.slice';
 import userReduce from './app/users.slice';
+import paymentTypeReduce from './app/paymentType.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () => {
       settingApp: settingAppReduce,
       userCurrent: userCurrentReduce,
       users: userReduce,
+      paymentTypes: paymentTypeReduce,
     },
   });
 };

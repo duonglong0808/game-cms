@@ -2,23 +2,23 @@
 
 import Table from '@/uiCore/Table';
 import { HeaderContent } from '../components/HeaderContent';
-import { useUsers } from './utils/handleUser';
-import Pagination from '@/uiCore/Pagination';
+import { usePaymentType } from './ultils/handlePaymentType';
 import { useAppDispatch } from '@/lib';
-import { setLimitOrPageUser } from '@/lib/redux/app/users.slice';
+import { setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
+import Pagination from '@/uiCore/Pagination';
 
-export default function PageUser(): JSX.Element {
-  const dataUser = useUsers();
-  const { pagination, data } = dataUser;
+export default function PaymentTypePage(): JSX.Element {
+  const { data, pagination } = usePaymentType();
+
   const dispatch = useAppDispatch();
 
   const setPageUser = (page: number) => {
-    dispatch(setLimitOrPageUser({ page: page }));
+    dispatch(setLimitOrPagePaymentTypes({ page: page }));
   };
 
   return (
     <main className="min-h-full flex flex-col">
-      <HeaderContent path="User" title="Quản lý người dùng" />
+      <HeaderContent path="Payment" title="Quản lý loại, phương hức thanh toán" />
       {data.length ? (
         <div className="main-page min-h-full flex-1">
           <Table textColor="black" data={data} columnDelete columnEdit handleDelete={(id) => {}} handleEdit={(id) => {}} />

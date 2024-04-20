@@ -8,15 +8,19 @@ import { faChevronDown, faHouse, faRocket } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const cx = classNames.bind(styles);
 
 export function SideBars(): JSX.Element {
-  const params = useParams<{ tag: string; item: string }>();
+  const params = useParams();
+  const searchParams = useSearchParams();
 
   // Route -> /shop/[tag]/[item]
   // URL -> /shop/shoes/nike-air-max-97
   // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
+  console.log('🚀 ~ SideBars ~ searchParams:', searchParams);
   console.log(params);
 
   const dataNav = [
@@ -38,12 +42,8 @@ export function SideBars(): JSX.Element {
       // link: '/games',
       subMenu: [
         {
-          title: 'Loại thanh toán',
-          link: '/payment-type',
-        },
-        {
-          title: 'Phương thức thanh toán',
-          link: '/payment-method',
+          title: 'Thanh toán',
+          link: '/payment',
         },
         {
           title: 'Nạp tiền',
