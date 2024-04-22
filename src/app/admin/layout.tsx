@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
-import StoreProvider from './StoreProvider';
+import { Header } from './components/Header';
+import { SideBars } from './components/SideBar';
+import StoreProvider from '../StoreProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +19,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StoreProvider>{children}</StoreProvider>
+        <div className="flex">
+          <StoreProvider>
+            <SideBars />
+            <div className="flex-1">
+              <Header />
+              {children}
+            </div>
+          </StoreProvider>
+        </div>
       </body>
     </html>
   );

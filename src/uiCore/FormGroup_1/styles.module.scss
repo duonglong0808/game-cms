@@ -1,0 +1,44 @@
+.fromGroup__wrapper {
+  margin-bottom: 20px;
+}
+
+.fromGroup__label {
+  color: #575962;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.fromGroup__body {
+  display: flex;
+  margin-top: 12px;
+  position: relative;
+}
+
+.fromGroup__body--input {
+  border: 1px solid #dde6e9;
+  transition-duration: 0.5s;
+  display: block;
+  width: 100%;
+  height: 39px;
+  padding: 8px 40px 8px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  align-items: center;
+  outline: none;
+  height: 100%;
+
+  &:focus {
+    border-color: var(--primary-color);
+  }
+}
+
+.fromGroup__body--icon {
+  position: absolute;
+  transform: translate(50%, 50%);
+  right: 20px;
+  z-index: 1;
+  color: #909fa7;
+}

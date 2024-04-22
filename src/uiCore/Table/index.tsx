@@ -24,8 +24,9 @@ function Table(props: {
   columnNotShow?: any[];
   handleSort?: () => void;
   handleRestore?: () => void;
+  handleClickRow?: (item: any) => void;
 }) {
-  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [] } = props;
+  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [], handleClickRow } = props;
 
   const allDataShow: any[] = JSON.parse(JSON.stringify(data));
   allDataShow.forEach((item) => {
@@ -39,7 +40,7 @@ function Table(props: {
     columnNames = Object.keys(allDataShow[0]);
   }
 
-  const items = useRef();
+  // const items = useRef();
 
   // useEffect(() => {
   //     if (pageSort) {
@@ -84,7 +85,17 @@ function Table(props: {
           </thead>
           {/* <tbody> */}
           {allDataShow?.map((item, index) => (
-            <tr className={cx('table__row', 'table__drop')} data-sort={`${item.id}-${index + 1}`} key={index} draggable={pageSort ? true : false}>
+            <tr
+              style={{
+                cursor: handleClickRow ? 'pointer' : 'auto',
+              }}
+              className={cx('table__row', 'table__drop')}
+              data-sort={`${item.id}-${index + 1}`}
+              key={index}
+              draggable={pageSort ? true : false}
+              onClick={() => {
+                handleClickRow && handleClickRow(item);
+              }}>
               {columnNames?.map((col, index2) =>
                 index2 === 0 ? (
                   <th key={index2} className={cx('table__value')}>

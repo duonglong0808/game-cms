@@ -10,12 +10,15 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
+import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 
 export function SideBars(): JSX.Element {
   const params = useParams();
   const searchParams = useSearchParams();
+
+  const { name } = useAppSelector((state) => state.userCurrent);
 
   // Route -> /shop/[tag]/[item]
   // URL -> /shop/shoes/nike-air-max-97
@@ -27,38 +30,38 @@ export function SideBars(): JSX.Element {
     {
       title: 'Dashboard',
       icon: faHouse,
-      link: '/',
+      link: '/admin/',
       subMenu: [],
     },
     {
       title: 'Users',
       icon: faHouse,
-      link: '/user',
+      link: '/admin/user',
       subMenu: [],
     },
     {
       title: 'Chuyển, rút tiền',
       icon: faRocket,
-      // link: '/games',
+      // link: '/admin/games',
       subMenu: [
         {
           title: 'Thanh toán',
-          link: '/payment',
+          link: '/admin/payment',
         },
         {
           title: 'Nạp tiền',
-          link: '/deposit',
+          link: '/admin/deposit',
         },
         {
           title: 'Rút tiền',
-          link: '/withdraw',
+          link: '/admin/withdraw',
         },
       ],
     },
     {
       title: 'Settings',
       icon: faHouse,
-      link: '/settings',
+      link: '/admin/settings',
       subMenu: [],
     },
   ];
@@ -77,7 +80,7 @@ export function SideBars(): JSX.Element {
           <div className={cx('sidebar-user__avt-box')}>
             <Image src="/avtar-2.png" alt="Game CMS" width={80} height={80} className={cx('sidebar-user__avt')} />
           </div>
-          <h4 className={cx('sidebar-user__name')}>Right Hand</h4>
+          <h4 className={cx('sidebar-user__name')}>{name}</h4>
           <h4 className={cx('sidebar-user__desc')}>Left Hand</h4>
         </div>
       </div>

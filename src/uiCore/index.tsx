@@ -1,1 +1,3 @@
-export * from './Table';
+export * from './Table/index';
+export * from './FormGroup_1/index';
+export * from './Pagination/index';

@@ -1,0 +1,56 @@
+.wrapper {
+  background-color: #f3f5f7;
+  height: 100vh;
+}
+
+.wrapper__container {
+  padding-top: 120px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.container-box__logo {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  background-color: #fff;
+  padding: 15px;
+}
+
+.from-bottom {
+  display: flex;
+  align-items: end;
+  height: 56px;
+}
+
+.from-bottom__box--check {
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  margin-right: 12px;
+
+  &:checked {
+    accent-color: var(--primary-color);
+  }
+}
+
+.from-bottom__box--label {
+  color: #575962;
+  font-size: 14px;
+}
+
+.from-bottom__submit {
+  cursor: pointer;
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 20px;
+  color: #fff;
+  background-color: var(--primary-color);
+  margin-left: auto;
+  margin-bottom: 4px;
+}
