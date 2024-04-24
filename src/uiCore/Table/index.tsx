@@ -105,9 +105,9 @@ function Table(props: {
                   </th>
                 ) : col === 'status' ? (
                   <td key={index2} className={cx('table__value', 'td__status')}>
-                    <span className={item[col] ? cx('active') : cx('not__active')}>{item[col] ? `Active` : `Not Active `}</span>
+                    <span className={item[col] == 'ACTIVE' ? cx('active') : cx('not__active')}>{item[col] == 'ACTIVE' ? `Active` : `Not Active `}</span>
                   </td>
-                ) : col === 'image' ? (
+                ) : col === 'image' || col === 'methodImage' ? (
                   <td key={index2} className={cx('table__value', 'box__image')}>
                     {item[col]?.split(',')?.map((image: any, index3: number) => (
                       <img src={image} key={index3} alt="img show" className={cx('image')} />

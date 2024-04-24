@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
 import { getAllPayment } from './api';
-import { setDataPaymentTypes } from '@/lib/redux/app/paymentType.slice';
+import { setDataPayment } from '@/lib/redux/app/payment.slice';
 
-const usePayment = () => {
+const usePayment = (paymentTypeId: number) => {
   const { isInitData, limit, page, payment, search, total } = useAppSelector((state) => state.payment);
 
   const limitRef = useRef(limit);
@@ -13,11 +13,11 @@ const usePayment = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || limit != limitRef.current || page != pageRef.current) {
-        const res = await getAllPayment(search, page, limit);
+        const res = await getAllPayment(search, paymentTypeId, page, limit);
         if (res?.data) {
           const { data, pagination } = res.data;
           dispatch(
-            setDataPaymentTypes({
+            setDataPayment({
               data,
               ...pagination,
             }),

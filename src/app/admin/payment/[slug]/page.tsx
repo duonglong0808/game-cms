@@ -5,15 +5,25 @@ import { setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
 import { HeaderContent } from '../../components/HeaderContent';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
+import { useEffect } from 'react';
+import { resetDataPayment } from '@/lib/redux/app/payment.slice';
 
-export default function Detail({ params }: { params: { slug: string } }): JSX.Element {
-  const { data, pagination } = usePayment();
+export default function Detail({ params }: { params: { slug: number } }): JSX.Element {
+  const { slug } = params;
+  const { data, pagination } = usePayment(slug);
 
   const dispatch = useAppDispatch();
 
   const setPageUser = (page: number) => {
     dispatch(setLimitOrPagePaymentTypes({ page: page }));
   };
+
+  useEffect(() => {
+    return () => {
+      console.log('okk');
+      dispatch(resetDataPayment());
+    };
+  }, [slug]);
 
   return (
     <main className="min-h-full flex flex-col">

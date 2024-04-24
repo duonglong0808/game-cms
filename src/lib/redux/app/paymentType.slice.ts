@@ -37,9 +37,15 @@ const paymentTypesSlice = createSlice({
       state.limit = action.payload.limit ? action.payload.limit : state.limit;
       state.page = action.payload.page ? action.payload.page : state.page;
     },
+    resetDataPaymentType(state) {
+      state.isInitData = false;
+      state.paymentTypes = [];
+      state.page = 1;
+      state.limit = 10;
+    },
   },
 });
 
-export const { setDataPaymentTypes, setLimitOrPagePaymentTypes } = paymentTypesSlice.actions;
+export const { setDataPaymentTypes, setLimitOrPagePaymentTypes, resetDataPaymentType } = paymentTypesSlice.actions;
 
 export default paymentTypesSlice.reducer;

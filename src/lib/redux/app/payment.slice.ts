@@ -37,9 +37,15 @@ const paymentSlice = createSlice({
       state.limit = action.payload.limit ? action.payload.limit : state.limit;
       state.page = action.payload.page ? action.payload.page : state.page;
     },
+    resetDataPayment(state) {
+      state.isInitData = false;
+      state.payment = [];
+      state.page = 1;
+      state.limit = 10;
+    },
   },
 });
 
-export const { setDataPayment, setLimitOrPagePayment } = paymentSlice.actions;
+export const { setDataPayment, setLimitOrPagePayment, resetDataPayment } = paymentSlice.actions;
 
 export default paymentSlice.reducer;

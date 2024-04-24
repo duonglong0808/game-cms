@@ -4,9 +4,10 @@ import Table from '@/uiCore/Table';
 import { HeaderContent } from '../components/HeaderContent';
 import { usePaymentType } from './ultils/handlePaymentType';
 import { useAppDispatch } from '@/lib';
-import { setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
+import { resetDataPaymentType, setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
 import Pagination from '@/uiCore/Pagination';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function PaymentTypePage(): JSX.Element {
   const { data, pagination } = usePaymentType();
@@ -18,6 +19,13 @@ export default function PaymentTypePage(): JSX.Element {
     dispatch(setLimitOrPagePaymentTypes({ page: page }));
   };
 
+  useEffect(() => {
+    return () => {
+      console.log('okk payment -type');
+      dispatch(resetDataPaymentType());
+    };
+  }, []);
+
   return (
     <main className="min-h-full flex flex-col">
       <HeaderContent path="Payment" title="Quản lý loại, phương hức thanh toán" />
@@ -26,7 +34,7 @@ export default function PaymentTypePage(): JSX.Element {
           <Table
             // columnNotShow={['slug']}
             handleClickRow={(item) => {
-              item?.slug && router.push(`/admin/payment/${item?.slug}`);
+              item?.status == 'ACTIVE' && router.push(`/admin/payment/${item?.id}`);
             }}
             textColor="black"
             data={data}
