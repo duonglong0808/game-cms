@@ -24,6 +24,7 @@ export default function PaymentTypePage(): JSX.Element {
       {data.length ? (
         <div className="main-page min-h-full flex-1">
           <Table
+            // columnNotShow={['slug']}
             handleClickRow={(item) => {
               item?.slug && router.push(`/admin/payment/${item?.slug}`);
             }}

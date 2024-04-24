@@ -3,6 +3,7 @@ import settingAppReduce from './system/settingSys';
 import userCurrentReduce from './app/userCurrent.slice';
 import userReduce from './app/users.slice';
 import paymentTypeReduce from './app/paymentType.slice';
+import paymentReduce from './app/payment.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -11,6 +12,7 @@ export const makeStore = () => {
       userCurrent: userCurrentReduce,
       users: userReduce,
       paymentTypes: paymentTypeReduce,
+      payment: paymentReduce,
     },
   });
 };

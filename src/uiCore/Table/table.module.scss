@@ -128,10 +128,10 @@
 }
 
 .image {
-  height: 90px;
-  width: 100px;
-  object-fit: cover;
-  margin: 0 12px 12px 0;
+  height: 40px;
+  width: 60px;
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 .table__icon--sort {
