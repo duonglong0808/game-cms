@@ -4,6 +4,8 @@ import userCurrentReduce from './app/userCurrent.slice';
 import userReduce from './app/users.slice';
 import paymentTypeReduce from './app/paymentType.slice';
 import paymentReduce from './app/payment.slice';
+import paymentTransactionReduce from './app/paymentTransaction.slice';
+import diceGameReduce from './app/diceGame.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -13,6 +15,8 @@ export const makeStore = () => {
       users: userReduce,
       paymentTypes: paymentTypeReduce,
       payment: paymentReduce,
+      paymentTransaction: paymentTransactionReduce,
+      diceGame: diceGameReduce,
     },
   });
 };

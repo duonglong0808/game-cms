@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { faChevronDown, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faDice, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -23,7 +23,6 @@ export function SideBars(): JSX.Element {
   // Route -> /shop/[tag]/[item]
   // URL -> /shop/shoes/nike-air-max-97
   // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
-  console.log('🚀 ~ SideBars ~ searchParams:', searchParams);
   console.log(params);
 
   const dataNav = [
@@ -52,6 +51,21 @@ export function SideBars(): JSX.Element {
           title: 'Nạp tiền, rút tiền',
           link: '/admin/payment-transaction',
         },
+      ],
+    },
+    {
+      title: 'Xóc đĩa',
+      icon: faDice,
+      link: '/admin/dice',
+      subMenu: [
+        // {
+        //   title: 'Danh sách bàn',
+        //   link: '/admin/dice',
+        // },
+        // {
+        //   title: 'Nạp tiền, rút tiền',
+        //   link: '/admin/payment-transaction',
+        // },
       ],
     },
     {

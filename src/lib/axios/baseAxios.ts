@@ -36,7 +36,7 @@ export class BaseAxios {
 
   async patch(url: string, data: string, config?: any) {
     try {
-      const response = await this.request.post(url, data, config);
+      const response = await this.request.patch(url, data, config);
       return response.data;
     } catch (error) {
       return false;

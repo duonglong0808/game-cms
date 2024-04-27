@@ -78,7 +78,7 @@ function Table(props: {
                   {columnName !== 'id' ? columnName : '#'}
                 </th>
               ))}
-              {columnEdit ? <th className={cx('thead__column')}>Sửa</th> : <></>}
+              {columnEdit ? <th className={cx('thead__column')}>Cập nhật</th> : <></>}
               {columnDelete ? <th className={cx('thead__column')}>Xóa</th> : <></>}
               {columnRestore ? <th className={cx('thead__column')}>Khôi phục</th> : <></>}
             </tr>

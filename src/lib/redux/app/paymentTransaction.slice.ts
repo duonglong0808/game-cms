@@ -1,51 +1,103 @@
+import { TypePaymentTranSaction, TypeSort } from '@/constants';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface DepositItem {
-  name: string;
-  minimum: string;
-  maximum: string;
-  status: string;
+export interface TransactionItem {
+  id: number;
+
+  // paymentId: number;
+
+  userId: number;
+
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  };
+
+  bankTransfer: {
+    id: number;
+    nameBank: string;
+    accountOwner: string;
+  };
+
+  bankReceive: {
+    id: number;
+    nameBank: string;
+    accountOwner: string;
+  };
+
+  qrCode: string;
+
+  type: number;
+
+  point: number;
+
+  status: number;
+
+  receipt: string;
+
+  // title: string;
+
+  // notificationId: number;
+
+  // notification: NotificationModel;
+
+  showAccount: boolean;
 }
 
-interface PaymentSlice {
+interface PaymentTransactionSlice {
   isInitData: boolean;
-  payment: DepositItem[];
+  paymentTransaction: TransactionItem[];
   page: number;
   limit: number;
   search: string;
   total: number;
+  type: number;
+  status: any;
+  sort: string;
+  typeSort: string;
+  transactionIdEdit: string;
 }
 
-const paymentSlice = createSlice({
-  name: 'payment',
+const paymentTransactionSlice = createSlice({
+  name: 'paymentTransaction',
   initialState: {
     isInitData: false,
-    payment: [],
+    paymentTransaction: [],
     page: 1,
     limit: 10,
     search: '',
     total: 0,
-  } as PaymentSlice,
+    type: TypePaymentTranSaction.deposit,
+    status: undefined,
+    sort: 'createdAt',
+    typeSort: TypeSort.DESC,
+    transactionIdEdit: '',
+  } as PaymentTransactionSlice,
   reducers: {
-    setDataPayment: (state, action) => {
-      state.payment = action.payload?.data;
+    setDataPaymentTransaction: (state, action) => {
+      state.paymentTransaction = action.payload?.data;
       state.total = action.payload?.total;
       state.page = action.payload.page;
       state.isInitData = true;
     },
-    setLimitOrPagePayment: (state, action: { payload: { limit?: number; page?: number } }) => {
+    setLimitOrPagePaymentTransaction: (state, action: { payload: { limit?: number; page?: number } }) => {
       state.limit = action.payload.limit ? action.payload.limit : state.limit;
       state.page = action.payload.page ? action.payload.page : state.page;
     },
-    resetDataPayment(state) {
+    resetDataPaymentTransaction(state) {
       state.isInitData = false;
-      state.payment = [];
+      state.paymentTransaction = [];
       state.page = 1;
       state.limit = 10;
+      state.transactionIdEdit = '';
+    },
+    setTransactionEdit(state, action) {
+      state.transactionIdEdit = action.payload.id;
     },
   },
 });
 
-export const { setDataPayment, setLimitOrPagePayment, resetDataPayment } = paymentSlice.actions;
+export const { setDataPaymentTransaction, setLimitOrPagePaymentTransaction, resetDataPaymentTransaction, setTransactionEdit } = paymentTransactionSlice.actions;
 
-export default paymentSlice.reducer;
+export default paymentTransactionSlice.reducer;

@@ -19,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex">
+        <div
+          className="flex"
+          style={{
+            height: '100%',
+            overflow: 'hidden',
+          }}>
           <StoreProvider>
             <SideBars />
             <div className="flex-1">
