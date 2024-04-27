@@ -3,10 +3,10 @@ import axios, { AxiosInstance } from 'axios';
 export class BaseAxios {
   private request: AxiosInstance;
 
-  constructor() {
+  constructor(urlBase?: string) {
     const accessToken = localStorage.getItem('access_token');
     this.request = axios.create({
-      baseURL: process.env.API_URL,
+      baseURL: urlBase || process.env.API_URL,
       headers: {
         'Content-type': 'application/json',
         Authorization: `Bearer ${accessToken}`,

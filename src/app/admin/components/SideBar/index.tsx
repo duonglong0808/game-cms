@@ -49,12 +49,8 @@ export function SideBars(): JSX.Element {
           link: '/admin/payment',
         },
         {
-          title: 'Nạp tiền',
-          link: '/admin/deposit',
-        },
-        {
-          title: 'Rút tiền',
-          link: '/admin/withdraw',
+          title: 'Nạp tiền, rút tiền',
+          link: '/admin/payment-transaction',
         },
       ],
     },
