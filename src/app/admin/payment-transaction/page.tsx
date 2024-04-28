@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 // import { PopupEditTransaction, DataEditDto } from './components/PopupEditTransaction';
 import { StatusPaymentTranSaction, TypePaymentTranSaction } from '@/constants';
 import { PopupEditTransaction } from '@/uiCore';
+import { OptionPaymentTransaction } from './components/OptionPaymentTrans';
 
 export default function PaymentTransactionPage(): JSX.Element {
   const { data, pagination } = usePaymentTransaction();
@@ -21,14 +22,14 @@ export default function PaymentTransactionPage(): JSX.Element {
         name: 'userTransfer',
         label: 'Người chuyển',
         type: 'text',
-        value: dataId?.bankTransfer.accountOwner || '',
+        value: dataId?.bankTransfer?.accountOwner || '',
         readOnly: true,
       },
       {
         name: 'userReceive',
         label: 'Người nhận',
         type: 'text',
-        value: dataId?.bankReceive.accountOwner || '',
+        value: dataId?.bankReceive?.accountOwner || '',
         readOnly: true,
       },
       {
@@ -58,6 +59,7 @@ export default function PaymentTransactionPage(): JSX.Element {
           },
         ],
         readOnly: dataId?.status != StatusPaymentTranSaction.processing,
+        canUpdate: dataId?.status == StatusPaymentTranSaction.processing,
       },
     ];
   }
@@ -77,28 +79,31 @@ export default function PaymentTransactionPage(): JSX.Element {
   return (
     <main className="min-h-full flex flex-col relative">
       <HeaderContent path="PaymentTransaction" title="Quản lý nạp rút tiền người dùng" />
-      {data.length ? (
-        <div className="main-page min-h-full flex-1 relative">
-          <Table
-            // columnNotShow={['slug']}
+      <div className="main-page min-h-full flex-1 relative">
+        <OptionPaymentTransaction />
+        {data.length ? (
+          <>
+            <Table
+              // columnNotShow={['slug']}
 
-            textColor="black"
-            data={data}
-            columnDelete
-            columnEdit
-            handleDelete={(id) => {}}
-            handleEdit={(id) => {
-              dispatch(setTransactionEdit({ id }));
-            }}
-          />
-          <div>
-            <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
-          </div>
-          {transactionIdEdit && <PopupEditTransaction id={+transactionIdEdit} data={dataTransactionById || []} onCancel={() => dispatch(setTransactionEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
-        </div>
-      ) : (
-        <></>
-      )}
+              textColor="black"
+              data={data}
+              columnDelete
+              columnEdit
+              handleDelete={(id) => {}}
+              handleEdit={(id) => {
+                dispatch(setTransactionEdit({ id }));
+              }}
+            />
+            <div>
+              <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
+            </div>
+            {transactionIdEdit && <PopupEditTransaction id={+transactionIdEdit} data={dataTransactionById || []} onCancel={() => dispatch(setTransactionEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </main>
   );
 }

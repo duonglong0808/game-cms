@@ -22,7 +22,7 @@
   border: 1px solid #ccc;
   text-align: center;
   // border-radius: 50%;
-  font-size: 14px;
+  font-size: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +31,7 @@
   font-weight: 500;
   margin: 0 4px;
   border-radius: 20px;
+  color: black;
 }
 
 .pagination__item--change {

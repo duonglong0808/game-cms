@@ -34,7 +34,7 @@ export class BaseAxios {
     }
   }
 
-  async patch(url: string, data: string, config?: any) {
+  async patch(url: string, data: object, config?: any) {
     try {
       const response = await this.request.patch(url, data, config);
       return response.data;

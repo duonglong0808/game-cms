@@ -16,6 +16,8 @@ const usePaymentType = () => {
         const res = await getAllPaymentType(search, page, limit);
         if (res?.data) {
           const { data, pagination } = res.data;
+          pageRef.current = page;
+          limitRef.current = limit;
           dispatch(
             setDataPaymentTypes({
               data,

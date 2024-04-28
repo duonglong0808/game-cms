@@ -24,7 +24,7 @@ function Pagination(params: {
   setPage: (page: number) => void;
 }) {
   const { count, limit, page, setPage } = params;
-  const countPage = Math.floor(count / limit) ? Math.floor(count / limit) : 1;
+  const countPage = Math.ceil(count / limit) ? Math.ceil(count / limit) : 1;
   const arrPage = getNumberPageDisplay(page, countPage);
 
   return (

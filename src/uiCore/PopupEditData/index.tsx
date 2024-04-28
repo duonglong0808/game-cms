@@ -9,6 +9,8 @@ const cx = classNames.bind(styles);
 
 export interface DataEditDto {
   id: number;
+  title?: string;
+  textWarning?: string;
   data: {
     name: string;
     label: string;
@@ -19,14 +21,15 @@ export interface DataEditDto {
       text?: string;
       value?: string | number;
     }[];
+    canUpdate?: false;
   }[];
   onSubmit: (id: number, data: any, dispatch: any) => void;
   onCancel: () => {};
 }
 
-export function PopupEditTransaction({ id, data, onCancel, onSubmit }: DataEditDto) {
+export function PopupEditTransaction({ id, data, onCancel, onSubmit, title, textWarning }: DataEditDto) {
   const [dataState, setDataState] = useState(data);
-  const isUnableBtn = dataState.some((item) => item.readOnly === false);
+  const isUnableBtn = dataState.some((item) => item.canUpdate);
 
   const dispatch = useAppDispatch();
 
@@ -34,9 +37,10 @@ export function PopupEditTransaction({ id, data, onCancel, onSubmit }: DataEditD
     <div className={cx('wrapper')}>
       <div className={cx('group__list')}>
         <div className={cx('body__header')}>
-          <h1 className={cx('body__header--text', 'flex-1 ')}>Cập nhật quá trình giao dịch</h1>
+          <h1 className={cx('body__header--text', 'flex-1 ')}>{title || 'Cập nhật quá trình giao dịch'}</h1>
           <FontAwesomeIcon className={cx('body__header--icon')} icon={faXmark} onClick={onCancel} />
         </div>
+        {textWarning && <p className={cx('wrapper__warning', 'text-center text-red-500 mb-1 text-sm')}>{textWarning}</p>}
         {dataState.map((col, index) => (
           <div key={index} className={cx('group__data')}>
             <label className={cx('group__data--label')}>{col.label}</label>
@@ -78,7 +82,7 @@ export function PopupEditTransaction({ id, data, onCancel, onSubmit }: DataEditD
             onClick={() => {
               const dataSend: any = {};
               dataState.forEach((item, index) => {
-                if (!item.readOnly) {
+                if (item.canUpdate) {
                   dataSend[item.name] = item.value;
                 }
               });

@@ -15,6 +15,8 @@ const useUsers = () => {
         const res = await getAllUser(search, page, limit);
         if (res?.data) {
           const { data, pagination } = res.data;
+          pageRef.current = page;
+          limitRef.current = limit;
           dispatch(
             setDataUsers({
               users: data,

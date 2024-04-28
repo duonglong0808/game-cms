@@ -10,15 +10,18 @@ export const usePaymentTransaction = () => {
 
   const limitRef = useRef(limit);
   const pageRef = useRef(page);
+  const typeRef = useRef(type);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      if (!isInitData || limit != limitRef.current || page != pageRef.current) {
+      if (!isInitData || limit != limitRef.current || page != pageRef.current || type != typeRef.current) {
         const res = await getAllPaymentTransactions(limit, page, type, status, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
-
+          pageRef.current = page;
+          limitRef.current = limit;
+          typeRef.current = type;
           dispatch(
             setDataPaymentTransaction({
               data: data,
@@ -30,7 +33,7 @@ export const usePaymentTransaction = () => {
     }
 
     fetchData();
-  }, [limit, page, search, isInitData]);
+  }, [limit, page, search, isInitData, type]);
 
   const dataAfterHandle = paymentTransaction.map((item: any) => {
     let statusText = '';
@@ -51,8 +54,8 @@ export const usePaymentTransaction = () => {
     return {
       id: item.id,
       userTransfer: item.user.username,
-      bankTransfer: item.bankTransfer.nameBank,
-      accountTransfer: item.bankTransfer.accountOwner,
+      bankTransfer: item.bankTransfer?.nameBank,
+      accountTransfer: item.bankTransfer?.accountOwner,
       bankReceive: item.bankReceive.nameBank,
       accountReceive: item.bankReceive.accountOwner,
       statusText: statusText,

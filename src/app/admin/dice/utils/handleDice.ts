@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { getAllGameDice } from './api';
-import { setDataDiceGame } from '@/lib/redux/app/diceGame.slice';
+import { getAllGameDice, updateDiceGame as updateDiceGameById } from './api';
+import { resetDataDiceGame, setDataDiceGame } from '@/lib/redux/app/diceGame.slice';
 import { TypeGameDice } from '@/constants';
 
 export const useDiceGame = () => {
@@ -17,6 +17,8 @@ export const useDiceGame = () => {
         const res = await getAllGameDice(limit, page, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
+          pageRef.current = page;
+          limitRef.current = limit;
           dispatch(
             setDataDiceGame({
               data,
@@ -28,7 +30,7 @@ export const useDiceGame = () => {
     }
 
     fetchData();
-  }, [limit, page, search]);
+  }, [isInitData, limit, page, search]);
 
   const dataDiceAfter = diceGame.map((dice) => {
     let typeGameText = 'Xóc đĩa';
@@ -58,4 +60,13 @@ export const useDiceGame = () => {
     data: dataDiceAfter,
     pagination: { limit, page, total },
   };
+};
+
+export const updateDiceGame = async (id: number, data: any, dispatch: any) => {
+  const res = await updateDiceGameById(id, data);
+  if (res) {
+    dispatch(resetDataDiceGame());
+  } else {
+    alert('Có lỗi xảy ra vui lòng thử lại sau');
+  }
 };
