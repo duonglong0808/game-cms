@@ -1,13 +1,15 @@
 'use client';
 
 import { HeaderContent } from '../components/HeaderContent';
-import { useDiceGame } from './utils/handleDice';
+import { updateDiceGame, useDiceGame } from './utils/handleDice';
 import { useAppDispatch, useAppSelector } from '@/lib';
-import { resetDataDiceGame, setLimitOrPageDiceGame } from '@/lib/redux/app/diceGame.slice';
+import { resetDataDiceGame, setDiceGameEdit, setLimitOrPageDiceGame } from '@/lib/redux/app/diceGame.slice';
 import { useEffect } from 'react';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { useRouter } from 'next/navigation';
+import { PopupEditV1 } from '@/uiCore';
+import { TypeGameDice } from '@/constants';
 
 export default function DicePage(): JSX.Element {
   const { data, pagination } = useDiceGame();
@@ -22,15 +24,64 @@ export default function DicePage(): JSX.Element {
   let dataDiceGameId = null;
   if (diceGameIdEdit) {
     const dataId = diceGame.find((p) => p.id == +diceGameIdEdit);
-    dataDiceGameId = [
-      {
-        name: 'idLive',
-        label: 'Key live stream ',
-        type: 'text',
-        value: dataId?.idLive,
-        readOnly: true,
-      },
-    ];
+    if (dataId) {
+      dataDiceGameId = [
+        {
+          name: 'name',
+          label: 'Tên phiên live ',
+          type: 'text',
+          value: dataId.name,
+          readOnly: false,
+          canUpdate: true,
+        },
+        {
+          name: 'type',
+          label: 'Loại live ',
+          type: 'option',
+          value: dataId.type,
+          readOnly: false,
+          canUpdate: true,
+          dataOption: [
+            {
+              text: 'Block chain',
+              value: TypeGameDice.Blockchain,
+            },
+            {
+              text: 'Chẵn lẻ',
+              value: TypeGameDice.ChanLe,
+            },
+            {
+              text: 'Xóc đĩa',
+              value: TypeGameDice.XocDia,
+            },
+          ],
+        },
+        {
+          name: 'nameAuthor',
+          label: 'Tên người live ',
+          type: 'text',
+          value: dataId.nameAuthor,
+          readOnly: false,
+          canUpdate: true,
+        },
+        {
+          name: 'nationalAuthor',
+          label: 'Quốc tịch người live ',
+          type: 'text',
+          value: dataId.nationalAuthor,
+          readOnly: false,
+          canUpdate: true,
+        },
+        {
+          name: 'idLive',
+          label: 'Key live stream ',
+          type: 'text',
+          value: dataId.idLive,
+          readOnly: false,
+          canUpdate: true,
+        },
+      ];
+    }
   }
 
   useEffect(() => {
@@ -55,11 +106,14 @@ export default function DicePage(): JSX.Element {
             columnDelete
             columnEdit
             handleDelete={(id) => {}}
-            handleEdit={(id) => {}}
+            handleEdit={(id) => {
+              dispatch(setDiceGameEdit({ id }));
+            }}
           />
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
           </div>
+          {diceGameIdEdit && <PopupEditV1 title="Cập nhật thông tin live" id={+diceGameIdEdit} data={dataDiceGameId || []} onCancel={() => dispatch(setDiceGameEdit({ id: '' }))} onSubmit={updateDiceGame} />}
         </div>
       ) : (
         <></>

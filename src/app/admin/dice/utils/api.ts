@@ -15,7 +15,7 @@ export const getAllGameDice = (limit: number, page: number, sort?: string, typeS
   return axios.get(url);
 };
 
-export const updateDiceGame = (id: number, data: any) => {
+export const updateDiceGameById = (id: number, data: any) => {
   const axios = new BaseAxios(process.env.API_GAME_DICE);
   return axios.patch(`/dice/${id}`, data);
 };

@@ -1,3 +1,4 @@
+'use client';
 import classNames from 'classnames/bind';
 import styles from './pagination.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

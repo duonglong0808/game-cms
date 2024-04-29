@@ -33,7 +33,7 @@ export const usePaymentTransaction = () => {
     }
 
     fetchData();
-  }, [limit, page, search, isInitData, type]);
+  }, [isInitData, limit, page, search, isInitData, type]);
 
   const dataAfterHandle = paymentTransaction.map((item: any) => {
     let statusText = '';

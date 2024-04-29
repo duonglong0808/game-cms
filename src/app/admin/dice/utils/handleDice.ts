@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { getAllGameDice, updateDiceGame as updateDiceGameById } from './api';
+import { getAllGameDice, updateDiceGameById } from './api';
 import { resetDataDiceGame, setDataDiceGame } from '@/lib/redux/app/diceGame.slice';
 import { TypeGameDice } from '@/constants';
 

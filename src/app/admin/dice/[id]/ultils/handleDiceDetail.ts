@@ -30,6 +30,7 @@ export const useDiceDetail = (diceGameId: number) => {
     }
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInitData, limit, page, search]);
 
   const dataAfterHandle = diceDetail.map((item) => {

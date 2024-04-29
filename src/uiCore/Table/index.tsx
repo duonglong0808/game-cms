@@ -120,7 +120,13 @@ function Table(props: {
                 ),
               )}
               {columnEdit ? (
-                <td className={cx('table__value')} style={{ cursor: 'pointer', lineHeight: '100%' }} onClick={() => handleEdit(columnNames && item[columnNames[0]])}>
+                <td
+                  className={cx('table__value')}
+                  style={{ cursor: 'pointer', lineHeight: '100%' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEdit(columnNames && item[columnNames[0]]);
+                  }}>
                   <FontAwesomeIcon icon={faPenToSquare} className={cx('table_row--icon')} />
                 </td>
               ) : (
@@ -130,7 +136,8 @@ function Table(props: {
                 <td
                   className={cx('table__value')}
                   style={{ cursor: 'pointer', lineHeight: '100%' }}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     handleDelete(columnNames && item[columnNames[0]]);
                   }}>
                   <FontAwesomeIcon icon={faTrash} />

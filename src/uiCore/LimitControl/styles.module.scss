@@ -1,0 +1,66 @@
+/* styles.module.scss */
+// styles.module.scss
+.paginationControl {
+  display: flex;
+  align-items: center;
+  color: #000;
+
+  &Label {
+    margin-right: 8px;
+  }
+
+  &Select {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  &Input {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+}
+
+.paginationControlLabel {
+  margin-right: 10px;
+  color: #000;
+}
+
+.paginationControlSelect {
+  outline: none;
+  margin-right: 10px;
+}
+
+.paginationControlInput {
+  outline: none;
+
+  width: 50px;
+  margin-right: 10px;
+}
+
+.paginationControlButton {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paginationControlButton:hover {
+  background-color: #f0f0f0;
+}
+
+/* styles.module.scss */
+.paginationControl {
+  display: flex;
+  align-items: center;
+}
+
+.paginationControlLabel {
+  margin-right: 10px;
+}
+
+.paginationControlSelect {
+  margin-right: 10px;
+}

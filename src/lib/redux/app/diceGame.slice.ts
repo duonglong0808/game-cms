@@ -56,12 +56,12 @@ const DiceGameSlice = createSlice({
       state.limit = 10;
       state.diceGameIdEdit = '';
     },
-    setTransactionEdit(state, action) {
+    setDiceGameEdit(state, action) {
       state.diceGameIdEdit = action.payload.id;
     },
   },
 });
 
-export const { setDataDiceGame, setLimitOrPageDiceGame, resetDataDiceGame, setTransactionEdit } = DiceGameSlice.actions;
+export const { setDataDiceGame, setLimitOrPageDiceGame, resetDataDiceGame, setDiceGameEdit } = DiceGameSlice.actions;
 
 export default DiceGameSlice.reducer;

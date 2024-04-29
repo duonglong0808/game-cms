@@ -29,7 +29,7 @@ const usePaymentType = () => {
     }
 
     fetchData();
-  }, [limit, page, search]);
+  }, [isInitData, limit, page, search]);
 
   return {
     data: paymentTypes,

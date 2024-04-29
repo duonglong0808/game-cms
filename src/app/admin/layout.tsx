@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { Header } from './components/Header';
 import { SideBars } from './components/SideBar';
 import StoreProvider from '../StoreProvider';
+import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,10 +27,12 @@ export default function RootLayout({
             overflow: 'hidden',
           }}>
           <StoreProvider>
-            <SideBars />
+            <Suspense>
+              <SideBars />
+            </Suspense>
             <div className="flex-1">
               <Header />
-              {children}
+              <Suspense>{children}</Suspense>
             </div>
           </StoreProvider>
         </div>

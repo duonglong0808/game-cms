@@ -6,9 +6,9 @@ import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataPaymentTransaction, setLimitOrPagePaymentTransaction, setTransactionEdit } from '@/lib/redux/app/paymentTransaction.slice';
 import { useEffect, useState } from 'react';
-// import { PopupEditTransaction, DataEditDto } from './components/PopupEditTransaction';
+// import { PopupEditV1, DataEditDto } from './components/PopupEditV1';
 import { StatusPaymentTranSaction, TypePaymentTranSaction } from '@/constants';
-import { PopupEditTransaction } from '@/uiCore';
+import { PopupEditV1 } from '@/uiCore';
 import { OptionPaymentTransaction } from './components/OptionPaymentTrans';
 
 export default function PaymentTransactionPage(): JSX.Element {
@@ -98,7 +98,7 @@ export default function PaymentTransactionPage(): JSX.Element {
             <div>
               <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
             </div>
-            {transactionIdEdit && <PopupEditTransaction id={+transactionIdEdit} data={dataTransactionById || []} onCancel={() => dispatch(setTransactionEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
+            {transactionIdEdit && <PopupEditV1 id={+transactionIdEdit} data={dataTransactionById || []} onCancel={() => dispatch(setTransactionEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
           </>
         ) : (
           <></>
