@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ChangeEvent, useState } from 'react';
 import { useAppDispatch } from '@/lib';
+import Image from 'next/image';
 
 const cx = classNames.bind(styles);
 
@@ -27,9 +28,10 @@ export interface DataEditDto {
   data: ItemDto[];
   onSubmit: (id: number, data: any, dispatch: any) => void;
   onCancel: () => {};
+  handleUploadOneFile?: (file: File) => Promise<string>;
 }
 
-export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning }: DataEditDto) {
+export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, handleUploadOneFile }: DataEditDto) {
   const [dataState, setDataState] = useState(data);
   const isUnableBtn = dataState.some((item) => item.canUpdate);
 
@@ -52,6 +54,22 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning }
     });
   };
 
+  const handleChangeFile = (urlImage: string, col: ItemDto) => {
+    setDataState((pre) => {
+      const dataNew = pre.map((item) => {
+        if (item.name === col.name) {
+          return {
+            ...item,
+            value: urlImage,
+          };
+        } else {
+          return item;
+        }
+      });
+      return dataNew;
+    });
+  };
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('group__list')}>
@@ -63,7 +81,37 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning }
         {dataState.map((col, index) => (
           <div key={index} className={cx('group__data')}>
             <label className={cx('group__data--label')}>{col.label}</label>
-            {col.type != 'options' ? (
+            {col.type == 'options' ? (
+              <select
+                className={cx('group__data--select')}
+                name={col.name}
+                defaultValue={col.value}
+                onChange={(e) => {
+                  handleOnChangeInputOrSelect(e, col);
+                }}>
+                {col.dataOption?.map((val, index) => (
+                  <option key={index} className={cx('group__data--option')} value={val.value}>
+                    {val.text}
+                  </option>
+                ))}
+              </select>
+            ) : col.type == 'image' ? (
+              <div className="flex items-center">
+                <input
+                  type="file"
+                  name={col.name}
+                  onChange={async (e) => {
+                    if (e.target.files && handleUploadOneFile) {
+                      const urlImage = await handleUploadOneFile(e.target.files[0]);
+                      if (urlImage) {
+                        handleChangeFile(urlImage, col);
+                      }
+                    }
+                  }}
+                />
+                <Image alt="Image demo" src={String(col.value)} width={80} height={80} className={cx('image__demo', 'rounded-2xl')} />
+              </div>
+            ) : (
               <input
                 value={col.value ?? ''}
                 name={col.name}
@@ -73,19 +121,6 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning }
                   handleOnChangeInputOrSelect(e, col);
                 }}
               />
-            ) : (
-              <select
-                className={cx('group__data--select')}
-                name={col.name}
-                onChange={(e) => {
-                  handleOnChangeInputOrSelect(e, col);
-                }}>
-                {col.dataOption?.map((val, index) => (
-                  <option key={index} className={cx('group__data--option')} value={val.value} selected={col.value == val.value}>
-                    {val.text}
-                  </option>
-                ))}
-              </select>
             )}
           </div>
         ))}

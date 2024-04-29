@@ -5,6 +5,9 @@ const nextConfig = {
     API_GAME_DICE: 'http://localhost:9991/api',
     HOST_KU: 'https://vn.vc3559k.net/api',
   },
+  images: {
+    domains: ['storage.googleapis.com'],
+  },
 };
 
 export default nextConfig;

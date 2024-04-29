@@ -20,7 +20,7 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
     dataDiceId = [
       {
         name: 'mainTransaction',
-        label: 'Phiên trên live trực tiếp ',
+        label: 'Phiên trên live gốc ',
         type: 'text',
         value: dataId?.mainTransaction,
         readOnly: true,

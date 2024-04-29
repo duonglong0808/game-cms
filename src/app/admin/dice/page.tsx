@@ -10,6 +10,7 @@ import Pagination from '@/uiCore/Pagination';
 import { useRouter } from 'next/navigation';
 import { PopupEditV1 } from '@/uiCore';
 import { TypeGameDice } from '@/constants';
+import { upLoadOneFile } from '@/share/upLoadFile';
 
 export default function DicePage(): JSX.Element {
   const { data, pagination } = useDiceGame();
@@ -35,9 +36,17 @@ export default function DicePage(): JSX.Element {
           canUpdate: true,
         },
         {
+          name: 'avtAuthor',
+          label: 'Ảnh người live ',
+          type: 'image',
+          value: dataId.avtAuthor,
+          readOnly: false,
+          canUpdate: true,
+        },
+        {
           name: 'type',
           label: 'Loại live ',
-          type: 'option',
+          type: 'options',
           value: dataId.type,
           readOnly: false,
           canUpdate: true,
@@ -113,7 +122,7 @@ export default function DicePage(): JSX.Element {
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
           </div>
-          {diceGameIdEdit && <PopupEditV1 title="Cập nhật thông tin live" id={+diceGameIdEdit} data={dataDiceGameId || []} onCancel={() => dispatch(setDiceGameEdit({ id: '' }))} onSubmit={updateDiceGame} />}
+          {diceGameIdEdit && <PopupEditV1 handleUploadOneFile={(file) => upLoadOneFile('image', file)} title="Cập nhật thông tin live" id={+diceGameIdEdit} data={dataDiceGameId || []} onCancel={() => dispatch(setDiceGameEdit({ id: '' }))} onSubmit={updateDiceGame} />}
         </div>
       ) : (
         <></>
