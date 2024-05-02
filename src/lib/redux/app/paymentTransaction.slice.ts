@@ -81,12 +81,13 @@ const paymentTransactionSlice = createSlice({
     setTransactionEdit(state, action) {
       state.transactionIdEdit = action.payload.id;
     },
-    setTypePaymentTransaction(state, action) {
-      state.type = action.payload.type;
+    setQueryPaymentTransaction(state, action) {
+      state.type = action.payload.type != undefined ? action.payload.type : state.type;
+      state.status = action.payload.status != undefined ? action.payload.status : state.status;
     },
   },
 });
 
-export const { setDataPaymentTransaction, setLimitOrPagePaymentTransaction, resetDataPaymentTransaction, setTransactionEdit, setTypePaymentTransaction } = paymentTransactionSlice.actions;
+export const { setDataPaymentTransaction, setLimitOrPagePaymentTransaction, resetDataPaymentTransaction, setTransactionEdit, setQueryPaymentTransaction } = paymentTransactionSlice.actions;
 
 export default paymentTransactionSlice.reducer;

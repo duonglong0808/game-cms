@@ -6,16 +6,17 @@ import { StatusPaymentTranSaction } from '@/constants';
 import { formatDateTime } from '@/share';
 
 export const usePaymentTransaction = () => {
-  const { isInitData, limit, page, paymentTransaction, search, total, type, status, sort, typeSort } = useAppSelector((state) => state.paymentTransaction);
+  const { isInitData, limit, page, paymentTransaction, total, type, status, sort, typeSort } = useAppSelector((state) => state.paymentTransaction);
 
   const limitRef = useRef(limit);
   const pageRef = useRef(page);
   const typeRef = useRef(type);
+  const statusRef = useRef(status);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      if (!isInitData || limit != limitRef.current || page != pageRef.current || type != typeRef.current) {
+      if (!isInitData || limit != limitRef.current || page != pageRef.current || type != typeRef.current || status != statusRef.current) {
         const res = await getAllPaymentTransactions(limit, page, type, status, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
@@ -33,7 +34,7 @@ export const usePaymentTransaction = () => {
     }
 
     fetchData();
-  }, [isInitData, limit, page, search, isInitData, type]);
+  }, [isInitData, limit, page, isInitData, type, status]);
 
   const dataAfterHandle = paymentTransaction.map((item: any) => {
     let statusText = '';

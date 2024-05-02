@@ -5,12 +5,15 @@ import { setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
 import { HeaderContent } from '../../components/HeaderContent';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { resetDataPayment } from '@/lib/redux/app/payment.slice';
+import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
+import { ShowBankPayment } from './components/ShowBank';
 
 export default function Detail({ params }: { params: { slug: number } }): JSX.Element {
   const { slug } = params;
   const { data, pagination } = usePayment(slug);
+  const [idPaymentSelect, setIdPaymentSelect] = useState();
 
   const dispatch = useAppDispatch();
 
@@ -29,7 +32,7 @@ export default function Detail({ params }: { params: { slug: number } }): JSX.El
     <main className="min-h-full flex flex-col">
       <HeaderContent path="Payment" title="Chi tiết phương thức thanh toán" />
       {data.length ? (
-        <div className="main-page min-h-full flex-1">
+        <div className="main-page min-h-full flex-1 relative">
           <Table
             // columnNotShow={['slug']}
 
@@ -39,10 +42,20 @@ export default function Detail({ params }: { params: { slug: number } }): JSX.El
             columnEdit
             handleDelete={(id) => {}}
             handleEdit={(id) => {}}
+            moreColumnsOptions={[
+              {
+                icon: faBuildingColumns,
+                name: 'Ngân hàng',
+                handleClick: (item) => {
+                  setIdPaymentSelect(item.id);
+                },
+              },
+            ]}
           />
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
           </div>
+          {idPaymentSelect && <ShowBankPayment idPayment={idPaymentSelect} setIdPaymentSelect={(id) => setIdPaymentSelect(id)} />}
         </div>
       ) : (
         <></>

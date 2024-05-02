@@ -25,17 +25,18 @@
 
 .option__list {
   display: none;
-}
-
-.show__option {
-  display: block;
   color: black;
   margin-top: 8px;
   border: 1px solid #a9a2a2;
   border-radius: 9px;
-  animation: heightAscending linear 1s;
   width: fit-content;
   min-width: 120px;
+  background-color: white;
+}
+
+.show__option {
+  display: block;
+  // animation: heightAscending linear 0.4s;
 }
 
 .option__item--top,
@@ -60,9 +61,12 @@
 
 @keyframes heightAscending {
   from {
-    height: 0px;
+    opacity: 0;
+    transform: translateY(-100%);
   }
   to {
-    height: 100%;
+    opacity: 1;
+    transform: translateY(0%);
+    // height: 70%;
   }
 }

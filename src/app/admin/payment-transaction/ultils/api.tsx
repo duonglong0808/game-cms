@@ -1,13 +1,12 @@
 import { BaseAxios } from '@/lib';
 
 export const getAllPaymentTransactions = (limit: number, page: number, type: number, status: number, sort?: string, typeSort?: string) => {
-  console.log('🚀 ~ getAllPaymentTransactions ~ status:', status);
   const axios = new BaseAxios();
 
   let url = `/payment-transaction?limit=${limit}&page=${page}&type=${type}`;
 
   // Kiểm tra và thêm các tham số chỉ khi chúng khác null hoặc undefined
-  if (status) {
+  if (status !== undefined) {
     url += `&status=${status}`;
   }
   if (sort) {

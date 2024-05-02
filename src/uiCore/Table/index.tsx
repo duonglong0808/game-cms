@@ -3,6 +3,7 @@ import styles from './table.module.scss';
 import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 // import Button from '../Button';
 // import icons from '../icons/index';
 
@@ -13,8 +14,8 @@ function Table(props: {
   data: any[];
   columnEdit: boolean;
   columnDelete: boolean;
-  handleEdit: (id: number) => void;
-  handleDelete: (id: number) => void;
+  handleEdit?: (id: number) => void;
+  handleDelete?: (id: number) => void;
   columnRestore?: boolean;
   backgroundColor?: string;
   backgroundColorHeader?: string;
@@ -25,8 +26,13 @@ function Table(props: {
   handleSort?: () => void;
   handleRestore?: () => void;
   handleClickRow?: (item: any) => void;
+  moreColumnsOptions?: {
+    name: string;
+    icon: IconProp;
+    handleClick?: (item: any) => void;
+  }[];
 }) {
-  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [], handleClickRow } = props;
+  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [], handleClickRow, moreColumnsOptions } = props;
 
   const allDataShow: any[] = JSON.parse(JSON.stringify(data));
   allDataShow.forEach((item) => {
@@ -78,6 +84,11 @@ function Table(props: {
                   {columnName !== 'id' ? columnName : '#'}
                 </th>
               ))}
+              {moreColumnsOptions?.map((item, index) => (
+                <th key={index} className={cx('thead__column')}>
+                  {item.name}
+                </th>
+              ))}
               {columnEdit ? <th className={cx('thead__column')}>Cập nhật</th> : <></>}
               {columnDelete ? <th className={cx('thead__column')}>Xóa</th> : <></>}
               {columnRestore ? <th className={cx('thead__column')}>Khôi phục</th> : <></>}
@@ -119,13 +130,25 @@ function Table(props: {
                   </td>
                 ),
               )}
+              {moreColumnsOptions?.map((colOption, index) => (
+                <td
+                  key={index}
+                  className={cx('table__value')}
+                  style={{ cursor: 'pointer', lineHeight: '100%' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    colOption.handleClick && colOption.handleClick(item);
+                  }}>
+                  <FontAwesomeIcon icon={colOption.icon} />
+                </td>
+              ))}
               {columnEdit ? (
                 <td
                   className={cx('table__value')}
                   style={{ cursor: 'pointer', lineHeight: '100%' }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleEdit(columnNames && item[columnNames[0]]);
+                    handleEdit && handleEdit(columnNames && item[columnNames[0]]);
                   }}>
                   <FontAwesomeIcon icon={faPenToSquare} className={cx('table_row--icon')} />
                 </td>
@@ -138,7 +161,7 @@ function Table(props: {
                   style={{ cursor: 'pointer', lineHeight: '100%' }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDelete(columnNames && item[columnNames[0]]);
+                    handleDelete && handleDelete(columnNames && item[columnNames[0]]);
                   }}>
                   <FontAwesomeIcon icon={faTrash} />
                 </td>

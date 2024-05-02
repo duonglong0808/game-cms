@@ -14,6 +14,7 @@ interface ItemDto {
   type: string;
   value: string | number;
   readOnly: boolean;
+  required?: boolean;
   dataOption?: {
     text?: string;
     value?: string | number;
@@ -22,16 +23,17 @@ interface ItemDto {
 }
 
 export interface DataEditDto {
-  id: number;
+  id?: number;
   title?: string;
   textWarning?: string;
   data: ItemDto[];
-  onSubmit: (id: number, data: any, dispatch: any) => void;
-  onCancel: () => {};
+  onSubmit?: (id: number, data: any, dispatch: any) => void;
+  onSubmitCreate?: (data: any, dispatch: any) => void;
+  onCancel: () => void;
   handleUploadOneFile?: (file: File) => Promise<string>;
 }
 
-export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, handleUploadOneFile }: DataEditDto) {
+export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarning, handleUploadOneFile, onSubmitCreate }: DataEditDto) {
   const [dataState, setDataState] = useState(data);
   const isUnableBtn = dataState.some((item) => item.canUpdate);
 
@@ -71,7 +73,24 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, 
   };
 
   return (
-    <div className={cx('wrapper')}>
+    <form
+      className={cx('wrapper')}
+      onSubmit={(e) => {
+        e.preventDefault();
+        const dataSend: any = {};
+        dataState.forEach((item, index) => {
+          if (item.canUpdate) {
+            dataSend[item.name] = item.value;
+          }
+        });
+        console.log('🛫🛫🛫 ~ file: index.tsx:145 ~ PopupEditOrAddV1 ~ dataSend:', dataSend);
+        if (id) {
+          console.log('🛫🛫🛫 ~ file: index.tsx:151 ~ PopupEditOrAddV1 ~ id:', id);
+          onSubmit && onSubmit(id, dataSend, dispatch);
+        } else {
+          onSubmitCreate && onSubmitCreate(data, dispatch);
+        }
+      }}>
       <div className={cx('group__list')}>
         <div className={cx('body__header')}>
           <h1 className={cx('body__header--text', 'flex-1 ')}>{title || 'Cập nhật quá trình giao dịch'}</h1>
@@ -83,6 +102,7 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, 
             <label className={cx('group__data--label')}>{col.label}</label>
             {col.type == 'options' ? (
               <select
+                required={col.required}
                 className={cx('group__data--select')}
                 name={col.name}
                 defaultValue={col.value}
@@ -100,6 +120,7 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, 
                 <input
                   type="file"
                   name={col.name}
+                  required={col.required}
                   onChange={async (e) => {
                     if (e.target.files && handleUploadOneFile) {
                       const urlImage = await handleUploadOneFile(e.target.files[0]);
@@ -115,6 +136,8 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, 
               <input
                 value={col.value ?? ''}
                 name={col.name}
+                type={col.type}
+                required={col.required}
                 readOnly={col.readOnly}
                 className={cx('group__data--input', { 'group__data--input-readOnly': col.readOnly })}
                 onChange={(e) => {
@@ -126,21 +149,16 @@ export function PopupEditV1({ id, data, onCancel, onSubmit, title, textWarning, 
         ))}
         <div className="flex justify-center">
           <button
+            type="submit"
             disabled={!isUnableBtn}
             className={cx('submit-btn', 'rounded-xl disabled:cursor-not-allowed disabled:bg-zinc-500')}
-            onClick={() => {
-              const dataSend: any = {};
-              dataState.forEach((item, index) => {
-                if (item.canUpdate) {
-                  dataSend[item.name] = item.value;
-                }
-              });
-              onSubmit(id, dataSend, dispatch);
+            onSubmit={(e) => {
+              // e.preventDefault();
             }}>
             Xác nhận
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

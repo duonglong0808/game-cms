@@ -23,7 +23,7 @@ export function SideBars(): JSX.Element {
   // Route -> /shop/[tag]/[item]
   // URL -> /shop/shoes/nike-air-max-97
   // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
-  console.log(params);
+  // console.log(params);
 
   const dataNav = [
     {
@@ -82,9 +82,9 @@ export function SideBars(): JSX.Element {
     <div className={cx('sideBar-wrapper')}>
       <div className={cx('sideBar__top')}>
         <Link href={'/'} className={cx('logos', 'flex')}>
-          <Image alt="LOGO" src={'/KU_logo.svg'} height={22} width={100} className="hidden max-sm:block" />
-          {/* <Image alt="LOGO" src={'/next.svg'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} /> */}
-          <Image alt="LOGO" src={'/logo.png'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} />
+          {/* <Image alt="LOGO" src={'/KU_logo.svg'} height={22} width={100} className="hidden max-sm:block" /> */}
+          <Image alt="LOGO" src={'/next.svg'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} />
+          {/* <Image alt="LOGO" src={'/logo.png'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} /> */}
         </Link>
         <div className={cx('w-full', 'sidebar-user')}>
           <div className={cx('sidebar-user__avt-box')}>

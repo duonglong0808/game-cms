@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { useRouter } from 'next/navigation';
-import { PopupEditV1 } from '@/uiCore';
+import { PopupEditOrAddV1 } from '@/uiCore';
 import { TypeGameDice } from '@/constants';
 import { upLoadOneFile } from '@/share/upLoadFile';
 
@@ -122,7 +122,7 @@ export default function DicePage(): JSX.Element {
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
           </div>
-          {diceGameIdEdit && <PopupEditV1 handleUploadOneFile={(file) => upLoadOneFile('image', file)} title="Cập nhật thông tin live" id={+diceGameIdEdit} data={dataDiceGameId || []} onCancel={() => dispatch(setDiceGameEdit({ id: '' }))} onSubmit={updateDiceGame} />}
+          {diceGameIdEdit && <PopupEditOrAddV1 handleUploadOneFile={(file) => upLoadOneFile('image', file)} title="Cập nhật thông tin live" id={+diceGameIdEdit} data={dataDiceGameId || []} onCancel={() => dispatch(setDiceGameEdit({ id: '' }))} onSubmit={updateDiceGame} />}
         </div>
       ) : (
         <></>

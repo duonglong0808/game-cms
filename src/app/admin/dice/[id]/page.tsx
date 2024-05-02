@@ -8,7 +8,7 @@ import { HeaderContent } from '../../components/HeaderContent';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { StatusDiceDetail } from '@/constants';
-import { PopupEditV1 } from '@/uiCore';
+import { PopupEditOrAddV1 } from '@/uiCore';
 
 export default function DiceDetailPage({ params }: { params: { id: number } }): JSX.Element {
   const { id } = params;
@@ -82,7 +82,7 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
           </div>
-          {diceDetailIdEdit && <PopupEditV1 title="Cập nhật trạng thái ván chơi" textWarning="Chỉ cần ấn XÁC NHẬN không cần chọn trạng thái" id={+diceDetailIdEdit} data={dataDiceId || []} onCancel={() => dispatch(setDiceDetailIdEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
+          {diceDetailIdEdit && <PopupEditOrAddV1 title="Cập nhật trạng thái ván chơi" textWarning="Chỉ cần ấn XÁC NHẬN không cần chọn trạng thái" id={+diceDetailIdEdit} data={dataDiceId || []} onCancel={() => dispatch(setDiceDetailIdEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
         </div>
       ) : (
         <></>

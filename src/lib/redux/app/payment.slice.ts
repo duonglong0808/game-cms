@@ -1,15 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface paymentItem {
-  name: string;
-  minimum: string;
-  maximum: string;
+  methodName: string;
+  methodImage: string;
+  nameWarning: string;
   status: string;
+  type: string;
+  imagePopup: string;
+  message: string;
+  showAccount: boolean;
+}
+
+interface BankItem {
+  nameBank: string;
+  binBank: string;
+  branch: string;
+  accountOwner: string;
+  accountNumber: string;
 }
 
 interface PaymentSlice {
   isInitData: boolean;
   payment: paymentItem[];
+  isInitDataBank: boolean;
+  banks: BankItem[];
   page: number;
   limit: number;
   search: string;
@@ -20,11 +34,13 @@ const paymentSlice = createSlice({
   name: 'payment',
   initialState: {
     isInitData: false,
+    isInitDataBank: false,
     payment: [],
     page: 1,
     limit: 10,
     search: '',
     total: 0,
+    banks: [],
   } as PaymentSlice,
   reducers: {
     setDataPayment: (state, action) => {
@@ -43,9 +59,13 @@ const paymentSlice = createSlice({
       state.page = 1;
       state.limit = 10;
     },
+    setDataPaymentBanks(state, action) {
+      state.banks = action.payload.data;
+      state.isInitDataBank = action.payload.isInitDataBank;
+    },
   },
 });
 
-export const { setDataPayment, setLimitOrPagePayment, resetDataPayment } = paymentSlice.actions;
+export const { setDataPayment, setLimitOrPagePayment, resetDataPayment, setDataPaymentBanks } = paymentSlice.actions;
 
 export default paymentSlice.reducer;

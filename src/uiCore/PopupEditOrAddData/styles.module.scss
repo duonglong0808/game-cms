@@ -52,6 +52,12 @@
   background-color: aliceblue;
   font-size: 14px;
   outline: none;
+
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .group__data--input-readOnly {

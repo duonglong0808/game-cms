@@ -1,3 +1,5 @@
+export * from './bank.statics';
+
 export const StatusPaymentTranSaction = {
   processing: 0,
   success: 1,
