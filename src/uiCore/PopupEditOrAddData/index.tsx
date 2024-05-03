@@ -83,9 +83,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
             dataSend[item.name] = item.value;
           }
         });
-        console.log('🛫🛫🛫 ~ file: index.tsx:145 ~ PopupEditOrAddV1 ~ dataSend:', dataSend);
         if (id) {
-          console.log('🛫🛫🛫 ~ file: index.tsx:151 ~ PopupEditOrAddV1 ~ id:', id);
           onSubmit && onSubmit(id, dataSend, dispatch);
         } else {
           onSubmitCreate && onSubmitCreate(data, dispatch);

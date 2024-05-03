@@ -1,7 +1,7 @@
 'use client';
 
-import { handleUpdateStatusPaymentTransaction, useDiceDetail } from './ultils/handleDiceDetail';
-import { useEffect } from 'react';
+import { handleCreateDiceTransaction, handleUpdateStatusPaymentTransaction, useDiceDetail } from './ultils/handleDiceDetail';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataDiceDetail, setDiceDetailIdEdit, setLimitOrPageDiceDetail } from '@/lib/redux/app/diceDetail.slice';
 import { HeaderContent } from '../../components/HeaderContent';
@@ -9,11 +9,15 @@ import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { StatusDiceDetail } from '@/constants';
 import { PopupEditOrAddV1 } from '@/uiCore';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { formatDateToId } from '@/share';
 
 export default function DiceDetailPage({ params }: { params: { id: number } }): JSX.Element {
   const { id } = params;
   const { data, pagination } = useDiceDetail(id);
   const { diceDetailIdEdit, diceDetail } = useAppSelector((state) => state.diceDetail);
+  const [boxCreate, setBoxCreate] = useState(false);
   let dataDiceId: any = null;
   if (diceDetailIdEdit) {
     const dataId = diceDetail.find((p) => p.id == +diceDetailIdEdit);
@@ -30,7 +34,8 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
         label: 'Số lượng bi đỏ',
         type: 'text',
         value: dataId?.totalRed || '',
-        readOnly: true,
+        readOnly: dataId?.totalRed,
+        canUpdate: !dataId?.totalRed,
       },
       {
         name: 'dateId',
@@ -50,6 +55,26 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
     ];
   }
 
+  const dataCreateDto = [
+    {
+      name: 'mainTransaction',
+      label: 'Phiên trên live gốc ',
+      type: 'number',
+      value: '',
+      readOnly: false,
+      canUpdate: true,
+      required: true,
+    },
+    {
+      name: 'dateId',
+      label: 'Id theo ngày',
+      type: 'text',
+      value: formatDateToId(),
+      readOnly: true,
+      canUpdate: true,
+    },
+  ];
+
   const dispatch = useAppDispatch();
 
   const setPageUser = (page: number) => {
@@ -67,7 +92,11 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
     <main className="min-h-full flex flex-col relative">
       <HeaderContent path="DiceDetail" title="Chi tiết live " />
       {data?.length ? (
-        <div className="main-page min-h-full flex-1">
+        <div className="main-page min-h-full flex-1 ">
+          <div onClick={() => setBoxCreate(true)} className={'flex pt-1 pb-1 pr-3 pl-3 w-52 items-center border-solid border-slate-400	 border-2 text-black mb-4 rounded-xl cursor-pointer'}>
+            <h1 className={'flex-1 '}>Thêm phiên mới</h1>
+            <FontAwesomeIcon className={''} color="black" icon={faXmark} />
+          </div>
           <Table
             // columnNotShow={['slug']}
             handleEdit={(id) => {
@@ -82,7 +111,19 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
           </div>
-          {diceDetailIdEdit && <PopupEditOrAddV1 title="Cập nhật trạng thái ván chơi" textWarning="Chỉ cần ấn XÁC NHẬN không cần chọn trạng thái" id={+diceDetailIdEdit} data={dataDiceId || []} onCancel={() => dispatch(setDiceDetailIdEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
+          {diceDetailIdEdit && <PopupEditOrAddV1 title="Cập nhật trạng thái ván chơi" textWarning="Nếu không cập nhật dáp án (Số lượng bi đỏ) sẽ bỏ qua không điền vào (Số lượng bi đỏ). Chỉ được cập nhật đáp án 1 lần suy nhất" id={+diceDetailIdEdit} data={dataDiceId || []} onCancel={() => dispatch(setDiceDetailIdEdit({ id: '' }))} onSubmit={handleUpdateStatusPaymentTransaction} />}
+          {boxCreate && (
+            <PopupEditOrAddV1
+              title="Thêm mới ván chơi"
+              data={dataCreateDto || []}
+              onCancel={() => setBoxCreate(false)}
+              id={id}
+              onSubmit={(id, data, dispatch) => {
+                handleCreateDiceTransaction(id, data, dispatch);
+                setBoxCreate(false);
+              }}
+            />
+          )}
         </div>
       ) : (
         <></>

@@ -9,3 +9,13 @@ export const updateStatusDiceDetail = (deiceDetailId: number) => {
   const axios = new BaseAxios(process.env.API_GAME_DICE);
   return axios.patch(`/dice-detail/${deiceDetailId}/status`, {});
 };
+
+export const updateDataDiceDetail = (deiceDetailId: number, data: any) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+  return axios.patch(`/dice-detail/${deiceDetailId}`, data);
+};
+
+export const createDiceDetail = (data: any) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+  return axios.post(`/dice-detail`, data);
+};
