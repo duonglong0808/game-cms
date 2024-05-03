@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { createDiceDetail, getAllDiceDetail, updateDataDiceDetail, updateStatusDiceDetail } from './api';
+import { createDiceDetail, getAllDiceDetail, updateResultDiceDetailById, updateStatusDiceDetail } from './api';
 import { resetDataDiceDetail, setDataDiceDetail } from '@/lib/redux/app/diceDetail.slice';
 import { StatusDiceDetail } from '@/constants';
 
@@ -72,7 +72,7 @@ export const useDiceDetail = (diceGameId: number) => {
 };
 
 export const handleUpdateStatusPaymentTransaction = async (id: number, data: any, dispatch: any) => {
-  const res = data?.totalRed ? await updateDataDiceDetail(id, data) : await updateStatusDiceDetail(id);
+  const res = data?.totalRed ? await updateResultDiceDetailById(id, data) : await updateStatusDiceDetail(id);
   if (res) {
     dispatch(resetDataDiceDetail());
   } else {

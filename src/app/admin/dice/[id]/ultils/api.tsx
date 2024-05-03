@@ -10,9 +10,9 @@ export const updateStatusDiceDetail = (deiceDetailId: number) => {
   return axios.patch(`/dice-detail/${deiceDetailId}/status`, {});
 };
 
-export const updateDataDiceDetail = (deiceDetailId: number, data: any) => {
+export const updateResultDiceDetailById = (deiceDetailId: number, data: any) => {
   const axios = new BaseAxios(process.env.API_GAME_DICE);
-  return axios.patch(`/dice-detail/${deiceDetailId}`, data);
+  return axios.patch(`/dice-detail/${deiceDetailId}`, { totalRed: data?.totalRed });
 };
 
 export const createDiceDetail = (data: any) => {
