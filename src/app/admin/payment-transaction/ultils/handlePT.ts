@@ -1,28 +1,25 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { getAllPaymentTransactions, updateStatusTransaction } from './api';
-import { resetDataPaymentTransaction, setDataPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
-import { StatusPaymentTranSaction } from '@/constants';
+import { getAllPaymentTransactions, getPaymentTransactionsBrief, updateStatusTransaction } from './api';
+import { resetDataPaymentTransaction, setDataBriefPaymentTransaction, setDataPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
+import { StatusPaymentTranSaction, TypePaymentTranSaction } from '@/constants';
 import { formatDateTime } from '@/share';
 
 export const usePaymentTransaction = () => {
-  const { isInitData, limit, page, paymentTransaction, total, type, status, sort, typeSort } = useAppSelector((state) => state.paymentTransaction);
+  const { isInitData, limit, page, paymentTransaction, total, type, status, sort, typeSort, dateFrom, dateTo, submitRangerDate } = useAppSelector((state) => state.paymentTransaction);
 
   const limitRef = useRef(limit);
   const pageRef = useRef(page);
-  const typeRef = useRef(type);
-  const statusRef = useRef(status);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      if (!isInitData || limit != limitRef.current || page != pageRef.current || type != typeRef.current || status != statusRef.current) {
-        const res = await getAllPaymentTransactions(limit, page, type, status, sort, typeSort);
+      if (!isInitData || limit != limitRef.current || page != pageRef.current) {
+        const res = await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
           pageRef.current = page;
           limitRef.current = limit;
-          typeRef.current = type;
           dispatch(
             setDataPaymentTransaction({
               data: data,
@@ -34,7 +31,7 @@ export const usePaymentTransaction = () => {
     }
 
     fetchData();
-  }, [isInitData, limit, page, isInitData, type, status]);
+  }, [isInitData, limit, page, submitRangerDate]);
 
   const dataAfterHandle = paymentTransaction.map((item: any) => {
     let statusText = '';
@@ -69,6 +66,36 @@ export const usePaymentTransaction = () => {
     data: dataAfterHandle,
     pagination: { limit, page, total },
   };
+};
+
+export const useDataTotalDepositAndWithdraw = () => {
+  const { dateFrom, dateTo, isInitData, dataBrief } = useAppSelector((state) => state.paymentTransaction);
+  const dateFromRef = useRef(dateFrom);
+  const dateToRef = useRef(dateTo);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!isInitData || dateFrom != dateFromRef.current || dateTo != dateToRef.current) {
+        const res = await getPaymentTransactionsBrief(dateFrom, dateTo);
+        if (res?.data) {
+          const { data } = res.data;
+          dateFromRef.current = dateFrom;
+          dateToRef.current = dateTo;
+          dispatch(
+            setDataBriefPaymentTransaction({
+              deposit: data?.find((i: any) => i.type == TypePaymentTranSaction.deposit)?.totalPoints || 0,
+              withdraw: data?.find((i: any) => i.type == TypePaymentTranSaction.withdrawMoney)?.totalPoints || 0,
+            }),
+          );
+        }
+      }
+    }
+
+    fetchData();
+  }, [dateFrom, dateTo, isInitData]);
+
+  return { ...dataBrief, dateFrom, dateTo };
 };
 
 export const handleUpdateStatusPaymentTransaction = async (id: number, data: any, dispatch: any) => {

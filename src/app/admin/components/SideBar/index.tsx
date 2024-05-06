@@ -7,23 +7,12 @@ import Link from 'next/link';
 import { faChevronDown, faDice, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
 import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 
 export function SideBars(): JSX.Element {
-  const params = useParams();
-  const searchParams = useSearchParams();
-
   const { name } = useAppSelector((state) => state.userCurrent);
-
-  // Route -> /shop/[tag]/[item]
-  // URL -> /shop/shoes/nike-air-max-97
-  // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
-  // console.log(params);
 
   const dataNav = [
     {
@@ -54,7 +43,7 @@ export function SideBars(): JSX.Element {
       ],
     },
     {
-      title: 'Xóc đĩa',
+      title: 'Demo',
       icon: faDice,
       link: '/admin/dice',
       subMenu: [

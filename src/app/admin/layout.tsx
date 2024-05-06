@@ -27,9 +27,9 @@ export default function RootLayout({
             overflow: 'hidden',
           }}>
           <StoreProvider>
-            <Suspense>
-              <SideBars />
-            </Suspense>
+            {/* <Suspense> */}
+            <SideBars />
+            {/* </Suspense> */}
             <div className="flex-1">
               <Header />
               <Suspense>{children}</Suspense>

@@ -1,0 +1,29 @@
+.wrapper {
+  min-width: 300px;
+  background-color: white;
+  box-shadow: -2px 1px 19px 4px rgba(207, 199, 199, 0.79);
+  -webkit-box-shadow: -2px 1px 19px 4px rgba(207, 199, 199, 0.79);
+  -moz-box-shadow: -2px 1px 19px 4px rgba(207, 199, 199, 0.79);
+  padding: 12px;
+}
+
+.header {
+  &__title {
+    font-size: 16px;
+  }
+
+  &__icon {
+    width: 18px;
+  }
+}
+
+.content {
+  font-size: 16px;
+
+  &__value {
+  }
+
+  &__unit {
+    text-transform: uppercase;
+  }
+}

@@ -31,6 +31,11 @@ export interface TransactionItem {
   showAccount: boolean;
 }
 
+interface PaymentTransactionBrief {
+  deposit?: number;
+  withdraw?: number;
+}
+
 interface PaymentTransactionSlice {
   isInitData: boolean;
   paymentTransaction: TransactionItem[];
@@ -43,6 +48,10 @@ interface PaymentTransactionSlice {
   sort: string;
   typeSort: string;
   transactionIdEdit: string;
+  dateFrom: string;
+  dateTo: string;
+  dataBrief: PaymentTransactionBrief;
+  submitRangerDate: boolean;
 }
 
 const paymentTransactionSlice = createSlice({
@@ -59,6 +68,10 @@ const paymentTransactionSlice = createSlice({
     sort: 'createdAt',
     typeSort: TypeSort.DESC,
     transactionIdEdit: '',
+    dateFrom: '',
+    dateTo: '',
+    dataBrief: {},
+    submitRangerDate: false,
   } as PaymentTransactionSlice,
   reducers: {
     setDataPaymentTransaction: (state, action) => {
@@ -66,6 +79,7 @@ const paymentTransactionSlice = createSlice({
       state.total = action.payload?.total;
       state.page = action.payload.page;
       state.isInitData = true;
+      state.submitRangerDate = false;
     },
     setLimitOrPagePaymentTransaction: (state, action: { payload: { limit?: number; page?: number } }) => {
       state.limit = action.payload.limit ? action.payload.limit : state.limit;
@@ -73,10 +87,12 @@ const paymentTransactionSlice = createSlice({
     },
     resetDataPaymentTransaction(state) {
       state.isInitData = false;
+      state.submitRangerDate = false;
       state.paymentTransaction = [];
       state.page = 1;
       state.limit = 10;
       state.transactionIdEdit = '';
+      state.dataBrief = {};
     },
     setTransactionEdit(state, action) {
       state.transactionIdEdit = action.payload.id;
@@ -85,9 +101,21 @@ const paymentTransactionSlice = createSlice({
       state.type = action.payload.type != undefined ? action.payload.type : state.type;
       state.status = action.payload.status != undefined ? action.payload.status : state.status;
     },
+    setDataBriefPaymentTransaction(state, action: { payload: { deposit: number; withdraw: number } }) {
+      state.dataBrief.deposit = action.payload.deposit;
+      state.dataBrief.withdraw = action.payload.withdraw;
+      state.submitRangerDate = false;
+    },
+    setDateRangerPaymentTrans(state, action) {
+      state.dateFrom = action.payload.dateFrom;
+      state.dateTo = action.payload.dateTo;
+    },
+    setSubmitDateRangerPaymentTrans(state, action) {
+      state.submitRangerDate = action.payload.submit;
+    },
   },
 });
 
-export const { setDataPaymentTransaction, setLimitOrPagePaymentTransaction, resetDataPaymentTransaction, setTransactionEdit, setQueryPaymentTransaction } = paymentTransactionSlice.actions;
+export const { setDataPaymentTransaction, setLimitOrPagePaymentTransaction, resetDataPaymentTransaction, setTransactionEdit, setQueryPaymentTransaction, setDataBriefPaymentTransaction, setDateRangerPaymentTrans, setSubmitDateRangerPaymentTrans } = paymentTransactionSlice.actions;
 
 export default paymentTransactionSlice.reducer;
