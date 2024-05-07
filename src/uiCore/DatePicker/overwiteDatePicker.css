@@ -1,0 +1,14 @@
+.react-datepicker__month-container {
+  float: left;
+  width: 100%;
+}
+
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-around;
+}
+
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: space-around;
+}

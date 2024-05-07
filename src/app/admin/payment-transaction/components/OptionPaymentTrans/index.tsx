@@ -7,12 +7,13 @@ import { StatusPaymentTranSaction, TypePaymentTranSaction } from '@/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { setQueryPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
+import { setDateRangerPaymentTrans, setQueryPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
+import { DatePickerCustomer } from '@/uiCore';
 
 const cx = classNames.bind(styles);
 
 export function OptionPaymentTransaction(): JSX.Element {
-  const { type, status } = useAppSelector((state) => state.paymentTransaction);
+  const { type, status, dateFrom, dateTo } = useAppSelector((state) => state.paymentTransaction);
   const [openOption, setOpenOption] = useState(false);
   const [openOptionStatus, setOpenOptionStatus] = useState(false);
   const dispatch = useAppDispatch();
@@ -20,8 +21,12 @@ export function OptionPaymentTransaction(): JSX.Element {
   return (
     <div className={cx('wrapper')}>
       <h3 className={cx('title', 'text-base')}>Chọn dữ liệu</h3>
-      <div className="flex">
-        <div className={cx('body__item', 'mr-3')}>
+      <div
+        className="flex items-center
+      ">
+        <div className={cx('body__item', 'mr-6')}>
+          <h3 className={cx('body__item--title')}>Chọn trạng thái giao dịch</h3>
+
           <div className={cx('result__box', 'rounded-md')} onClick={() => setOpenOption((pre) => !pre)}>
             <p className={cx('result__text', 'flex-1')}>{type == TypePaymentTranSaction.deposit ? 'Nạp tiền' : 'Rút tiền'}</p>
             <FontAwesomeIcon className={cx('result__icon')} icon={faCaretDown} />
@@ -45,7 +50,8 @@ export function OptionPaymentTransaction(): JSX.Element {
             </li>
           </ul>
         </div>
-        <div className={cx('body__item', 'mr-3')}>
+        <div className={cx('body__item', 'mr-6')}>
+          <h3 className={cx('body__item--title')}>Chọn trạng thái giao dịch</h3>
           <div className={cx('result__box', 'rounded-md')} onClick={() => setOpenOptionStatus((pre) => !pre)}>
             <p className={cx('result__text', 'flex-1')}>{status === StatusPaymentTranSaction.processing ? 'Đang chờ' : status === StatusPaymentTranSaction.success ? 'Thành công' : status === StatusPaymentTranSaction.cancel ? 'Hủy bỏ' : 'Tất cả'}</p>
             <FontAwesomeIcon className={cx('result__icon')} icon={faCaretDown} />
@@ -87,6 +93,18 @@ export function OptionPaymentTransaction(): JSX.Element {
             </li>
           </ul>
         </div>
+        <div className="body__item">
+          <DatePickerCustomer
+            onChange={(data) => {
+              dispatch(setDateRangerPaymentTrans({ dateFrom: data.startDate, dateTo: data.endDate }));
+            }}
+            startDate={dateFrom}
+            endDate={dateTo}
+            selectsRange={false}
+          />
+        </div>
+
+        <button className={cx('body__submit')}> Áp dụng</button>
       </div>
     </div>
   );

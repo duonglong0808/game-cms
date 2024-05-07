@@ -13,8 +13,7 @@ import { OptionPaymentTransaction } from './components/OptionPaymentTrans';
 export default function PaymentTransactionPage(): JSX.Element {
   const { data, pagination } = usePaymentTransaction();
   const { transactionIdEdit, paymentTransaction } = useAppSelector((state) => state.paymentTransaction);
-  const { deposit, withdraw, dateFrom, dateTo } = useDataTotalDepositAndWithdraw();
-  console.log('🛫🛫🛫 ~ file: page.tsx:17 ~ PaymentTransactionPage ~ deposit, withdraw:', deposit, withdraw);
+  const { deposit, withdraw } = useDataTotalDepositAndWithdraw();
 
   let dataTransactionById = null;
   if (transactionIdEdit) {
@@ -81,16 +80,7 @@ export default function PaymentTransactionPage(): JSX.Element {
   return (
     <main className="min-h-full flex flex-col relative">
       <HeaderContent path="PaymentTransaction" title="Quản lý nạp rút tiền người dùng" />
-      <div>
-        <DatePickerCustomer
-          onChange={(data) => {
-            dispatch(setDateRangerPaymentTrans({ dateFrom: data.startDate, dateTo: data.endDate }));
-          }}
-          startDate={dateFrom}
-          endDate={dateTo}
-          selectsRange
-        />
-      </div>
+
       <div className="main-page min-h-full flex-1 relative">
         <OptionPaymentTransaction />
         {data.length ? (

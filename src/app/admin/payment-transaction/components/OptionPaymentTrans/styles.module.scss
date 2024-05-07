@@ -8,6 +8,16 @@
   margin-bottom: 20px;
 }
 
+.body__item {
+  text-align: center;
+
+  &--title {
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #575962;
+  }
+}
+
 .result__box {
   display: flex;
   align-items: center;
@@ -16,6 +26,8 @@
   border: 1px solid #00000061;
   padding: 4px 12px;
   cursor: pointer;
+  min-width: 124px;
+  margin: 0 auto 12px;
 }
 
 .result__icon {
@@ -57,6 +69,15 @@
 .option__item--bottom {
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
+}
+
+.body__submit {
+  background-color: var(--primary-color);
+  height: fit-content;
+  padding: 8px 16px;
+  margin-left: 20px;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 @keyframes heightAscending {
