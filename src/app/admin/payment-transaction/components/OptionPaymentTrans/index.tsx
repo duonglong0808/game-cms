@@ -7,7 +7,7 @@ import { StatusPaymentTranSaction, TypePaymentTranSaction } from '@/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { setDateRangerPaymentTrans, setQueryPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
+import { setDateRangerPaymentTrans, setQueryPaymentTransaction, setSubmitDateRangerPaymentTrans } from '@/lib/redux/app/paymentTransaction.slice';
 import { DatePickerCustomer } from '@/uiCore';
 
 const cx = classNames.bind(styles);
@@ -95,16 +95,24 @@ export function OptionPaymentTransaction(): JSX.Element {
         </div>
         <div className="body__item">
           <DatePickerCustomer
+            dateFormat="YYYY-MM-DD"
             onChange={(data) => {
               dispatch(setDateRangerPaymentTrans({ dateFrom: data.startDate, dateTo: data.endDate }));
             }}
             startDate={dateFrom}
             endDate={dateTo}
-            selectsRange={false}
+            selectsRange={true}
           />
         </div>
 
-        <button className={cx('body__submit')}> Áp dụng</button>
+        <button
+          className={cx('body__submit')}
+          onClick={() => {
+            dispatch(setSubmitDateRangerPaymentTrans({ submit: true }));
+          }}>
+          {' '}
+          Áp dụng
+        </button>
       </div>
     </div>
   );

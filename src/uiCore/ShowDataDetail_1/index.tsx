@@ -5,7 +5,22 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const cx = classNames.bind(styles);
 
-export function ShowDataDetailV1({ colorTitle, colorValue, iconTitle, title, unit, value }: { title: string; iconTitle: IconProp; value: number; unit: string; colorTitle: string; colorValue: string }): JSX.Element {
+export function ShowDataDetailV1({
+  colorTitle,
+  colorValue,
+  iconTitle,
+  title,
+  unit,
+  value,
+}: {
+  //
+  title: string;
+  value: number | string;
+  unit: string;
+  colorTitle?: string;
+  colorValue?: string;
+  iconTitle?: IconProp;
+}): JSX.Element {
   return (
     <div className={cx('wrapper', 'rounded-xl')}>
       <div className={cx('header', 'flex items-center')}>
@@ -16,7 +31,15 @@ export function ShowDataDetailV1({ colorTitle, colorValue, iconTitle, title, uni
           }}>
           {title}
         </h3>
-        <FontAwesomeIcon icon={iconTitle} color={colorTitle} className={cx('header__icon')} />
+        {iconTitle && (
+          <FontAwesomeIcon
+            icon={iconTitle}
+            style={{
+              color: colorTitle,
+            }}
+            className={cx('header__icon')}
+          />
+        )}
       </div>
       <div className={cx('content', 'flex items-center')} style={{ color: colorValue }}>
         <span className={cx('content__value')}>{value}</span>

@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -28,8 +30,8 @@ export function DatePickerCustomer({ endDate, selectsRange, startDate, onChange,
 
   useEffect(() => {
     if (startDateCus && endDateCus) {
-      const startDateISO = new Date(startDateCus).toISOString();
-      const endDateISO = new Date(endDateCus).toISOString();
+      const startDateISO = moment(startDateCus).format(dateFormat || 'YYYY-MM-DD HH:mm:ss');
+      const endDateISO = moment(endDateCus).format(dateFormat || 'YYYY-MM-DD HH:mm:ss');
 
       onChange({ startDate: startDateISO, endDate: endDateISO });
     }
@@ -54,12 +56,18 @@ export function DatePickerCustomer({ endDate, selectsRange, startDate, onChange,
           <DatePicker
             dateFormat={dateFormat}
             onChange={(dates: any) => {
-              if (!startDateCus) setStartDateCus(dates[0]);
-              else {
-                setEndDateCus(dates[1]);
-              }
-              setOpenSelectDate(false);
+              console.log('🛫🛫🛫 ~ file: index.tsx:59 ~ DatePickerCustomer ~ dates:', dates);
+              setStartDateCus(dates[0]);
+              setEndDateCus(dates[1]);
+              if (!dates?.includes(null)) setOpenSelectDate(false);
+
+              // if (!startDateCus) setStartDateCus(dates[0]);
+              // else {
+              //   setEndDateCus(dates[1]);
+              //   setOpenSelectDate(false);
+              // }
             }}
+            onClickOutside={() => setOpenSelectDate(false)}
             startDate={startDateCus}
             endDate={endDateCus}
             selectsRange={selectsRange}
@@ -73,6 +81,7 @@ export function DatePickerCustomer({ endDate, selectsRange, startDate, onChange,
               setOpenSelectDate(false);
             }}
             selected={startDateCus}
+            onClickOutside={() => setOpenSelectDate(false)}
             inline
           />
         )

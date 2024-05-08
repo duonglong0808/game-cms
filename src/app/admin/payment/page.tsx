@@ -6,15 +6,13 @@ import { usePaymentType } from './ultils/handlePaymentType';
 import { useAppDispatch } from '@/lib';
 import { resetDataPaymentType, setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
 import Pagination from '@/uiCore/Pagination';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 import { PaginationControl } from '@/uiCore/LimitControl';
 
 export default function PaymentTypePage(): JSX.Element {
   const { data, pagination } = usePaymentType();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  console.log('🚀 ~ PaymentTypePage ~ searchParams:', searchParams);
 
   const dispatch = useAppDispatch();
 

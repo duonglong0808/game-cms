@@ -109,6 +109,7 @@ const paymentTransactionSlice = createSlice({
     setDateRangerPaymentTrans(state, action) {
       state.dateFrom = action.payload.dateFrom;
       state.dateTo = action.payload.dateTo;
+      state.submitRangerDate = false;
     },
     setSubmitDateRangerPaymentTrans(state, action) {
       state.submitRangerDate = action.payload.submit;

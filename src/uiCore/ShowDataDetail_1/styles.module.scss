@@ -5,25 +5,34 @@
   -webkit-box-shadow: -2px 1px 19px 4px rgba(207, 199, 199, 0.79);
   -moz-box-shadow: -2px 1px 19px 4px rgba(207, 199, 199, 0.79);
   padding: 12px;
+  margin: 20px;
 }
 
 .header {
   &__title {
     font-size: 16px;
+    color: black;
+    font-weight: 600;
   }
 
   &__icon {
     width: 18px;
+    color: black;
+    margin-left: 12px;
   }
 }
 
 .content {
   font-size: 16px;
+  color: black;
+  font-weight: 500;
 
   &__value {
+    // font-size: 16px;
   }
 
   &__unit {
+    margin-left: 4px;
     text-transform: uppercase;
   }
 }

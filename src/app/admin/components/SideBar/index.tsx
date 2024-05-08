@@ -6,8 +6,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { faChevronDown, faDice, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/lib';
+
+import { usePathname } from 'next/navigation';
 
 const cx = classNames.bind(styles);
 
@@ -45,16 +47,15 @@ export function SideBars(): JSX.Element {
     {
       title: 'Demo',
       icon: faDice,
-      link: '/admin/dice',
       subMenu: [
-        // {
-        //   title: 'Danh sách bàn',
-        //   link: '/admin/dice',
-        // },
-        // {
-        //   title: 'Nạp tiền, rút tiền',
-        //   link: '/admin/payment-transaction',
-        // },
+        {
+          title: 'Danh sách',
+          link: '/admin/dice',
+        },
+        {
+          title: 'Lịc sử',
+          link: '/admin/dice-history',
+        },
       ],
     },
     {
@@ -64,8 +65,17 @@ export function SideBars(): JSX.Element {
       subMenu: [],
     },
   ];
-
+  const currentPage = usePathname();
   const [navActive, setNavActive] = useState(0);
+
+  useEffect(() => {
+    const nav = dataNav.findIndex((nav) => nav.link === currentPage || nav.subMenu.find((e) => e.link === currentPage)) || 0;
+    const elementChild = document.querySelector(`.nav-parent__sub--${nav}`) as HTMLDivElement;
+    if (elementChild) {
+      elementChild.style.display = 'block';
+    }
+    setNavActive(nav);
+  }, [currentPage]);
 
   return (
     <div className={cx('sideBar-wrapper')}>

@@ -93,6 +93,18 @@ export const useDataTotalDepositAndWithdraw = () => {
     fetchData();
   }, [submitRangerDate]);
 
+  // return {
+  //   deposit:
+  //     dataBrief.deposit?.toLocaleString('en-US', {
+  //       maximumFractionDigits: 2,
+  //       useGrouping: true,
+  //     }) || 0,
+  //   withdraw:
+  //     dataBrief.withdraw?.toLocaleString('en-US', {
+  //       maximumFractionDigits: 2,
+  //       useGrouping: true,
+  //     }) || 0,
+  // };
   return dataBrief;
 };
 

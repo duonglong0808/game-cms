@@ -7,13 +7,15 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataPaymentTransaction, setDateRangerPaymentTrans, setLimitOrPagePaymentTransaction, setTransactionEdit } from '@/lib/redux/app/paymentTransaction.slice';
 import { useEffect } from 'react';
 import { StatusPaymentTranSaction } from '@/constants';
-import { DatePickerCustomer, PopupEditOrAddV1 } from '@/uiCore';
+import { DatePickerCustomer, PopupEditOrAddV1, ShowDataDetailV1 } from '@/uiCore';
 import { OptionPaymentTransaction } from './components/OptionPaymentTrans';
+import { faMeteor } from '@fortawesome/free-solid-svg-icons';
 
 export default function PaymentTransactionPage(): JSX.Element {
   const { data, pagination } = usePaymentTransaction();
   const { transactionIdEdit, paymentTransaction } = useAppSelector((state) => state.paymentTransaction);
   const { deposit, withdraw } = useDataTotalDepositAndWithdraw();
+  console.log('🛫🛫🛫 ~ file: page.tsx:17 ~ PaymentTransactionPage ~ deposit, withdraw:', deposit, withdraw);
 
   let dataTransactionById = null;
   if (transactionIdEdit) {
@@ -83,6 +85,33 @@ export default function PaymentTransactionPage(): JSX.Element {
 
       <div className="main-page min-h-full flex-1 relative">
         <OptionPaymentTransaction />
+        <div className="flex justify-around">
+          <ShowDataDetailV1
+            iconTitle={faMeteor}
+            title="Tổng nạp đã duyệt"
+            unit="VNĐ"
+            value={
+              deposit?.toLocaleString('en-US', {
+                maximumFractionDigits: 2,
+                useGrouping: true,
+              }) || 0
+            }
+            colorTitle="#696be7"
+            colorValue="#a6ff00"
+          />
+          <ShowDataDetailV1
+            title="Tổng rút đã duyệt"
+            unit="VNĐ"
+            colorTitle="#696be7"
+            colorValue="red"
+            value={
+              withdraw?.toLocaleString('en-US', {
+                maximumFractionDigits: 2,
+                useGrouping: true,
+              }) || 0
+            }
+          />
+        </div>
         {data.length ? (
           <>
             <Table
