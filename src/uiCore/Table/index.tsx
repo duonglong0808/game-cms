@@ -126,7 +126,7 @@ function Table(props: {
                     </td>
                   ) : (
                     <td key={index2} className={col === 'deleted_at' ? cx('table__value', 'table__value--delete') : cx('table__value')}>
-                      {item[col] || 'Không có dữ liệu'}
+                      <span>{item[col] || 'Không có dữ liệu'}</span>
                     </td>
                   ),
                 )}

@@ -53,6 +53,7 @@ export const useDiceGame = () => {
       national: dice.nationalAuthor,
       image: dice.avtAuthor,
       idLive: dice.idLive,
+      idChat: dice.idChat,
     };
   });
 

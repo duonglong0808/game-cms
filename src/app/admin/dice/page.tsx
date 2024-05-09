@@ -14,6 +14,7 @@ import { upLoadOneFile } from '@/share/upLoadFile';
 
 export default function DicePage(): JSX.Element {
   const { data, pagination } = useDiceGame();
+  console.log('🚀 ~ DicePage ~ data:', data);
   const router = useRouter();
   const { diceGameIdEdit, diceGame } = useAppSelector((state) => state.diceGame);
   const dispatch = useAppDispatch();
@@ -86,6 +87,14 @@ export default function DicePage(): JSX.Element {
           label: 'Key live stream ',
           type: 'text',
           value: dataId.idLive,
+          readOnly: false,
+          canUpdate: true,
+        },
+        {
+          name: 'idChat',
+          label: 'Key chat stream ',
+          type: 'text',
+          value: dataId.idChat,
           readOnly: false,
           canUpdate: true,
         },

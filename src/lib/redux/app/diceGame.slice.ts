@@ -9,6 +9,7 @@ export interface TransactionItem {
   avtAuthor: string;
   nationalAuthor: string;
   idLive: string;
+  idChat: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -27,10 +27,6 @@
   border: none;
 }
 
-.table__value {
-  border: none;
-}
-
 // td,
 // th,
 // thead,
@@ -74,6 +70,14 @@
   vertical-align: middle;
   border: none;
   padding: 4px !important;
+  max-width: 25vw;
+
+  & span {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+  }
 }
 
 .table__value--delete {
