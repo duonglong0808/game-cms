@@ -45,7 +45,7 @@ export function SideBars(): JSX.Element {
       ],
     },
     {
-      title: 'Demo',
+      title: 'Xóc đĩa',
       icon: faDice,
       subMenu: [
         {
@@ -53,7 +53,7 @@ export function SideBars(): JSX.Element {
           link: '/admin/dice',
         },
         {
-          title: 'Lịc sử',
+          title: 'Lịch sử',
           link: '/admin/dice-history',
         },
       ],
@@ -81,9 +81,9 @@ export function SideBars(): JSX.Element {
     <div className={cx('sideBar-wrapper')}>
       <div className={cx('sideBar__top')}>
         <Link href={'/'} className={cx('logos', 'flex')}>
-          {/* <Image alt="LOGO" src={'/KU_logo.svg'} height={22} width={100} className="hidden max-sm:block" /> */}
-          <Image alt="LOGO" src={'/next.svg'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} />
-          {/* <Image alt="LOGO" src={'/logo.png'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} /> */}
+          <Image alt="LOGO" src={'/KU_logo.svg'} height={22} width={100} className="hidden max-sm:block" />
+          {/* <Image alt="LOGO" src={'/next.svg'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} /> */}
+          <Image alt="LOGO" src={'/logo.png'} height={22} width={120} className={cx('logo--pc', 'max-sm:hidden')} />
         </Link>
         <div className={cx('w-full', 'sidebar-user')}>
           <div className={cx('sidebar-user__avt-box')}>
