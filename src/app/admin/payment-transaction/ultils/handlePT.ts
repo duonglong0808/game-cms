@@ -58,6 +58,7 @@ export const usePaymentTransaction = () => {
       accountReceive: item.bankReceive.accountOwner,
       statusText: statusText,
       amount: item.point,
+      image: item?.receipt,
       createdAt: formatDateTime(item.createdAt),
     };
   });
