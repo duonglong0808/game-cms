@@ -15,6 +15,11 @@ export const createBank = (data: object) => {
   return axios.post(`/bank`, data);
 };
 
+export const deleteBankPayment = (idPayment: number, idBank: number) => {
+  const axios = new BaseAxios();
+  return axios.delete(`/payment/${idPayment}/bank/${idBank}`);
+};
+
 export const addBankToPayment = (paymentId: number, bankId: number) => {
   const axios = new BaseAxios();
   return axios.post(`/payment/${paymentId}/bank`, { banks: [bankId] });

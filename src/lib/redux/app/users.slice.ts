@@ -38,9 +38,18 @@ const usersSlice = createSlice({
       state.limit = action.payload.limit ? action.payload.limit : state.limit;
       state.page = action.payload.page ? action.payload.page : state.page;
     },
+    resetDataUser: (state) => {
+      (state.users = []), (state.page = 1);
+      state.limit = 10;
+      state.total = 0;
+      state.isInitData = false;
+    },
+    refreshDataUser: (state) => {
+      state.isInitData = false;
+    },
   },
 });
 
-export const { setDataUsers, setLimitOrPageUser } = usersSlice.actions;
+export const { setDataUsers, setLimitOrPageUser, resetDataUser, refreshDataUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

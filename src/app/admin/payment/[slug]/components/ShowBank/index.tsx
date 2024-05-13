@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import Table from '@/uiCore/Table';
-import { handleAddBankToPayment, usePaymentBank } from '../../ultils/handleDetailPayment';
+import { handleAddBankToPayment, handleDeleteBankPayment, usePaymentBank } from '../../ultils/handleDetailPayment';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -92,7 +92,9 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
           data={data}
           columnDelete
           columnEdit={false}
-          handleDelete={(id) => {}}
+          handleDelete={(id) => {
+            handleDeleteBankPayment(idPayment, id, dispatch);
+          }}
 
           // handleEdit={(id) => {}}
         />

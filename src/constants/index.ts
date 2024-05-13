@@ -63,3 +63,13 @@ export const TypeUpdatePointUser = {
   up: 0,
   down: 1,
 };
+
+export const TypeUser = {
+  Normal: 'Normal',
+  Admin: 'Admin-CMS',
+};
+
+export const Status = {
+  Active: 'ACTIVE',
+  Inactive: 'INACTIVE',
+};

@@ -42,4 +42,13 @@ export class BaseAxios {
       return false;
     }
   }
+
+  async delete(url: string, config?: any) {
+    try {
+      const response = await this.request.delete(url, config);
+      return response.data;
+    } catch (error) {
+      return false;
+    }
+  }
 }

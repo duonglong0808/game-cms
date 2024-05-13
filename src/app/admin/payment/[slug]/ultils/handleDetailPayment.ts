@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { addBankToPayment, createBank, getAllBankPayment, getAllPayment } from './api';
+import { addBankToPayment, createBank, deleteBankPayment, getAllBankPayment, getAllPayment } from './api';
 import { setDataPayment, setDataPaymentBanks } from '@/lib/redux/app/payment.slice';
 import { dataBankStatics } from '@/constants';
 
@@ -30,6 +30,19 @@ export const usePaymentBank = (paymentId: number) => {
   return {
     data: banks,
   };
+};
+
+export const handleDeleteBankPayment = async (paymentId: number, bankId: number, dispatch: any) => {
+  const resDeleteBank = await deleteBankPayment(paymentId, bankId);
+  // console.log('🚀 ~ handleDeleteBankPayment ~ resDeleteBank:', resDeleteBank);
+  if (resDeleteBank) {
+    dispatch(
+      setDataPaymentBanks({
+        data: [],
+        isInitDataBank: false,
+      }),
+    );
+  }
 };
 
 export const usePayment = (paymentTypeId: number) => {

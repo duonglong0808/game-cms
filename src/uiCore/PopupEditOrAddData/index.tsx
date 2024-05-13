@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 const cx = classNames.bind(styles);
 
-interface ItemDto {
+export interface ItemAddOrUpdateDto {
   name: string;
   label: string;
   type: string;
@@ -26,7 +26,7 @@ export interface DataEditDto {
   id?: number;
   title?: string;
   textWarning?: string;
-  data: ItemDto[];
+  data: ItemAddOrUpdateDto[];
   onSubmit?: (id: number, data: any, dispatch: any) => void;
   onSubmitCreate?: (data: any, dispatch: any) => void;
   onCancel: () => void;
@@ -39,7 +39,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
 
   const dispatch = useAppDispatch();
 
-  const handleOnChangeInputOrSelect = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, col: ItemDto) => {
+  const handleOnChangeInputOrSelect = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, col: ItemAddOrUpdateDto) => {
     //   const element = e.target as HTMLOptionElement;
     setDataState((pre) => {
       const dataNew = pre.map((item) => {
@@ -56,7 +56,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
     });
   };
 
-  const handleChangeFile = (urlImage: string, col: ItemDto) => {
+  const handleChangeFile = (urlImage: string, col: ItemAddOrUpdateDto) => {
     setDataState((pre) => {
       const dataNew = pre.map((item) => {
         if (item.name === col.name) {
