@@ -52,9 +52,9 @@ export const usePaymentTransaction = () => {
     return {
       id: item.id,
       userTransfer: item.user.username,
-      bankTransfer: item.bankTransfer?.nameBank,
+      bankTransfer: item?.bankTransfer?.nameBank,
       accountTransfer: item.bankTransfer?.accountOwner,
-      bankReceive: item.bankReceive.nameBank,
+      bankReceive: item?.bankReceive?.nameBank,
       accountReceive: item.bankReceive.accountOwner,
       statusText: statusText,
       amount: item.point,
