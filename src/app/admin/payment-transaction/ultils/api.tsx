@@ -1,6 +1,6 @@
 import { BaseAxios } from '@/lib';
 
-export const getAllPaymentTransactions = (limit: number, page: number, type: number, status: number, dateFrom: string, dateTo: string, sort?: string, typeSort?: string) => {
+export const getAllPaymentTransactions = (limit: number, page: number, type?: number, status?: number, dateFrom?: string, dateTo?: string, sort?: string, typeSort?: string) => {
   const axios = new BaseAxios();
 
   let url = `/payment-transaction/cms?limit=${limit}&page=${page}&type=${type}`;

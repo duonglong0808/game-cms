@@ -15,7 +15,7 @@ export const usePaymentTransaction = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || submitRangerDate || limit != limitRef.current || page != pageRef.current) {
-        const res = await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, sort, typeSort);
+        const res = submitRangerDate ? await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, sort, typeSort) : await getAllPaymentTransactions(limit, page);
         if (res?.data) {
           const { data, pagination } = res.data;
           pageRef.current = page;
@@ -52,10 +52,10 @@ export const usePaymentTransaction = () => {
     return {
       id: item.id,
       userTransfer: item.user.username,
-      bankTransfer: item?.bankTransfer?.nameBank,
-      accountTransfer: item.bankTransfer?.accountOwner,
-      bankReceive: item?.bankReceive?.nameBank,
-      accountReceive: item.bankReceive.accountOwner,
+      bankTransfer: item?.bankTransfer?.nameBank || '',
+      accountTransfer: item.bankTransfer?.accountOwner || '',
+      bankReceive: item?.bankReceive?.nameBank || '',
+      accountReceive: item?.bankReceive?.accountOwner || '',
       statusText: statusText,
       amount: item.point,
       image: item?.receipt,
