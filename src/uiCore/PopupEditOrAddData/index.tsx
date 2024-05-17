@@ -15,6 +15,7 @@ export interface ItemAddOrUpdateDto {
   value: string | number;
   readOnly: boolean;
   required?: boolean;
+  placeholder?: string;
   dataOption?: {
     text?: string;
     value?: string | number;
@@ -137,6 +138,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
                 type={col.type}
                 required={col.required}
                 readOnly={col.readOnly}
+                placeholder={col.placeholder}
                 className={cx('group__data--input', { 'group__data--input-readOnly': col.readOnly })}
                 onChange={(e) => {
                   handleOnChangeInputOrSelect(e, col);

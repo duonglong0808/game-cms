@@ -4,7 +4,7 @@ import { HeaderContent } from '../components/HeaderContent';
 import { handleUpdateStatusPaymentTransaction, useDataTotalDepositAndWithdraw, usePaymentTransaction } from './ultils/handlePT';
 import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch, useAppSelector } from '@/lib';
-import { resetDataPaymentTransaction, setDateRangerPaymentTrans, setLimitOrPagePaymentTransaction, setTransactionEdit } from '@/lib/redux/app/paymentTransaction.slice';
+import { resetDataPaymentTransaction, setLimitOrPagePaymentTransaction, setTransactionEdit } from '@/lib/redux/app/paymentTransaction.slice';
 import { useEffect } from 'react';
 import { StatusPaymentTranSaction } from '@/constants';
 import { DatePickerCustomer, PopupEditOrAddV1, ShowDataDetailV1 } from '@/uiCore';
@@ -15,7 +15,7 @@ export default function PaymentTransactionPage(): JSX.Element {
   const { data, pagination } = usePaymentTransaction();
   const { transactionIdEdit, paymentTransaction } = useAppSelector((state) => state.paymentTransaction);
   const { deposit, withdraw } = useDataTotalDepositAndWithdraw();
-  console.log('🛫🛫🛫 ~ file: page.tsx:17 ~ PaymentTransactionPage ~ deposit, withdraw:', deposit, withdraw);
+  // console.log('🛫🛫🛫 ~ file: page.tsx:17 ~ PaymentTransactionPage ~ deposit, withdraw:', deposit, withdraw);
 
   let dataTransactionById = null;
   if (transactionIdEdit) {

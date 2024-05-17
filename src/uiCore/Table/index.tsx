@@ -118,6 +118,10 @@ function Table(props: {
                     <td key={index2} className={cx('table__value', 'td__status')}>
                       <span className={item[col] == 'ACTIVE' ? cx('active') : cx('not__active')}>{item[col] == 'ACTIVE' ? `Active` : `Not Active `}</span>
                     </td>
+                  ) : col === 'statusText' ? (
+                    <td key={index2} className={cx('table__value', 'td__status')}>
+                      <span className={cx({ active: item[col] == 1 }, { not__active: item[col] == 0 }, { cancel: item[col] == 2 })}>{item[col] == 0 ? 'Đang chờ xử lý' : item[col] == 1 ? 'Thành công' : item[col] == 2 ? 'Hủy bỏ' : ''}</span>
+                    </td>
                   ) : col === 'image' || col === 'methodImage' ? (
                     <td key={index2} className={cx('table__value', 'box__image')}>
                       {item[col]?.split(',')?.map((image: any, index3: number) => (

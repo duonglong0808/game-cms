@@ -9,12 +9,15 @@ import { resetDataUser, setLimitOrPageUser } from '@/lib/redux/app/users.slice';
 import { useEffect, useState } from 'react';
 import { ItemAddOrUpdateDto, PopupEditOrAddV1 } from '@/uiCore';
 import { Status, TypeUser } from '@/constants';
+import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
+import { ShowBankUser } from './components/ShowBank';
 
 export default function PageUser(): JSX.Element {
   const dataUser = useUsers();
   const { pagination, data } = dataUser;
   const dispatch = useAppDispatch();
   const [userEdit, setUserId] = useState('');
+  const [userCheckBank, setUserCheckBank] = useState(0);
 
   let dataUserEdit: ItemAddOrUpdateDto[] = [];
   if (userEdit) {
@@ -73,6 +76,16 @@ export default function PageUser(): JSX.Element {
             },
           ],
         },
+
+        {
+          name: 'password',
+          label: 'Mật khẩu mới người dùng',
+          type: 'text',
+          value: '',
+          readOnly: false,
+          canUpdate: true,
+          placeholder: 'Nhập mật khẩu mới(Nên nhập 8 ký tự trở lên)',
+        },
       ];
     }
   }
@@ -91,7 +104,7 @@ export default function PageUser(): JSX.Element {
     <main className="min-h-full flex flex-col">
       <HeaderContent path="User" title="Quản lý người dùng" />
       {data.length ? (
-        <div className="main-page min-h-full flex-1">
+        <div className="main-page min-h-full flex-1 relative">
           <Table
             textColor="black"
             data={data}
@@ -101,6 +114,15 @@ export default function PageUser(): JSX.Element {
             handleEdit={(id) => {
               setUserId(String(id));
             }}
+            moreColumnsOptions={[
+              {
+                icon: faBuildingColumns,
+                name: 'Ngân hàng',
+                handleClick: (item) => {
+                  setUserCheckBank(item.id);
+                },
+              },
+            ]}
           />
           <div>
             <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
@@ -119,6 +141,8 @@ export default function PageUser(): JSX.Element {
           ) : (
             <></>
           )}
+
+          {userCheckBank ? <ShowBankUser userId={userCheckBank} setUserCheckBank={() => setUserCheckBank(0)} /> : <></>}
         </div>
       ) : (
         <></>

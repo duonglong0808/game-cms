@@ -34,29 +34,30 @@ export const usePaymentTransaction = () => {
   }, [isInitData, limit, page, submitRangerDate]);
 
   const dataAfterHandle = paymentTransaction.map((item: any) => {
-    let statusText = '';
-    switch (item.status) {
-      case StatusPaymentTranSaction.processing:
-        statusText = 'Chờ xử lý';
-        break;
-      case StatusPaymentTranSaction.success:
-        statusText = 'Thành công';
-        break;
-      case StatusPaymentTranSaction.cancel:
-        statusText = 'Hủy bỏ';
-        break;
-      default:
-        break;
-    }
+    // let statusText = '';
+    // switch (item.status) {
+    //   case StatusPaymentTranSaction.processing:
+    //     statusText = 'Chờ xử lý';
+    //     break;
+    //   case StatusPaymentTranSaction.success:
+    //     statusText = 'Thành công';
+    //     break;
+    //   case StatusPaymentTranSaction.cancel:
+    //     statusText = 'Hủy bỏ';
+    //     break;
+    //   default:
+    //     break;
+    // }
 
     return {
       id: item.id,
-      userTransfer: item.user.username,
-      bankTransfer: item?.bankTransfer?.nameBank || '',
-      accountTransfer: item.bankTransfer?.accountOwner || '',
+      userTrans: item.user.username,
+      bankTrans: item?.bankTransfer?.nameBank || '',
+      accountTrans: item.bankTransfer?.accountOwner || '',
+      accountNumberTrans: item.bankTransfer?.accountNumber || '',
       bankReceive: item?.bankReceive?.nameBank || '',
       accountReceive: item?.bankReceive?.accountOwner || '',
-      statusText: statusText,
+      statusText: item.status,
       amount: item.point,
       image: item?.receipt,
       createdAt: formatDateTime(item.createdAt),

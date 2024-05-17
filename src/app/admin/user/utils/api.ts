@@ -9,3 +9,8 @@ export const updateUser = (userId: number, data: any) => {
   const axios = new BaseAxios();
   return axios.patch(`/user/cms/${userId}`, data);
 };
+
+export const getBankByUserId = (userId: number) => {
+  const axios = new BaseAxios();
+  return axios.get(`/bank/cms?userId=${userId}&page=${1}&limit=${10}`);
+};

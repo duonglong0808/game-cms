@@ -91,8 +91,9 @@
   background: #55dbffbf;
   color: #fff;
   display: block;
-  width: 80px;
+  width: 110px;
   margin: 0 auto;
+  font-size: small;
 
   &::after {
     position: absolute;
@@ -124,6 +125,28 @@
     content: '';
     border-radius: 50%;
     background: #f2be1d;
+  }
+}
+
+.cancel {
+  position: relative;
+  border-radius: 30px;
+  padding: 4px 10px 4px 25px;
+  background: #d4cfcf;
+  color: #cf4d0c;
+  display: block;
+  width: 110px;
+  margin: 0 auto;
+
+  &::after {
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    width: 8px;
+    height: 8px;
+    content: '';
+    border-radius: 50%;
+    background: #fb0b0b;
   }
 }
 
