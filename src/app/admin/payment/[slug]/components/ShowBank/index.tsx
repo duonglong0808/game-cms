@@ -74,7 +74,7 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
     };
   }, [idPayment]);
 
-  return data.length ? (
+  return (
     <div className={cx('wrapper')}>
       <div className={cx('body__header')}>
         <h1 className={cx('body__header--text', 'flex-1 ')}>{'Danh sách ngân hàng'}</h1>
@@ -85,19 +85,23 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
         <FontAwesomeIcon className={cx('body__header--icon')} icon={faPlus} onClick={() => setIdPaymentSelect('')} />
       </div>
       <div className={cx('min-h-full flex-1')}>
-        <Table
-          // columnNotShow={['slug']}
-          columnNotShow={['binBank', 'isDeleted', 'deletedAt', 'updatedAt', 'userId']}
-          textColor="black"
-          data={data}
-          columnDelete
-          columnEdit={false}
-          handleDelete={(id) => {
-            handleDeleteBankPayment(idPayment, id, dispatch);
-          }}
+        {data.length ? (
+          <Table
+            // columnNotShow={['slug']}
+            columnNotShow={['binBank', 'isDeleted', 'deletedAt', 'updatedAt', 'userId']}
+            textColor="black"
+            data={data}
+            columnDelete
+            columnEdit={false}
+            handleDelete={(id) => {
+              handleDeleteBankPayment(idPayment, id, dispatch);
+            }}
 
-          // handleEdit={(id) => {}}
-        />
+            // handleEdit={(id) => {}}
+          />
+        ) : (
+          <h2 className="text-center text-xl text-gray-700">Không có dữ liệu phù hợp !!</h2>
+        )}
       </div>
       {isShowCrate && (
         <PopupEditOrAddV1
@@ -112,7 +116,5 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
         />
       )}
     </div>
-  ) : (
-    <></>
   );
 }

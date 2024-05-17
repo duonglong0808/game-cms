@@ -38,7 +38,6 @@ export const handleDeleteBankPayment = async (paymentId: number, bankId: number,
   if (resDeleteBank) {
     dispatch(
       setDataPaymentBanks({
-        data: [],
         isInitDataBank: false,
       }),
     );
@@ -97,7 +96,6 @@ export const handleAddBankToPayment = async (paymentId: number, data: any, dispa
     if (resAddBank) {
       dispatch(
         setDataPaymentBanks({
-          data: [],
           isInitDataBank: false,
         }),
       );
