@@ -57,6 +57,7 @@ export const usePaymentTransaction = () => {
       accountNumberTrans: item.bankTransfer?.accountNumber || '',
       bankReceive: item?.bankReceive?.nameBank || '',
       accountReceive: item?.bankReceive?.accountOwner || '',
+      accountNumberReceive: item.bankReceive?.accountNumber || '',
       statusText: item.status,
       amount: item.point,
       image: item?.receipt,
