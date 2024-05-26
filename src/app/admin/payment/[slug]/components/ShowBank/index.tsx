@@ -1,12 +1,12 @@
 import styles from './styles.module.scss';
 import Table from '@/uiCore/Table';
-import { handleAddBankToPayment, handleDeleteBankPayment, usePaymentBank } from '../../ultils/handleDetailPayment';
+import { handleAddBankToPayment, handleDeleteBankPayment, updateBankPayment, usePaymentBank } from '../../ultils/handleDetailPayment';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/lib';
-import { PopupEditOrAddV1 } from '@/uiCore';
+import { ItemAddOrUpdateDto, PopupEditOrAddV1 } from '@/uiCore';
 import { setDataPaymentBanks } from '@/lib/redux/app/payment.slice';
 import { dataBankStatics } from '@/constants';
 
@@ -16,6 +16,56 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
   const { data } = usePaymentBank(idPayment);
   const dispatch = useAppDispatch();
   const [isShowCrate, setIsCreate] = useState(false);
+  const [idBankEdit, setIdBankEdit] = useState<number>();
+  let dataBankEdit: ItemAddOrUpdateDto[] = [];
+  if (idBankEdit) {
+    const bankById: any = data.find((i: any) => i.id === idBankEdit);
+    dataBankEdit = [
+      {
+        name: 'binBank',
+        label: 'Ngân hàng',
+        type: 'options',
+        value: bankById?.binBank,
+        dataOption: dataBankStatics.map((bank) => {
+          return {
+            text: bank.shortName,
+            value: bank.bin,
+          };
+        }),
+        readOnly: false,
+        canUpdate: true,
+        required: true,
+      },
+      {
+        name: 'branch',
+        label: 'Chi nhánh',
+        type: 'text',
+        value: bankById?.branch,
+        readOnly: false,
+        canUpdate: true,
+        required: false,
+      },
+      {
+        name: 'accountOwner',
+        label: 'Chủ tài khoản',
+        type: 'text',
+        value: bankById?.accountOwner,
+        readOnly: false,
+        canUpdate: true,
+        required: true,
+      },
+
+      {
+        name: 'accountNumber',
+        label: 'Số tài khoản',
+        type: 'number',
+        value: bankById?.accountNumber,
+        readOnly: false,
+        canUpdate: true,
+        required: true,
+      },
+    ];
+  }
 
   const dataDto = [
     {
@@ -91,13 +141,14 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
             columnNotShow={['binBank', 'isDeleted', 'deletedAt', 'updatedAt', 'userId']}
             textColor="black"
             data={data}
-            columnDelete
-            columnEdit={false}
-            handleDelete={(id) => {
-              handleDeleteBankPayment(idPayment, id, dispatch);
+            columnDelete={false}
+            columnEdit={true}
+            // handleDelete={(id) => {
+            //   handleDeleteBankPayment(idPayment, id, dispatch);
+            // }}
+            handleEdit={(id) => {
+              setIdBankEdit(id);
             }}
-
-            // handleEdit={(id) => {}}
           />
         ) : (
           <h2 className="text-center text-xl text-gray-700">Không có dữ liệu phù hợp !!</h2>
@@ -113,6 +164,18 @@ export function ShowBankPayment({ idPayment, setIdPaymentSelect }: { idPayment: 
             setIsCreate(false);
           }}
           onCancel={() => setIsCreate(false)}
+        />
+      )}
+      {idBankEdit && (
+        <PopupEditOrAddV1
+          data={dataBankEdit}
+          id={idBankEdit}
+          title="Cập nhật thông tin ngân hàng"
+          onSubmit={(id, data, dispatch) => {
+            updateBankPayment(id, data, dispatch);
+            setIdBankEdit(0);
+          }}
+          onCancel={() => setIdBankEdit(0)}
         />
       )}
     </div>

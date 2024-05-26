@@ -21,6 +21,7 @@ function Table(props: {
   backgroundColorHeader?: string;
   textColorHeader?: string;
   textColor?: string;
+  fontSizeData?: string;
   pageSort?: boolean;
   columnNotShow?: any[];
   handleSort?: () => void;
@@ -32,7 +33,7 @@ function Table(props: {
     handleClick?: (item: any) => void;
   }[];
 }) {
-  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [], handleClickRow, moreColumnsOptions } = props;
+  const { data = [], columnEdit, columnDelete, columnRestore, backgroundColor, textColor, fontSizeData, backgroundColorHeader = '#526dfa', handleEdit, handleDelete, handleRestore, pageSort, handleSort, textColorHeader = '#fff', columnNotShow = [], handleClickRow, moreColumnsOptions } = props;
 
   const allDataShow: any[] = JSON.parse(JSON.stringify(data));
   allDataShow.forEach((item) => {
@@ -129,7 +130,12 @@ function Table(props: {
                       ))}
                     </td>
                   ) : (
-                    <td key={index2} className={col === 'deleted_at' ? cx('table__value', 'table__value--delete') : cx('table__value')}>
+                    <td
+                      key={index2}
+                      className={col === 'deleted_at' ? cx('table__value', 'table__value--delete') : cx('table__value')}
+                      style={{
+                        fontSize: fontSizeData ? fontSizeData : '14px',
+                      }}>
                       <span>{item[col] || 'Không có dữ liệu'}</span>
                     </td>
                   ),

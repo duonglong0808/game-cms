@@ -21,9 +21,7 @@ export function OptionPaymentTransaction(): JSX.Element {
   return (
     <div className={cx('wrapper')}>
       <h3 className={cx('title', 'text-base')}>Chọn dữ liệu</h3>
-      <div
-        className="flex items-center
-      ">
+      <div className="flex items-center">
         <div className={cx('body__item', 'mr-6')}>
           <h3 className={cx('body__item--title')}>Chọn trạng thái giao dịch</h3>
 
@@ -110,7 +108,6 @@ export function OptionPaymentTransaction(): JSX.Element {
           onClick={() => {
             dispatch(setSubmitDateRangerPaymentTrans({ submit: true }));
           }}>
-          {' '}
           Áp dụng
         </button>
       </div>

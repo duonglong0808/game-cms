@@ -116,7 +116,7 @@ export default function PaymentTransactionPage(): JSX.Element {
           <>
             <Table
               // columnNotShow={['slug']}
-
+              fontSizeData="13.5px"
               textColor="black"
               data={data}
               columnDelete

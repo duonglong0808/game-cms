@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { addBankToPayment, createBank, deleteBankPayment, getAllBankPayment, getAllPayment } from './api';
+import { addBankToPayment, createBank, deleteBankPayment, getAllBankPayment, getAllPayment, updateBank } from './api';
 import { setDataPayment, setDataPaymentBanks } from '@/lib/redux/app/payment.slice';
 import { dataBankStatics } from '@/constants';
 
@@ -28,7 +28,7 @@ export const usePaymentBank = (paymentId: number) => {
   }, [isInitDataBank]);
 
   return {
-    data: banks,
+    data: banks || [],
   };
 };
 
@@ -102,5 +102,17 @@ export const handleAddBankToPayment = async (paymentId: number, data: any, dispa
     }
   } else {
     alert('Có lỗi xảy ra, thử lại sau ít phút');
+  }
+};
+
+export const updateBankPayment = async (id: number, data: any, dispatch: any) => {
+  const nameBank = dataBankStatics.find((i) => i.bin == data?.binBank)?.name;
+  const req = await updateBank(id, { ...data, nameBank });
+  if (req.data) {
+    dispatch(
+      setDataPaymentBanks({
+        isInitDataBank: false,
+      }),
+    );
   }
 };

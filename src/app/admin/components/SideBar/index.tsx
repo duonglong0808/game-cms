@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { faChevronDown, faDice, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faCoins, faDice, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/lib';
@@ -58,6 +58,12 @@ export function SideBars(): JSX.Element {
         },
       ],
     },
+    // {
+    //   title: 'Cents',
+    //   icon: faCoins,
+    //   link: '/admin/cents',
+    //   subMenu: [],
+    // },
     {
       title: 'Settings',
       icon: faHouse,

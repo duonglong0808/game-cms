@@ -24,3 +24,8 @@ export const addBankToPayment = (paymentId: number, bankId: number) => {
   const axios = new BaseAxios();
   return axios.post(`/payment/${paymentId}/bank`, { banks: [bankId] });
 };
+
+export const updateBank = (id: number, data: object) => {
+  const axios = new BaseAxios();
+  return axios.patch(`/bank/${id}`, data);
+};

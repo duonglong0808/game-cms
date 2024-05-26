@@ -12,13 +12,17 @@ export interface TransactionItem {
   };
   bankTransfer: {
     id: number;
+    binBank: number;
     nameBank: string;
     accountOwner: string;
+    accountNumber: number;
   };
   bankReceive: {
     id: number;
+    binBank: number;
     nameBank: string;
     accountOwner: string;
+    accountNumber: number;
   };
   qrCode: string;
   type: number;
@@ -29,6 +33,7 @@ export interface TransactionItem {
   // notificationId: number;
   // notification: NotificationModel;
   showAccount: boolean;
+  createdAt: string;
 }
 
 interface PaymentTransactionBrief {
@@ -68,10 +73,10 @@ const paymentTransactionSlice = createSlice({
     sort: 'createdAt',
     typeSort: TypeSort.DESC,
     transactionIdEdit: '',
-    dateFrom: '',
-    dateTo: '',
+    dateFrom: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 31).toISOString(),
+    dateTo: new Date().toISOString(),
     dataBrief: {},
-    submitRangerDate: false,
+    submitRangerDate: true,
   } as PaymentTransactionSlice,
   reducers: {
     setDataPaymentTransaction: (state, action) => {

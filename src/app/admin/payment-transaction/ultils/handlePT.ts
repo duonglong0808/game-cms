@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
 import { getAllPaymentTransactions, getPaymentTransactionsBrief, updateStatusTransaction } from './api';
 import { resetDataPaymentTransaction, setDataBriefPaymentTransaction, setDataPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
-import { StatusPaymentTranSaction, TypePaymentTranSaction } from '@/constants';
+import { StatusPaymentTranSaction, TypePaymentTranSaction, dataBankStatics } from '@/constants';
 import { formatDateTime } from '@/share';
 
 export const usePaymentTransaction = () => {
@@ -15,7 +15,7 @@ export const usePaymentTransaction = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || submitRangerDate || limit != limitRef.current || page != pageRef.current) {
-        const res = submitRangerDate ? await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, sort, typeSort) : await getAllPaymentTransactions(limit, page);
+        const res = await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
           pageRef.current = page;
@@ -33,29 +33,15 @@ export const usePaymentTransaction = () => {
     fetchData();
   }, [isInitData, limit, page, submitRangerDate]);
 
-  const dataAfterHandle = paymentTransaction.map((item: any) => {
-    // let statusText = '';
-    // switch (item.status) {
-    //   case StatusPaymentTranSaction.processing:
-    //     statusText = 'Chờ xử lý';
-    //     break;
-    //   case StatusPaymentTranSaction.success:
-    //     statusText = 'Thành công';
-    //     break;
-    //   case StatusPaymentTranSaction.cancel:
-    //     statusText = 'Hủy bỏ';
-    //     break;
-    //   default:
-    //     break;
-    // }
-
+  const dataAfterHandle = paymentTransaction.map((item) => {
     return {
       id: item.id,
+      type: item.type == TypePaymentTranSaction.deposit ? 'Nạp tiền' : 'Rút tiền',
       userTrans: item.user.username,
-      bankTrans: item?.bankTransfer?.nameBank || '',
+      bankTrans: dataBankStatics.find((i) => +i.bin == item.bankTransfer?.binBank)?.shortName || '',
       accountTrans: item.bankTransfer?.accountOwner || '',
       accountNumberTrans: item.bankTransfer?.accountNumber || '',
-      bankReceive: item?.bankReceive?.nameBank || '',
+      bankReceive: dataBankStatics.find((i) => +i.bin == item.bankReceive?.binBank)?.shortName || '',
       accountReceive: item?.bankReceive?.accountOwner || '',
       accountNumberReceive: item.bankReceive?.accountNumber || '',
       statusText: item.status,
