@@ -74,7 +74,7 @@ const paymentTransactionSlice = createSlice({
     typeSort: TypeSort.DESC,
     transactionIdEdit: '',
     dateFrom: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 31).toISOString(),
-    dateTo: new Date().toISOString(),
+    dateTo: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 1).toISOString(),
     dataBrief: {},
     submitRangerDate: true,
   } as PaymentTransactionSlice,
