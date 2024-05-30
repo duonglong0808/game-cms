@@ -3,7 +3,7 @@ import { setDataUserLogin } from '@/lib/redux/app/userCurrent.slice';
 
 export const login = (userName: string, password: string, isRemember: boolean) => {
   const axios = new BaseAxios();
-  return axios.post('/auth/login', {
+  return axios.post('/auth/cms/login', {
     account: userName,
     password: password,
     isRemember,

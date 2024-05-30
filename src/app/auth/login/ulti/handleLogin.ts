@@ -6,8 +6,8 @@ export const handleLogin = async (userName: string, password: string, isRemember
   const res = await login(userName, btoa(password), isRemember);
   if (res) {
     const { access_token, refresh_token } = res?.data;
-    localStorage.setItem('access_token', access_token);
-    localStorage.setItem('refresh_token', refresh_token);
+    sessionStorage.setItem('access_token', access_token);
+    sessionStorage.setItem('refresh_token', refresh_token);
 
     const userInfo = await getUserInfo();
     if (userInfo) {

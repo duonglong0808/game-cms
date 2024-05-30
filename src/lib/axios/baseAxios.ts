@@ -1,10 +1,11 @@
+import { messageResponse } from '@/constants';
 import axios, { AxiosInstance } from 'axios';
 
 export class BaseAxios {
   private request: AxiosInstance;
 
   constructor(urlBase?: string) {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = sessionStorage.getItem('access_token');
     this.request = axios.create({
       baseURL: urlBase || process.env.API_URL,
       headers: {
@@ -20,7 +21,9 @@ export class BaseAxios {
     try {
       const response = await this.request.post(url, data, config);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      const typeError: string = error?.response?.data?.exception?.message;
+      alert(messageResponse[typeError] ? messageResponse[typeError] : 'Có lỗi xảy ra xin vui lòng thử lại ');
       return false;
     }
   }

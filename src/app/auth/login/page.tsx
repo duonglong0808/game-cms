@@ -23,7 +23,7 @@ export default function LoginPage(): JSX.Element {
     <div className={cx('wrapper')}>
       <div className={cx('wrapper__container')}>
         <div className={cx('container-box__logo')}>
-          <Image alt="logo" src={'/next.svg'} height={30} width={100} />
+          <Image alt="logo" src={'/logo.png'} height={30} width={100} />
         </div>
 
         <form className={cx('form')} onSubmit={(e) => e.preventDefault()}>
