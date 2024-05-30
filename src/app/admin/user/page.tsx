@@ -2,15 +2,17 @@
 
 import Table from '@/uiCore/Table';
 import { HeaderContent } from '../components/HeaderContent';
-import { updateUserCms, useUsers } from './utils/handleUser';
+import { updateUserCms, useUsers } from '../../../components/user/utils/handleUser';
 import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch } from '@/lib';
 import { resetDataUser, setLimitOrPageUser } from '@/lib/redux/app/users.slice';
 import { useEffect, useState } from 'react';
 import { ItemAddOrUpdateDto, PopupEditOrAddV1 } from '@/uiCore';
 import { Status, TypeUser } from '@/constants';
-import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
-import { ShowBankUser } from './components/ShowBank';
+import { faBuildingColumns, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
+import { ShowBankUser } from '../../../components/user/ShowBank';
+import { FilterUser } from '@/components/user/FilterUser';
+import { useRouter } from 'next/navigation';
 
 export default function PageUser(): JSX.Element {
   const dataUser = useUsers();
@@ -18,6 +20,7 @@ export default function PageUser(): JSX.Element {
   const dispatch = useAppDispatch();
   const [userEdit, setUserId] = useState('');
   const [userCheckBank, setUserCheckBank] = useState(0);
+  const router = useRouter();
 
   let dataUserEdit: ItemAddOrUpdateDto[] = [];
   if (userEdit) {
@@ -103,50 +106,60 @@ export default function PageUser(): JSX.Element {
   return (
     <main className="min-h-full flex flex-col">
       <HeaderContent path="User" title="Quản lý người dùng" />
-      {data.length ? (
-        <div className="main-page min-h-full flex-1 relative">
-          <Table
-            textColor="black"
-            data={data}
-            columnDelete
-            columnEdit
-            handleDelete={(id) => {}}
-            handleEdit={(id) => {
-              setUserId(String(id));
-            }}
-            moreColumnsOptions={[
-              {
-                icon: faBuildingColumns,
-                name: 'Ngân hàng',
-                handleClick: (item) => {
-                  setUserCheckBank(item.id);
-                },
-              },
-            ]}
-          />
+      <div className="main-page min-h-full flex-1 relative">
+        <FilterUser />
+        {data.length ? (
           <div>
-            <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
-          </div>
-          {userEdit ? (
-            <PopupEditOrAddV1
-              title="Cập nhật thông tin user"
-              id={+userEdit}
-              data={dataUserEdit}
-              onCancel={() => setUserId('')}
-              onSubmit={(id, data, dispatch) => {
-                updateUserCms(id, data, dispatch);
-                setUserId('');
+            <Table
+              textColor="black"
+              data={data}
+              columnDelete
+              columnEdit
+              handleDelete={(id) => {}}
+              handleEdit={(id) => {
+                setUserId(String(id));
               }}
+              moreColumnsOptions={[
+                {
+                  icon: faBuildingColumns,
+                  name: 'Ngân hàng',
+                  handleClick: (item) => {
+                    setUserCheckBank(item.id);
+                  },
+                },
+                {
+                  icon: faMoneyBillTransfer,
+                  name: 'Nạp/Rút',
+                  handleClick(item) {
+                    router.push(`/admin/payment-transaction?userId=${item.id}`);
+                  },
+                },
+              ]}
             />
-          ) : (
-            <></>
-          )}
+            <div>
+              <Pagination count={pagination.total} page={pagination.page} limit={pagination.limit} setPage={(page) => setPageUser(page)} />
+            </div>
+            {userEdit ? (
+              <PopupEditOrAddV1
+                title="Cập nhật thông tin user"
+                id={+userEdit}
+                data={dataUserEdit}
+                onCancel={() => setUserId('')}
+                onSubmit={(id, data, dispatch) => {
+                  updateUserCms(id, data, dispatch);
+                  setUserId('');
+                }}
+              />
+            ) : (
+              <></>
+            )}
 
-          {userCheckBank ? <ShowBankUser userId={userCheckBank} setUserCheckBank={() => setUserCheckBank(0)} /> : <></>}
-        </div>
-      ) : (
-        <></>
-      )}
+            {userCheckBank ? <ShowBankUser userId={userCheckBank} setUserCheckBank={() => setUserCheckBank(0)} /> : <></>}
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </main>
   );
 }

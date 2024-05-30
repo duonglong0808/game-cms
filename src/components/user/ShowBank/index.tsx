@@ -8,7 +8,7 @@ import { useAppDispatch } from '@/lib';
 import { ItemAddOrUpdateDto, PopupEditOrAddV1 } from '@/uiCore';
 import { setDataPaymentBanks } from '@/lib/redux/app/payment.slice';
 import { dataBankStatics } from '@/constants';
-import { getBankByUserId, updateBank } from '../../utils/api';
+import { getBankByUserId, updateBank } from '../utils/api';
 
 const cx = classNames.bind(styles);
 

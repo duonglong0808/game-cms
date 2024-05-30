@@ -15,6 +15,7 @@ interface UsersSlice {
   limit: number;
   search: string;
   total: number;
+  phone: string;
 }
 
 const usersSlice = createSlice({
@@ -25,6 +26,7 @@ const usersSlice = createSlice({
     page: 1,
     limit: 10,
     search: '',
+    phone: '',
     total: 0,
   } as UsersSlice,
   reducers: {
@@ -39,10 +41,18 @@ const usersSlice = createSlice({
       state.page = action.payload.page ? action.payload.page : state.page;
     },
     resetDataUser: (state) => {
-      (state.users = []), (state.page = 1);
+      state.users = [];
+      state.page = 1;
       state.limit = 10;
       state.total = 0;
       state.isInitData = false;
+      state.search = '';
+      state.phone = '';
+    },
+    setFilterUser: (state, action: { payload: { search: string; phone: string } }) => {
+      state.page = 1;
+      state.search = action.payload.search;
+      state.phone = action.payload.phone;
     },
     refreshDataUser: (state) => {
       state.isInitData = false;
@@ -50,6 +60,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setDataUsers, setLimitOrPageUser, resetDataUser, refreshDataUser } = usersSlice.actions;
+export const { setDataUsers, setLimitOrPageUser, resetDataUser, refreshDataUser, setFilterUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

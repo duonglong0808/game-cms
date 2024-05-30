@@ -10,11 +10,15 @@ import { StatusPaymentTranSaction } from '@/constants';
 import { DatePickerCustomer, PopupEditOrAddV1, ShowDataDetailV1 } from '@/uiCore';
 import { OptionPaymentTransaction } from './components/OptionPaymentTrans';
 import { faMeteor } from '@fortawesome/free-solid-svg-icons';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function PaymentTransactionPage(): JSX.Element {
-  const { data, pagination } = usePaymentTransaction();
+  const searchParams = useSearchParams();
+  const userId = searchParams.get('userId');
+  const router = useRouter();
+  const { data, pagination } = usePaymentTransaction(userId);
   const { transactionIdEdit, paymentTransaction } = useAppSelector((state) => state.paymentTransaction);
-  const { deposit, withdraw } = useDataTotalDepositAndWithdraw();
+  const { deposit, withdraw } = useDataTotalDepositAndWithdraw(userId);
   // console.log('🛫🛫🛫 ~ file: page.tsx:17 ~ PaymentTransactionPage ~ deposit, withdraw:', deposit, withdraw);
 
   let dataTransactionById = null;
@@ -84,6 +88,22 @@ export default function PaymentTransactionPage(): JSX.Element {
       <HeaderContent path="PaymentTransaction" title="Quản lý nạp rút tiền người dùng" />
 
       <div className="main-page min-h-full flex-1 relative">
+        {userId ? (
+          <div className="mb-2">
+            <span>Đang tìm kiếm dữ liệu của userId : </span>
+            <span className="font-bold">{userId}</span>
+
+            <button
+              onClick={() => {
+                router.push('/admin/payment-transaction');
+              }}
+              className="ml-3 px-2 py-1 bg-red-400 text-white rounded-lg">
+              Clean
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
         <OptionPaymentTransaction />
         <div className="flex justify-around">
           <ShowDataDetailV1

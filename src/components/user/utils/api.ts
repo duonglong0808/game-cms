@@ -1,8 +1,8 @@
 import { BaseAxios } from '@/lib';
 
-export const getAllUser = (search: string, page: number, limit: number) => {
+export const getAllUser = (search: string, page: number, limit: number, phone: string) => {
   const axios = new BaseAxios();
-  return axios.get(`/user?search=${search}&page=${page}&limit=${limit}`);
+  return axios.get(`/user?search=${search}&page=${page}&limit=${limit}&phone=${phone}`);
 };
 
 export const updateUser = (userId: number, data: any) => {

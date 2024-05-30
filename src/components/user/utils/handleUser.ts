@@ -1,18 +1,22 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
 import { getAllUser, updateUser } from './api';
-import { refreshDataUser, setDataUsers } from '@/lib/redux/app/users.slice';
+import { refreshDataUser, setDataUsers, setFilterUser } from '@/lib/redux/app/users.slice';
 
 const useUsers = () => {
-  const { isInitData, limit, page, search, users, total } = useAppSelector((state) => state.users);
+  const { isInitData, limit, page, search, users, total, phone } = useAppSelector((state) => state.users);
   const limitRef = useRef(limit);
   const pageRef = useRef(page);
+  const searchRef = useRef(search);
+  const phoneRef = useRef(phone);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      if (!isInitData || limit != limitRef.current || page != pageRef.current) {
-        const res = await getAllUser(search, page, limit);
+      if (!isInitData || limit != limitRef.current || page != pageRef.current || search != searchRef.current || phone != phoneRef.current) {
+        searchRef.current = search;
+        phoneRef.current = phone;
+        const res = await getAllUser(search, page, limit, phone);
         if (res?.data) {
           const { data, pagination } = res.data;
           pageRef.current = page;
@@ -28,12 +32,16 @@ const useUsers = () => {
     }
 
     fetchData();
-  }, [isInitData, limit, page, search]);
+  }, [isInitData, limit, page, search, phone]);
 
   return {
     data: users,
     pagination: { limit, page, total },
   };
+};
+
+const updateSearchUser = (username: string, phone: string, dispatch: any) => {
+  dispatch(setFilterUser({ phone, search: username }));
 };
 
 const updateUserCms = async (userId: number, data: any, dispatch: any) => {
@@ -44,4 +52,4 @@ const updateUserCms = async (userId: number, data: any, dispatch: any) => {
   }
 };
 
-export { useUsers, updateUserCms };
+export { useUsers, updateUserCms, updateSearchUser };

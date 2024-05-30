@@ -5,17 +5,19 @@ import { resetDataPaymentTransaction, setDataBriefPaymentTransaction, setDataPay
 import { StatusPaymentTranSaction, TypePaymentTranSaction, dataBankStatics } from '@/constants';
 import { formatDateTime } from '@/share';
 
-export const usePaymentTransaction = () => {
+export const usePaymentTransaction = (userId: string | null) => {
   const { isInitData, limit, page, paymentTransaction, total, type, status, sort, typeSort, dateFrom, dateTo, submitRangerDate } = useAppSelector((state) => state.paymentTransaction);
 
   const limitRef = useRef(limit);
   const pageRef = useRef(page);
+  const userRef = useRef(userId);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      if (!isInitData || submitRangerDate || limit != limitRef.current || page != pageRef.current) {
-        const res = await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, sort, typeSort);
+      if (!isInitData || submitRangerDate || limit != limitRef.current || page != pageRef.current || userId != userRef.current) {
+        userRef.current = userId;
+        const res = await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, userId, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
           pageRef.current = page;
@@ -31,7 +33,7 @@ export const usePaymentTransaction = () => {
     }
 
     fetchData();
-  }, [isInitData, limit, page, submitRangerDate]);
+  }, [isInitData, limit, page, submitRangerDate, userId]);
 
   const dataAfterHandle = paymentTransaction.map((item) => {
     return {
@@ -57,7 +59,7 @@ export const usePaymentTransaction = () => {
   };
 };
 
-export const useDataTotalDepositAndWithdraw = () => {
+export const useDataTotalDepositAndWithdraw = (userId: string | null) => {
   const { dateFrom, dateTo, submitRangerDate, dataBrief } = useAppSelector((state) => state.paymentTransaction);
 
   const dispatch = useAppDispatch();
@@ -65,7 +67,7 @@ export const useDataTotalDepositAndWithdraw = () => {
   useEffect(() => {
     async function fetchData() {
       if (submitRangerDate) {
-        const res = await getPaymentTransactionsBrief(dateFrom, dateTo);
+        const res = await getPaymentTransactionsBrief(dateFrom, dateTo, userId);
         if (res?.data) {
           const { data } = res.data;
 
