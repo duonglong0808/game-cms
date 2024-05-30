@@ -100,8 +100,9 @@
 
   &::after {
     position: absolute;
-    top: 11px;
-    left: 10px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 12px;
     width: 8px;
     height: 8px;
     content: '';
@@ -118,11 +119,16 @@
   display: block;
   width: 110px;
   margin: 0 auto;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
 
   &::after {
     position: absolute;
-    top: 11px;
-    left: 10px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 12px;
     width: 8px;
     height: 8px;
     content: '';
@@ -143,8 +149,9 @@
 
   &::after {
     position: absolute;
-    top: 11px;
-    left: 10px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 12px;
     width: 8px;
     height: 8px;
     content: '';
