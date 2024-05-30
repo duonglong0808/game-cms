@@ -39,7 +39,7 @@ export const useDicePlayHistory = () => {
 
       return {
         id,
-        statusText,
+        process: statusText,
         ...subObject,
         timePlay: moment(createdAt).format('YYYY-MM-DD HH:mm:ss'),
       };

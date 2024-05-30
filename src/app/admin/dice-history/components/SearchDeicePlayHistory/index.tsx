@@ -27,10 +27,15 @@ export function SearchDeicePlayHistory(): JSX.Element {
           id="gameDiceId"
           name="gameDiceId"
           value={gameDiceId}
-          type="number"
+          type="text"
           placeholder="Nhập id của phiên live(option)"
           onChange={(e) => {
-            onChange({ gameDiceId: e.target.value });
+            if (+e.target.value > 0) {
+              onChange({ gameDiceId: e.target.value });
+            } else {
+              console.log('celanm');
+              onChange({ gameDiceId: '' });
+            }
           }}
         />
       </div>
@@ -44,10 +49,15 @@ export function SearchDeicePlayHistory(): JSX.Element {
           id="diceDetailId"
           name="diceDetailId"
           value={diceDetailId}
-          type="number"
+          type="text"
           placeholder="Nhập id chi tiết của phiên(option)"
           onChange={(e) => {
-            onChange({ diceDetailId: e.target.value });
+            console.log('🚀 ~ SearchDeicePlayHistory ~ e.target.value:', e.target.value);
+            if (Number(e.target.value) > 0) {
+              onChange({ diceDetailId: e.target.value });
+            } else {
+              onChange({ diceDetailId: '' });
+            }
           }}
         />
       </div>
@@ -61,23 +71,27 @@ export function SearchDeicePlayHistory(): JSX.Element {
           id="userId"
           name="userId"
           value={userId}
-          type="number"
+          type="text"
           placeholder="Id user(option)"
           onChange={(e) => {
-            onChange({ userId: e.target.value });
+            if (Number(e.target.value) > 0) {
+              onChange({ userId: e.target.value });
+            } else {
+              onChange({ userId: '' });
+            }
           }}
         />
       </div>
 
       <button
-        className={cx('group__submit--reset', 'mr-3 bg-gray-500')}
+        className={cx('group__submit--reset', 'mr-3 bg-gray-500 text-white')}
         onClick={() => {
           dispatch(resetDataDicePlayHistory());
         }}>
         Đặt lại
       </button>
       <button
-        className={cx('group__submit')}
+        className={cx('group__submit', 'text-white')}
         onClick={() => {
           dispatch(setStatusSubmitDicePlayHistory({ submitted: true }));
         }}>

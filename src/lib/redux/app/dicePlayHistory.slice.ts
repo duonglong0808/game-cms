@@ -70,6 +70,7 @@ const DicePlayHistorySlice = createSlice({
     },
     setStatusSubmitDicePlayHistory(state, action) {
       state.submitted = action.payload.submitted;
+      state.page = 1;
     },
   },
 });
