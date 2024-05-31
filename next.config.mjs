@@ -6,10 +6,17 @@ const nextConfig = {
     HOST_KU: 'https://vn.vc3559k.net/api',
   },
 
-  // Production environment
+  // dev environment
   // env: {
-  //   API_URL: 'https://api.vk169.net/api',
-  //   API_GAME_DICE: 'https://game.api.vk169.net/api',
+    //   API_URL: 'https://api.vk169.net/api',
+    //   API_GAME_DICE: 'https://game.api.vk169.net/api',
+    //   HOST_KU: 'https://vn.vc3559k.net/api',
+    // },
+    
+    // Production environment
+  // env: {
+  //   API_URL: 'https://api.ku3933d.net/api',
+  //   API_GAME_DICE: 'https://api-game.ku3933d.net/api',
   //   HOST_KU: 'https://vn.vc3559k.net/api',
   // },
   images: {
