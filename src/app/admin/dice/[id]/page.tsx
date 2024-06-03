@@ -4,7 +4,7 @@ import { handleCreateDiceTransaction, handleUpdateStatusPaymentTransaction, useD
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataDiceDetail, setDiceDetailIdEdit, setLimitOrPageDiceDetail } from '@/lib/redux/app/diceDetail.slice';
-import { HeaderContent } from '../../components/HeaderContent';
+import { HeaderContent } from '../@/components/HeaderContent';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { StatusDiceDetail } from '@/constants';

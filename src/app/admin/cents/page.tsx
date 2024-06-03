@@ -1,5 +1,5 @@
 import { FilterCents } from '@/components/cents/FilterCents';
-import { HeaderContent } from '../components/HeaderContent';
+import { HeaderContent } from '@/components/HeaderContent';
 
 export default function PageCoin() {
   return (

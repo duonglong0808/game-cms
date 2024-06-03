@@ -1,7 +1,7 @@
 'use client';
 
 import Table from '@/uiCore/Table';
-import { HeaderContent } from '../components/HeaderContent';
+import { HeaderContent } from '@/components/HeaderContent';
 import { usePaymentType } from './ultils/handlePaymentType';
 import { useAppDispatch } from '@/lib';
 import { resetDataPaymentType, setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';

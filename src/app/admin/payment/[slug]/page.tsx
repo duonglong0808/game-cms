@@ -2,7 +2,7 @@
 import { usePayment } from './ultils/handleDetailPayment';
 import { useAppDispatch } from '@/lib';
 import { setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
-import { HeaderContent } from '../../components/HeaderContent';
+import { HeaderContent } from '../@/components/HeaderContent';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { useEffect, useState } from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import { HeaderContent } from '../components/HeaderContent';
+import { HeaderContent } from '@/components/HeaderContent';
 import { updateDiceGame, useDiceGame } from './utils/handleDice';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataDiceGame, setDiceGameEdit, setLimitOrPageDiceGame } from '@/lib/redux/app/diceGame.slice';

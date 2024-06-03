@@ -8,6 +8,7 @@ import paymentTransactionReduce from './app/paymentTransaction.slice';
 import diceGameReduce from './app/diceGame.slice';
 import diceDetailReduce from './app/diceDetail.slice';
 import dicePlayHistoryReduce from './app/dicePlayHistory.slice';
+import gifCodeReduce from './app/gifCode.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -21,6 +22,7 @@ export const makeStore = () => {
       diceGame: diceGameReduce,
       diceDetail: diceDetailReduce,
       dicePlayHistory: dicePlayHistoryReduce,
+      gifCode: gifCodeReduce,
     },
   });
 };

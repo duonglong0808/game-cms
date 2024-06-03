@@ -1,6 +1,6 @@
 'use client';
 import Table from '@/uiCore/Table';
-import { HeaderContent } from '../components/HeaderContent';
+import { HeaderContent } from '@/components/HeaderContent';
 import { handleUpdateStatusPaymentTransaction, useDataTotalDepositAndWithdraw, usePaymentTransaction } from './ultils/handlePT';
 import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch, useAppSelector } from '@/lib';

@@ -1,7 +1,6 @@
 'use client';
 
 import Table from '@/uiCore/Table';
-import { HeaderContent } from '../components/HeaderContent';
 import { updateUserCms, useUsers } from '../../../components/user/utils/handleUser';
 import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch } from '@/lib';
@@ -13,6 +12,7 @@ import { faBuildingColumns, faMoneyBillTransfer } from '@fortawesome/free-solid-
 import { ShowBankUser } from '../../../components/user/ShowBank';
 import { FilterUser } from '@/components/user/FilterUser';
 import { useRouter } from 'next/navigation';
+import { HeaderContent } from '@/components/HeaderContent';
 
 export default function PageUser(): JSX.Element {
   const dataUser = useUsers();

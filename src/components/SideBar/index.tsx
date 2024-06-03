@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { faChevronDown, faCoins, faDice, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faCoins, faDice, faGifts, faHouse, faRocket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/lib';
@@ -25,8 +25,14 @@ export function SideBars(): JSX.Element {
     },
     {
       title: 'Users',
-      icon: faHouse,
+      icon: faUser,
       link: '/admin/user',
+      subMenu: [],
+    },
+    {
+      title: 'Khuyến mại',
+      icon: faGifts,
+      link: '/admin/gift',
       subMenu: [],
     },
     {

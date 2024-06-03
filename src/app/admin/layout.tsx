@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Header } from './components/Header';
-import { SideBars } from './components/SideBar';
-import StoreProvider from '../StoreProvider';
-import { Suspense } from 'react';
+import MainLayout from '@/layout/Main';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,22 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div
-          className="flex"
-          style={{
-            height: '100%',
-            overflow: 'hidden',
-          }}>
-          <StoreProvider>
-            {/* <Suspense> */}
-            <SideBars />
-            {/* </Suspense> */}
-            <div className="flex-1">
-              <Header />
-              <Suspense>{children}</Suspense>
-            </div>
-          </StoreProvider>
-        </div>
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );
