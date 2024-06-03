@@ -87,7 +87,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
         if (id) {
           onSubmit && onSubmit(id, dataSend, dispatch);
         } else {
-          onSubmitCreate && onSubmitCreate(data, dispatch);
+          onSubmitCreate && onSubmitCreate(dataSend, dispatch);
         }
       }}>
       <div className={cx('group__list')}>

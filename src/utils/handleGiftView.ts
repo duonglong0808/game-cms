@@ -1,7 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
-import { getAllGift, updateGiftCode } from './api';
+import { createGiftCode, deleteGiftCode, getAllGift, updateGiftCode } from './api';
 import { resetDataGiftCode, setDataGiftCode, setGiftCodeEdit } from '@/lib/redux/app/gifCode.slice';
+import { StatusGiftCode } from '@/constants';
+import moment from 'moment';
 
 export const useGiftCode = () => {
   const { isInitData, limit, page, giftCode, total, sort, typeSort, giftCodeIdEdit, status, userIdUse } = useAppSelector((state) => state.gifCode);
@@ -32,7 +34,20 @@ export const useGiftCode = () => {
   }, [isInitData, limit, page]);
 
   return {
-    data: giftCode,
+    data: giftCode.map((item) => {
+      return {
+        id: item.id,
+        userCreate: item.userCreate.username,
+        name: item.name,
+        code: item.code.slice(0, 3) + '****' + item.code.slice(-3),
+        point: item.point,
+        process: item.status == StatusGiftCode.Created ? 'Đã tạo' : item.status == StatusGiftCode.Disable ? 'Đã vô hiệu hóa' : 'Đã xử dụng',
+        userUse: item?.userUse?.username,
+        timeUse: item.timeUse,
+        createdAt: moment(item.createdAt).format('YYYY: HH:mm:ss'),
+      };
+    }),
+    dataBeforeHandle: giftCode,
     pagination: { limit, page, total },
     giftCodeIdEdit,
   };
@@ -44,5 +59,19 @@ export const updateDataGiftCode = async (id: number, data: any, dispatch: any) =
     dispatch(resetDataGiftCode());
   } else {
     dispatch(setGiftCodeEdit({ id: '' }));
+  }
+};
+
+export const handleCreateGiftCode = async (data: any, dispatch: any) => {
+  const res = await createGiftCode(data);
+  if (res.data) {
+    dispatch(resetDataGiftCode());
+  }
+};
+
+export const handleDeleteGiftCode = async (id: number, dispatch: any) => {
+  const res = await deleteGiftCode(id);
+  if (res.data) {
+    dispatch(resetDataGiftCode());
   }
 };

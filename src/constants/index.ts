@@ -74,3 +74,9 @@ export const Status = {
   Active: 'ACTIVE',
   Inactive: 'INACTIVE',
 };
+
+export const StatusGiftCode = {
+  Created: 0,
+  Used: 1,
+  Disable: 2,
+};
