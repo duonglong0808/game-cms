@@ -32,3 +32,8 @@ export const deleteGiftCode = (id: number) => {
   const axios = new BaseAxios();
   return axios.delete(`/gift-code/${id}`);
 };
+
+export const fetchUserInfo = () => {
+  const axios = new BaseAxios();
+  return axios.get('auth/userInfo');
+};

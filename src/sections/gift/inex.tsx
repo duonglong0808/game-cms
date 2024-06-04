@@ -72,6 +72,10 @@ export default function SectionGift(): JSX.Element {
             value: StatusGiftCode.Created,
           },
           {
+            text: 'Đã sử dụng',
+            value: StatusGiftCode.Used,
+          },
+          {
             text: 'Vô hiệu hóa',
             value: StatusGiftCode.Disable,
           },

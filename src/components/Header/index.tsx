@@ -1,11 +1,11 @@
 'use client';
 
 import styles from './styles.module.scss';
-import { faBars, faBell, faChevronDown, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faChevronDown, faEnvelope, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { checkAndFetchDataUser } from './until/handleHeader';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/lib';
@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 export function Header(): JSX.Element {
   const { name } = useAppSelector((state) => state.userCurrent);
   const router = useRouter();
+  const [openOptions, setOpenOption] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -41,11 +42,18 @@ export function Header(): JSX.Element {
             <FontAwesomeIcon icon={faBell} className={cx('header-icon__control')} />
             <FontAwesomeIcon icon={faChevronDown} className={cx('header-icon__arr--bottm')} />
           </div>
-          <div className={cx('header-user')}>
+          <div className={cx('header-user')} onClick={() => setOpenOption((pre) => !pre)}>
             <div className={cx('header-user__image--box')}>
               <Image alt="Avatar" src={'/avtar-2.png'} width={30} height={30} className={cx('header-user__image')} />
             </div>
             <span className={cx('header-user__name')}>{name}</span>
+
+            <div className={cx('absolute w-[132px] bg-white transition-all', { '-bottom-14 right-0': openOptions, 'bottom-20 -right-full': !openOptions })}>
+              <div className="flex items-center px-2 py-2 shadow-[0_6px_15px_0_#0000004d]">
+                <span className="block mr-3 text-black">Đăng xuất</span>
+                <FontAwesomeIcon icon={faSignOut} className={cx('header-icon__control')} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

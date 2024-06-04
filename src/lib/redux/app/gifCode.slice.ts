@@ -68,18 +68,21 @@ const GiftCodeSlice = createSlice({
     setFilterGiftCode(
       state,
       action: {
-        payload: { status?: number; userIdUse?: number };
+        payload: { status?: number; userIdUse?: string };
       },
     ) {
-      if (action.payload.status) state.status = action.payload.status;
-      if (action.payload.userIdUse) state.userIdUse = action.payload.userIdUse;
+      if (action.payload.status !== undefined) state.status = action.payload.status;
+      if (action.payload.userIdUse !== undefined) state.userIdUse = +action.payload.userIdUse > 0 ? +action.payload.userIdUse : undefined;
     },
     setGiftCodeEdit(state, action) {
       state.giftCodeIdEdit = action.payload.id;
     },
+    reFreshDataGiftCode(state) {
+      state.isInitData = false;
+    },
   },
 });
 
-export const { setDataGiftCode, setLimitOrPageGiftCode, setFilterGiftCode, resetDataGiftCode, setGiftCodeEdit } = GiftCodeSlice.actions;
+export const { setDataGiftCode, setLimitOrPageGiftCode, setFilterGiftCode, resetDataGiftCode, setGiftCodeEdit, reFreshDataGiftCode } = GiftCodeSlice.actions;
 
 export default GiftCodeSlice.reducer;
