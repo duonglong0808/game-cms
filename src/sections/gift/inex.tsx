@@ -42,6 +42,7 @@ export default function SectionGift(): JSX.Element {
     },
   ];
   const giftCodeById = dataBeforeHandle.find((d) => d.id == +giftCodeIdEdit);
+  console.log('🚀 ~ SectionGift ~ giftCodeById:', giftCodeById);
   if (giftCodeById) {
     dataGiftCode = [
       {
@@ -60,11 +61,18 @@ export default function SectionGift(): JSX.Element {
         value: giftCodeById.point,
       },
       {
+        label: 'Gift Code',
+        name: 'code',
+        type: 'text',
+        readOnly: true,
+        value: giftCodeById.code,
+      },
+      {
         label: 'Trạng thái',
         name: 'status',
         type: 'options',
         readOnly: !(giftCodeById.status == StatusGiftCode.Created),
-        canUpdate: giftCodeById.status == StatusGiftCode.Created,
+        canUpdate: giftCodeById.status != StatusGiftCode.Used,
         value: giftCodeById.status,
         dataOption: [
           {
