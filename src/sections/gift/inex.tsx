@@ -42,7 +42,7 @@ export default function SectionGift(): JSX.Element {
     },
   ];
   const giftCodeById = dataBeforeHandle.find((d) => d.id == +giftCodeIdEdit);
-  console.log('🚀 ~ SectionGift ~ giftCodeById:', giftCodeById);
+  // console.log('🚀 ~ SectionGift ~ giftCodeById:', giftCodeById);
   if (giftCodeById) {
     dataGiftCode = [
       {
