@@ -2,13 +2,14 @@
 import { usePayment } from './ultils/handleDetailPayment';
 import { useAppDispatch } from '@/lib';
 import { setLimitOrPagePaymentTypes } from '@/lib/redux/app/paymentType.slice';
-import { HeaderContent } from '../@/components/HeaderContent';
+
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { useEffect, useState } from 'react';
 import { resetDataPayment } from '@/lib/redux/app/payment.slice';
 import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
 import { ShowBankPayment } from './components/ShowBank';
+import { HeaderContent } from '@/components/HeaderContent';
 
 export default function Detail({ params }: { params: { slug: number } }): JSX.Element {
   const { slug } = params;

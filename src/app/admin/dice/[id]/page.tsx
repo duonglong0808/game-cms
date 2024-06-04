@@ -4,7 +4,6 @@ import { handleCreateDiceTransaction, handleUpdateStatusPaymentTransaction, useD
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataDiceDetail, setDiceDetailIdEdit, setLimitOrPageDiceDetail } from '@/lib/redux/app/diceDetail.slice';
-import { HeaderContent } from '../@/components/HeaderContent';
 import Table from '@/uiCore/Table';
 import Pagination from '@/uiCore/Pagination';
 import { StatusDiceDetail } from '@/constants';
@@ -12,6 +11,7 @@ import { PopupEditOrAddV1 } from '@/uiCore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { formatDateToId } from '@/share';
+import { HeaderContent } from '@/components/HeaderContent';
 
 export default function DiceDetailPage({ params }: { params: { id: number } }): JSX.Element {
   const { id } = params;
