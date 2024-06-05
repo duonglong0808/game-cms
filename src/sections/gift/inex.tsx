@@ -4,12 +4,12 @@ import { HeaderContent } from '@/components/HeaderContent';
 import { FilterGiftCode } from '@/components/giftCode/FilterGiftCode';
 import { StatusGiftCode } from '@/constants';
 import { useAppDispatch } from '@/lib';
-import { setGiftCodeEdit, setLimitOrPageGiftCode } from '@/lib/redux/app/gifCode.slice';
+import { resetDataGiftCode, setGiftCodeEdit, setLimitOrPageGiftCode } from '@/lib/redux/app/gifCode.slice';
 import { ItemAddOrUpdateDto, PopupEditOrAddV1 } from '@/uiCore';
 import Pagination from '@/uiCore/Pagination';
 import Table from '@/uiCore/Table';
 import { handleCreateGiftCode, handleDeleteGiftCode, updateDataGiftCode, useGiftCode } from '@/utils/handleGiftView';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SectionGift(): JSX.Element {
   const { data, pagination, giftCodeIdEdit, dataBeforeHandle } = useGiftCode();
@@ -64,7 +64,7 @@ export default function SectionGift(): JSX.Element {
         label: 'Gift Code',
         name: 'code',
         type: 'text',
-        readOnly: true,
+        readOnly: false,
         value: giftCodeById.code,
       },
       {
@@ -101,6 +101,12 @@ export default function SectionGift(): JSX.Element {
   const setPageGiftCode = (page: number) => {
     dispatch(setLimitOrPageGiftCode({ page: page }));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetDataGiftCode());
+    };
+  }, []);
 
   return (
     <div className="h-full">

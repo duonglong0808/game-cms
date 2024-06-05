@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { addBankToPayment, createBank, deleteBankPayment, getAllBankPayment, getAllPayment, updateBank } from './api';
 import { setDataPayment, setDataPaymentBanks } from '@/lib/redux/app/payment.slice';
 import { dataBankStatics } from '@/constants';
+import { setLoadingApp } from '@/lib/redux/system/settingSys';
 
 export const usePaymentBank = (paymentId: number) => {
   const { banks, isInitDataBank } = useAppSelector((state) => state.payment);
@@ -12,6 +13,7 @@ export const usePaymentBank = (paymentId: number) => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitDataBank) {
+        dispatch(setLoadingApp({ loading: true }));
         const res = await getAllBankPayment(paymentId);
         if (res?.data) {
           dispatch(
@@ -21,6 +23,7 @@ export const usePaymentBank = (paymentId: number) => {
             }),
           );
         }
+        dispatch(setLoadingApp({ loading: false }));
       }
     }
 

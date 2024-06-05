@@ -1,5 +1,8 @@
+'use client';
+
 import StoreProvider from '@/app/StoreProvider';
 import { Header } from '@/components/Header';
+import { LoadingModal } from '@/components/Loading';
 import { SideBars } from '@/components/SideBar';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -28,7 +31,12 @@ export default function MainLayout({
         <SideBars />
         <div className="flex-1">
           <Header />
-          <Suspense>{children}</Suspense>
+          <Suspense>
+            <div className="relative w-full h-full">
+              <LoadingModal />
+              {children}
+            </div>
+          </Suspense>
         </div>
       </StoreProvider>
     </main>

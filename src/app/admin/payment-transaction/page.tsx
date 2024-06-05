@@ -1,7 +1,7 @@
 'use client';
 import Table from '@/uiCore/Table';
 import { HeaderContent } from '@/components/HeaderContent';
-import { handleUpdateStatusPaymentTransaction, useDataTotalDepositAndWithdraw, usePaymentTransaction } from './ultils/handlePT';
+import { handleUpdateStatusPaymentTransaction, useDataTotalDepositAndWithdraw, usePaymentTransaction } from '../../../utils/handlePT';
 import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { resetDataPaymentTransaction, setLimitOrPagePaymentTransaction, setTransactionEdit } from '@/lib/redux/app/paymentTransaction.slice';

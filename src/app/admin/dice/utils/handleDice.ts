@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { getAllGameDice, updateDiceGameById } from './api';
 import { resetDataDiceGame, setDataDiceGame } from '@/lib/redux/app/diceGame.slice';
 import { TypeGameDice } from '@/constants';
+import { setLoadingApp } from '@/lib/redux/system/settingSys';
 
 export const useDiceGame = () => {
   const { isInitData, limit, page, diceGame, search, total, sort, typeSort } = useAppSelector((state) => state.diceGame);
@@ -14,6 +15,7 @@ export const useDiceGame = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || limit != limitRef.current || page != pageRef.current) {
+        dispatch(setLoadingApp({ loading: true }));
         const res = await getAllGameDice(limit, page, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
@@ -26,6 +28,7 @@ export const useDiceGame = () => {
             }),
           );
         }
+        dispatch(setLoadingApp({ loading: false }));
       }
     }
 

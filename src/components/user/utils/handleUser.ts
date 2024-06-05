@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect, useRef } from 'react';
 import { getAllUser, updateUser } from './api';
 import { refreshDataUser, setDataUsers, setFilterUser } from '@/lib/redux/app/users.slice';
+import { setLoadingApp } from '@/lib/redux/system/settingSys';
 
 const useUsers = () => {
   const { isInitData, limit, page, search, users, total, phone } = useAppSelector((state) => state.users);
@@ -14,6 +15,7 @@ const useUsers = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || limit != limitRef.current || page != pageRef.current || search != searchRef.current || phone != phoneRef.current) {
+        dispatch(setLoadingApp({ loading: true }));
         searchRef.current = search;
         phoneRef.current = phone;
         const res = await getAllUser(search, page, limit, phone);
@@ -28,6 +30,7 @@ const useUsers = () => {
             }),
           );
         }
+        dispatch(setLoadingApp({ loading: false }));
       }
     }
 

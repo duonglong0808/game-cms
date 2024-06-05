@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { checkAndFetchDataUser } from './until/handleHeader';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/lib';
+import WrapperNotificationNetWork from '@/uiCore/WrapperNotificationNetWork';
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ export function Header(): JSX.Element {
 
   return (
     <header className={cx('header-wrapper', 'flex justify-between items-center w-full')}>
+      <WrapperNotificationNetWork />
       <div className={cx('header-icon__box', 'flex items-center')}>
         <FontAwesomeIcon icon={faBars} className={cx('header-icon')} />
       </div>

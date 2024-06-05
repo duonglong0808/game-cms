@@ -8,6 +8,8 @@ export interface DiceDetailItem {
   totalRed: number;
   status?: number;
   dateId: number;
+  totalBet: number;
+  totalReward: number;
   createdAt: string;
   updatedAt: string;
 }

@@ -9,7 +9,6 @@ const cx = classNames.bind(styles);
 
 export function SearchDeicePlayHistory(): JSX.Element {
   const { gameDiceId, diceDetailId, userId } = useAppSelector((state) => state.dicePlayHistory);
-  console.log('🛫🛫🛫 ~ file: index.tsx:10 ~ SearchDeicePlayHistory ~ gameDiceId, diceDetailId, userId:', gameDiceId, diceDetailId, userId);
   const dispatch = useAppDispatch();
 
   const onChange = (data: any) => {

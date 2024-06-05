@@ -104,7 +104,7 @@ export default function DiceDetailPage({ params }: { params: { id: number } }): 
             }}
             textColor="black"
             data={data}
-            columnDelete
+            columnDelete={false}
             columnEdit
             handleDelete={(id) => {}}
           />

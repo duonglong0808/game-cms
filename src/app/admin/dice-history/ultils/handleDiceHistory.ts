@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { getAllDicePlayHistory } from './api';
 import { setDataDicePlayHistory } from '@/lib/redux/app/dicePlayHistory.slice';
 import moment from 'moment';
+import { setLoadingApp } from '@/lib/redux/system/settingSys';
 
 export const useDicePlayHistory = () => {
   const { diceDetailId, dicePlayHistory, gameDiceId, isInitData, limit, page, sort, submitted, total, typeSort, userId } = useAppSelector((state) => state.dicePlayHistory);
@@ -14,6 +15,7 @@ export const useDicePlayHistory = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || submitted || limit != limitRef.current || page != pageRef.current) {
+        dispatch(setLoadingApp({ loading: true }));
         const res = await getAllDicePlayHistory(limit, page, gameDiceId, diceDetailId, userId, sort, typeSort);
         if (res?.data) {
           const { data, pagination } = res.data;
@@ -26,6 +28,7 @@ export const useDicePlayHistory = () => {
             }),
           );
         }
+        dispatch(setLoadingApp({ loading: false }));
       }
     }
 

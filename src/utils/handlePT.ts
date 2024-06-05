@@ -4,6 +4,7 @@ import { getAllPaymentTransactions, getPaymentTransactionsBrief, updateStatusTra
 import { resetDataPaymentTransaction, setDataBriefPaymentTransaction, setDataPaymentTransaction } from '@/lib/redux/app/paymentTransaction.slice';
 import { StatusPaymentTranSaction, TypePaymentTranSaction, dataBankStatics } from '@/constants';
 import { formatDateTime } from '@/share';
+import { setLoadingApp } from '@/lib/redux/system/settingSys';
 
 export const usePaymentTransaction = (userId: string | null) => {
   const { isInitData, limit, page, paymentTransaction, total, type, status, sort, typeSort, dateFrom, dateTo, submitRangerDate } = useAppSelector((state) => state.paymentTransaction);
@@ -16,6 +17,7 @@ export const usePaymentTransaction = (userId: string | null) => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || submitRangerDate || limit != limitRef.current || page != pageRef.current || userId != userRef.current) {
+        dispatch(setLoadingApp({ loading: true }));
         userRef.current = userId;
         const res = await getAllPaymentTransactions(limit, page, type, status, dateFrom, dateTo, userId, sort, typeSort);
         if (res?.data) {
@@ -29,6 +31,7 @@ export const usePaymentTransaction = (userId: string | null) => {
             }),
           );
         }
+        dispatch(setLoadingApp({ loading: false }));
       }
     }
 
@@ -73,8 +76,8 @@ export const useDataTotalDepositAndWithdraw = (userId: string | null) => {
 
           dispatch(
             setDataBriefPaymentTransaction({
-              deposit: data?.find((i: any) => i.type == TypePaymentTranSaction.deposit)?.totalPoints || 0,
-              withdraw: data?.find((i: any) => i.type == TypePaymentTranSaction.withdrawMoney)?.totalPoints || 0,
+              deposit: data?.find((i: any) => i.type == TypePaymentTranSaction.deposit)?.totalPoints * 1000 || 0,
+              withdraw: data?.find((i: any) => i.type == TypePaymentTranSaction.withdrawMoney)?.totalPoints * 1000 || 0,
             }),
           );
         }

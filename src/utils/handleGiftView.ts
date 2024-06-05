@@ -4,6 +4,7 @@ import { createGiftCode, deleteGiftCode, getAllGift, updateGiftCode } from './ap
 import { resetDataGiftCode, setDataGiftCode, setGiftCodeEdit } from '@/lib/redux/app/gifCode.slice';
 import { StatusGiftCode } from '@/constants';
 import moment from 'moment';
+import { setLoadingApp } from '@/lib/redux/system/settingSys';
 
 export const useGiftCode = () => {
   const { isInitData, limit, page, giftCode, total, sort, typeSort, giftCodeIdEdit, status, userIdUse } = useAppSelector((state) => state.gifCode);
@@ -15,6 +16,7 @@ export const useGiftCode = () => {
   useEffect(() => {
     async function fetchData() {
       if (!isInitData || limit != limitRef.current || page != pageRef.current) {
+        dispatch(setLoadingApp({ loading: true }));
         const res = await getAllGift(page, limit, status, userIdUse);
         if (res?.data) {
           const { data, pagination } = res.data;
@@ -27,6 +29,7 @@ export const useGiftCode = () => {
             }),
           );
         }
+        dispatch(setLoadingApp({ loading: false }));
       }
     }
 
@@ -43,7 +46,7 @@ export const useGiftCode = () => {
         point: item.point,
         process: item.status == StatusGiftCode.Created ? 'Đã tạo' : item.status == StatusGiftCode.Disable ? 'Đã vô hiệu hóa' : 'Đã xử dụng',
         userUse: item?.userUse?.username,
-        timeUse: item.timeUse,
+        timeUse: moment(item.timeUse).format('YYYY: HH:mm:ss'),
         createdAt: moment(item.createdAt).format('YYYY: HH:mm:ss'),
       };
     }),
