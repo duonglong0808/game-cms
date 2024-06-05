@@ -102,7 +102,7 @@ export default function AdminHome() {
           colorTitle="#696be7"
           colorValue="red"
           value={
-            dataDetail?.deposit?.toLocaleString('en-US', {
+            dataDetail?.withdraw?.toLocaleString('en-US', {
               maximumFractionDigits: 2,
               useGrouping: true,
             }) || 0
