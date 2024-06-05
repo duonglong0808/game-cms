@@ -24,7 +24,7 @@ export function SideBars(): JSX.Element {
       subMenu: [],
     },
     {
-      title: 'Users',
+      title: 'Thành viên',
       icon: faUser,
       link: '/admin/user',
       subMenu: [],
@@ -70,12 +70,12 @@ export function SideBars(): JSX.Element {
     //   link: '/admin/cents',
     //   subMenu: [],
     // },
-    {
-      title: 'Settings',
-      icon: faHouse,
-      link: '/admin/settings',
-      subMenu: [],
-    },
+    // {
+    //   title: 'Settings',
+    //   icon: faHouse,
+    //   link: '/admin/settings',
+    //   subMenu: [],
+    // },
   ];
   const currentPage = usePathname();
   const [navActive, setNavActive] = useState(0);

@@ -86,3 +86,24 @@ export const updateStatusTransaction = (id: number, data: any) => {
   const axios = new BaseAxios();
   return axios.patch(`/payment-transaction/${id}`, data);
 };
+
+export const getDiceDetailBrief = (dateFrom: number, dateTo: number) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+
+  let url = `/dice-detail/admin/brief?`;
+
+  // Kiểm tra và thêm các tham số chỉ khi chúng khác null hoặc undefined
+  if (dateFrom !== undefined) {
+    url += `&dateFrom=${dateFrom}`;
+  }
+  if (dateTo) {
+    url += `&dateTo=${dateTo}`;
+  }
+
+  return axios.get(url);
+};
+
+export const getTotalUser = () => {
+  const axios = new BaseAxios();
+  return axios.get('user/total');
+};
