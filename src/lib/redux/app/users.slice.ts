@@ -6,6 +6,7 @@ interface userItem {
   phone: string;
   status: string;
   typeUser: string;
+  createdAt: string;
 }
 
 interface UsersSlice {

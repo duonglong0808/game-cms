@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { faChevronDown, faCoins, faDice, faGifts, faHouse, faRocket, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faCoins, faDice, faGifts, faHouse, faRocket, faUser, faVrCardboard } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/lib';
@@ -61,6 +61,20 @@ export function SideBars(): JSX.Element {
         {
           title: 'Lịch sử',
           link: '/admin/dice-history',
+        },
+      ],
+    },
+    {
+      title: 'Baccarat',
+      icon: faVrCardboard,
+      subMenu: [
+        {
+          title: 'Danh sách',
+          link: '/admin/baccarat',
+        },
+        {
+          title: 'Lịch sử',
+          link: '/admin/baccarat-history',
         },
       ],
     },

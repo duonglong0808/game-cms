@@ -9,6 +9,7 @@ import diceGameReduce from './app/diceGame.slice';
 import diceDetailReduce from './app/diceDetail.slice';
 import dicePlayHistoryReduce from './app/dicePlayHistory.slice';
 import gifCodeReduce from './app/gifCode.slice';
+import baccaratGameReduce from './app/baccaratGame.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -23,6 +24,7 @@ export const makeStore = () => {
       diceDetail: diceDetailReduce,
       dicePlayHistory: dicePlayHistoryReduce,
       gifCode: gifCodeReduce,
+      baccaratGame: baccaratGameReduce,
     },
   });
 };

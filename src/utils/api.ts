@@ -107,3 +107,29 @@ export const getTotalUser = () => {
   const axios = new BaseAxios();
   return axios.get('user/total');
 };
+
+// Baccarat
+export const getAllGameBaccarat = (limit: number, page: number, sort?: string, typeSort?: string) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+
+  let url = `/baccarat?limit=${limit}&page=${page}`;
+
+  // Kiểm tra và thêm các tham số chỉ khi chúng khác null hoặc undefined
+  if (sort) {
+    url += `&sort=${sort}`;
+  }
+  if (typeSort) {
+    url += `&typeSort=${typeSort}`;
+  }
+  return axios.get(url);
+};
+
+export const createBaccaratGameById = (data: any) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+  return axios.post(`/baccarat`, data);
+};
+
+export const updateBaccaratGameById = (id: number, data: any) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+  return axios.patch(`/baccarat/${id}`, data);
+};

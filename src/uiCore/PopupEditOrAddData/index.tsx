@@ -36,6 +36,7 @@ export interface DataEditDto {
 
 export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarning, handleUploadOneFile, onSubmitCreate }: DataEditDto) {
   const [dataState, setDataState] = useState(data);
+  console.log('🚀 ~ PopupEditOrAddV1 ~ dataState:', dataState);
   const isUnableBtn = dataState.some((item) => item.canUpdate);
 
   const dispatch = useAppDispatch();
@@ -76,6 +77,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
   return (
     <form
       className={cx('wrapper')}
+      onClick={onCancel}
       onSubmit={(e) => {
         e.preventDefault();
         const dataSend: any = {};
@@ -88,9 +90,10 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
           onSubmit && onSubmit(id, dataSend, dispatch);
         } else {
           onSubmitCreate && onSubmitCreate(dataSend, dispatch);
+          onCancel();
         }
       }}>
-      <div className={cx('group__list')}>
+      <div className={cx('group__list')} onClick={(e) => e.stopPropagation()}>
         <div className={cx('body__header')}>
           <h1 className={cx('body__header--text', 'flex-1 ')}>{title || 'Cập nhật quá trình giao dịch'}</h1>
           <FontAwesomeIcon className={cx('body__header--icon')} icon={faXmark} onClick={onCancel} />
@@ -129,7 +132,7 @@ export function PopupEditOrAddV1({ id, data, onCancel, onSubmit, title, textWarn
                     }
                   }}
                 />
-                <Image alt="Image demo" src={String(col.value)} width={80} height={80} className={cx('image__demo', 'rounded-2xl')} />
+                <Image alt="Image demo" src={String(col.value) || '/no-image.jpg'} width={80} height={80} className={cx('image__demo', 'rounded-2xl')} />
               </div>
             ) : (
               <input

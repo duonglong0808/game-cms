@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { getAllUser, updateUser } from './api';
 import { refreshDataUser, setDataUsers, setFilterUser } from '@/lib/redux/app/users.slice';
 import { setLoadingApp } from '@/lib/redux/system/settingSys';
+import moment from 'moment';
 
 const useUsers = () => {
   const { isInitData, limit, page, search, users, total, phone } = useAppSelector((state) => state.users);
@@ -38,7 +39,12 @@ const useUsers = () => {
   }, [isInitData, limit, page, search, phone]);
 
   return {
-    data: users,
+    data: users.map((i) => {
+      return {
+        ...i,
+        createdAt: moment(i?.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+      };
+    }),
     pagination: { limit, page, total },
   };
 };
