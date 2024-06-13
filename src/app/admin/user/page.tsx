@@ -8,7 +8,7 @@ import { resetDataUser, setLimitOrPageUser } from '@/lib/redux/app/users.slice';
 import { useEffect, useState } from 'react';
 import { ItemAddOrUpdateDto, PopupEditOrAddV1 } from '@/uiCore';
 import { Status, TypeUser } from '@/constants';
-import { faBuildingColumns, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
+import { faBuildingColumns, faCoins, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
 import { ShowBankUser } from '../../../components/user/ShowBank';
 import { FilterUser } from '@/components/user/FilterUser';
 import { useRouter } from 'next/navigation';
@@ -113,7 +113,7 @@ export default function PageUser(): JSX.Element {
             <Table
               textColor="black"
               data={data}
-              columnDelete
+              columnDelete={false}
               columnEdit
               handleDelete={(id) => {}}
               handleEdit={(id) => {
@@ -132,6 +132,13 @@ export default function PageUser(): JSX.Element {
                   name: 'Nạp/Rút',
                   handleClick(item) {
                     router.push(`/admin/payment-transaction?userId=${item.id}`);
+                  },
+                },
+                {
+                  icon: faCoins,
+                  name: 'Điểm số',
+                  handleClick: (item) => {
+                    router.push(`/admin/cents?userId=${item.id}`);
                   },
                 },
               ]}

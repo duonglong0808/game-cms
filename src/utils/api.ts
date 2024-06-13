@@ -133,3 +133,36 @@ export const updateBaccaratGameById = (id: number, data: any) => {
   const axios = new BaseAxios(process.env.API_GAME_DICE);
   return axios.patch(`/baccarat/${id}`, data);
 };
+
+export const getAllGame = () => {
+  const axios = new BaseAxios();
+  return axios.get('/game-point?page=1&limit=100');
+};
+
+export const getAllPointUser = (page: number, limit: number, userId: string | null) => {
+  const axios = new BaseAxios();
+  let url = `/user-point/cms?page=${page}&limit=${limit}`;
+  if (userId) {
+    url += `&userId=${userId}`;
+  }
+
+  return axios.get(url);
+};
+
+export const getAllHistoryUserTransferPoint = (page: number, limit: number, dateFrom: string, dateTo: string, userId: string | null) => {
+  const axios = new BaseAxios();
+  let url = `/user-point/history/cms?page=${page}&limit=${limit}`;
+
+  // Kiểm tra và thêm các tham số chỉ khi chúng khác null hoặc undefined
+  if (dateFrom !== undefined) {
+    url += `&dateFrom=${dateFrom}`;
+  }
+  if (dateTo) {
+    url += `&dateTo=${dateTo}`;
+  }
+  if (userId) {
+    url += `&userId=${userId}`;
+  }
+
+  return axios.get(url);
+};

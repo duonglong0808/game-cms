@@ -10,6 +10,7 @@ import diceDetailReduce from './app/diceDetail.slice';
 import dicePlayHistoryReduce from './app/dicePlayHistory.slice';
 import gifCodeReduce from './app/gifCode.slice';
 import baccaratGameReduce from './app/baccaratGame.slice';
+import userPointReduce from './app/pointUser.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -17,6 +18,7 @@ export const makeStore = () => {
       settingApp: settingAppReduce,
       userCurrent: userCurrentReduce,
       users: userReduce,
+      userPoint: userPointReduce,
       paymentTypes: paymentTypeReduce,
       payment: paymentReduce,
       paymentTransaction: paymentTransactionReduce,

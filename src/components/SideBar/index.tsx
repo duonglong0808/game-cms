@@ -64,20 +64,20 @@ export function SideBars(): JSX.Element {
         },
       ],
     },
-    {
-      title: 'Baccarat',
-      icon: faVrCardboard,
-      subMenu: [
-        {
-          title: 'Danh sách',
-          link: '/admin/baccarat',
-        },
-        {
-          title: 'Lịch sử',
-          link: '/admin/baccarat-history',
-        },
-      ],
-    },
+    // {
+    //   title: 'Baccarat',
+    //   icon: faVrCardboard,
+    //   subMenu: [
+    //     {
+    //       title: 'Danh sách',
+    //       link: '/admin/baccarat',
+    //     },
+    //     {
+    //       title: 'Lịch sử',
+    //       link: '/admin/baccarat-history',
+    //     },
+    //   ],
+    // },
     // {
     //   title: 'Cents',
     //   icon: faCoins,
