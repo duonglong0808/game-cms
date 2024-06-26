@@ -121,7 +121,7 @@ export default function DicePage(): JSX.Element {
             }}
             textColor="black"
             data={data}
-            columnDelete
+            columnDelete={false}
             columnEdit
             handleDelete={(id) => {}}
             handleEdit={(id) => {

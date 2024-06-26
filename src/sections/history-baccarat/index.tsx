@@ -4,31 +4,31 @@ import { HeaderContent } from '@/components/HeaderContent';
 import Pagination from '@/uiCore/Pagination';
 import { useAppDispatch } from '@/lib';
 import { useEffect } from 'react';
-import { resetDataDicePlayHistory, setLimitOrPageDicePlayHistory } from '@/lib/redux/app/dicePlayHistory.slice';
-import { useDicePlayHistory } from './ultils/handleDiceHistory';
-import { SearchDeicePlayHistory } from './components/SearchDeicePlayHistory';
+import { useBaccaratPlayHistory } from '@/utils/handleHistoryPlayBacca';
+import { setLimitOrPageBaccaratPlayHistory, resetDataBaccaratPlayHistory } from '@/lib/redux/app/baccaratPlayHistory.slice';
+import { SearchBaccaratPlayHistory } from '@/components/historyBaccarat/SearchBaccaratPlayHistory';
 
-export default function HistoryPayDicePage(): JSX.Element {
-  const { data, pagination } = useDicePlayHistory();
+export default function SectionHistoryPlayBaccarat(): JSX.Element {
+  const { data, pagination } = useBaccaratPlayHistory();
 
   const dispatch = useAppDispatch();
 
   const setPageUser = (page: number) => {
-    dispatch(setLimitOrPageDicePlayHistory({ page: page }));
+    dispatch(setLimitOrPageBaccaratPlayHistory({ page: page }));
   };
 
   useEffect(() => {
     return () => {
-      dispatch(resetDataDicePlayHistory());
+      dispatch(resetDataBaccaratPlayHistory());
     };
   }, []);
 
   return (
     <main className="min-h-full flex flex-col relative">
-      <HeaderContent path="HistoryPayDice" title="Lịch sử chơi xóc đĩa của người chơi" />
+      <HeaderContent path="HistoryPlayBaccarat" title="Lịch sử chơi baccarat" />
 
       <div className="main-page min-h-full flex-1 relative">
-        <SearchDeicePlayHistory />
+        <SearchBaccaratPlayHistory />
         {data.length ? (
           <>
             <Table

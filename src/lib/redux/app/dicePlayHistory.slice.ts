@@ -1,19 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface TransactionItem {
+export interface HistoryPlayDiceItem {
   id: number;
   answer: number;
   point: number;
   status: number;
   gameDiceId: number;
   diceDetailId: number;
-  userId: number;
+  user: {
+    username: string;
+  };
   createdAt: Date;
 }
 
 interface DicePlayHistorySlice {
   isInitData: boolean;
-  dicePlayHistory: TransactionItem[];
+  dicePlayHistory: HistoryPlayDiceItem[];
   page: number;
   limit: number;
   total: number;

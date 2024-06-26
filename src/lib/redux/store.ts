@@ -12,6 +12,7 @@ import gifCodeReduce from './app/gifCode.slice';
 import userPointReduce from './app/pointUser.slice';
 import baccaratGameReduce from './app/baccaratGame.slice';
 import baccaratDetailReduce from './app/baccaratDetail.slice';
+import baccaratPlayHistoryReduce from './app/baccaratPlayHistory.slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -29,6 +30,7 @@ export const makeStore = () => {
       gifCode: gifCodeReduce,
       baccaratGame: baccaratGameReduce,
       baccaratDetail: baccaratDetailReduce,
+      baccaratPlayHistory: baccaratPlayHistoryReduce,
     },
   });
 };

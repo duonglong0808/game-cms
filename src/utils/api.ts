@@ -171,3 +171,16 @@ export const getAllBaccaratDetail = (gameBaccaratId: number, page: number, limit
   const axios = new BaseAxios(process.env.API_GAME_DICE);
   return axios.get(`/baccarat-detail/admin?page=${page}&limit=${limit}&gameBaccaratId=${gameBaccaratId}`);
 };
+
+export const getAllBaccaratPlayHistory = (limit: number, page: number, gameBaccaratId?: number, baccaratDetailId?: number, userId?: number, sort?: string, typeSort?: string) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+
+  let url = `/history-play?limit=${limit}&page=${page}&game=mc-baccarat`;
+  if (gameBaccaratId) url += `&gameBaccaratId=${gameBaccaratId}`;
+  if (baccaratDetailId) url += `&baccaratDetailId=${baccaratDetailId}`;
+  if (userId) url += `&userId=${userId}`;
+  if (sort) url += `&sort=${sort}`;
+  if (typeSort) url += `&typeSort=${typeSort}`;
+
+  return axios.get(url);
+};

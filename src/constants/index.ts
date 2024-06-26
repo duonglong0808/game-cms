@@ -70,6 +70,26 @@ export const TypeAnswerDice = {
   p10: 10,
 };
 
+export const TypeAnswerBaccarat = {
+  p1: 1, //Con đôi
+  p2: 2, // Con long bao
+  p3: 3, // Hoa
+  p4: 4, // Cai
+  p5: 5, // Con
+  p6: 6, // Super 6
+  p7: 7, // Cai doi
+  p8: 8, // Cai long bao
+  p9: 9, // Đôi bất kỳ
+  p10: 10, // Con bài chuẩn
+  p11: 11, // Đôi hoàn mĩ
+  p12: 12, // Cái bài chuẩn
+};
+
+export const TypePlayGameBaccarat = {
+  old: 'old',
+  all: 'all',
+};
+
 export const StatusHistoryPlayDice = {
   wait: 0,
   success: 1,
