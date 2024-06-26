@@ -166,3 +166,8 @@ export const getAllHistoryUserTransferPoint = (page: number, limit: number, date
 
   return axios.get(url);
 };
+
+export const getAllBaccaratDetail = (gameBaccaratId: number, page: number, limit: number) => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+  return axios.get(`/baccarat-detail/admin?page=${page}&limit=${limit}&gameBaccaratId=${gameBaccaratId}`);
+};

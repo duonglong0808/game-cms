@@ -48,6 +48,15 @@ export const StatusDiceDetail = {
   end: 5,
 };
 
+export const StatusBaccarat = {
+  prepare: 0,
+  bet: 1,
+  waitOpen: 2,
+  showPoker: 3,
+  check: 4,
+  end: 5,
+};
+
 export const TypeAnswerDice = {
   p1: 1,
   p2: 2,

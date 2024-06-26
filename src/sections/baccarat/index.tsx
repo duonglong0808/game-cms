@@ -230,7 +230,7 @@ export function SectionBaccarat(): JSX.Element {
             <Table
               // columnNotShow={['slug']}
               handleClickRow={(item) => {
-                item && router.push(`/admin/dice/${item?.id}`);
+                item && router.push(`/admin/baccarat/${item?.id}`);
               }}
               textColor="black"
               data={data}
